@@ -6,7 +6,8 @@ create table profiles (
   company_name text,
   avatar_url text,
   website text,
-  unsubscribed boolean NOT NULL DEFAULT false
+  unsubscribed boolean NOT NULL DEFAULT false,
+  planId text
 );
 -- Set up Row Level Security (RLS)
 -- See https://supabase.com/docs/guides/auth/row-level-security for more details.
@@ -71,3 +72,47 @@ create policy "Avatar images are publicly accessible." on storage.objects
 
 create policy "Anyone can upload an avatar." on storage.objects
   for insert with check (bucket_id = 'avatars');
+
+-- Create Projects Table
+create table projects (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references auth.users on delete cascade not null,
+  title text not null,
+  url text,
+  description text,
+  screenshot_url text,
+  status text not null default 'LIVE' check (status in ('LIVE', 'IN PROGRESS', 'DEMO')),
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+alter table projects enable row level security;
+
+-- Create Technologies Table
+create table technologies (
+  id uuid default gen_random_uuid() primary key,
+  name text unique not null,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+alter table technologies enable row level security;
+
+-- Create Project_Technologies Join Table
+create table project_technologies (
+  project_id uuid references projects on delete cascade not null,
+  technology_id uuid references technologies on delete cascade not null,
+  primary key (project_id, technology_id)
+);
+alter table project_technologies enable row level security;
+
+-- Insert initial technologies
+insert into technologies (name) values
+  ('React'), ('Next.js'), ('Svelte'), ('SvelteKit'), ('TypeScript'), ('JavaScript'),
+  ('Tailwind CSS'), ('CSS'), ('HTML'), ('Node.js'), ('Express'), ('PostgreSQL'),
+  ('Supabase'), ('Firebase'), ('Vercel'), ('Netlify'), ('AWS'), ('Docker'),
+  ('Kubernetes'), ('GraphQL'), ('REST API'), ('MongoDB'), ('MySQL'), ('SQLite'),
+  ('Redis'), ('GraphQL'), ('Jest'), ('Cypress'), ('Playwright'), ('Vitest'),
+  ('ESLint'), ('Prettier'), ('Git'), ('GitHub'), ('GitLab'), ('Bitbucket'),
+  ('Figma'), ('Adobe XD'), ('Sketch'), ('InVision'), ('Trello'), ('Asana'),
+  ('Jira'), ('Slack'), ('Discord'), ('Notion'), ('Linear'), ('Postman'),
+  ('Insomnia'), ('VS Code'), ('WebStorm'), ('IntelliJ'), ('Sublime Text'),
+  ('Vim'), ('Emacs'), ('Linux'), ('macOS'), ('Windows');

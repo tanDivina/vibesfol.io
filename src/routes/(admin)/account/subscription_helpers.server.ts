@@ -1,5 +1,5 @@
 import type { SupabaseClient, User } from "@supabase/supabase-js"
-import type { Database } from "../../../DatabaseDefinitions"
+import type { Database } from "../../lib/DatabaseDefinitions"
 
 import { PRIVATE_STRIPE_API_KEY } from "$env/static/private"
 import Stripe from "stripe"

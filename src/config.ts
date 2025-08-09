@@ -1,5 +1,5 @@
-export const WebsiteName: string = "SaaS Starter"
-export const WebsiteBaseUrl: string = "https://saasstarter.work"
+export const WebsiteName: string = "MyDevfol.io"
+export const WebsiteBaseUrl: string = "https://mydevfol.io"
 export const WebsiteDescription: string =
-  "Open source, fast, and free to host SaaS template. Built with SvelteKit, Supabase, Stripe, Tailwind, DaisyUI, and Postgres"
+  "The ultimate portfolio platform for developers, indie hackers & vibecoders alike. Showcase your projects with automated screenshots and tech stack tagging."
 export const CreateProfileStep: boolean = true

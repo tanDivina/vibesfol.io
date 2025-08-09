@@ -5,110 +5,161 @@
   type PlanFeatureRow = {
     name: string
     freeIncluded?: boolean
-    proIncluded?: boolean
+    starterIncluded?: boolean
+    unlimitedIncluded?: boolean
     freeString?: string
-    proString?: string
+    starterString?: string
+    unlimitedString?: string
     header?: boolean
   }
 
   const planFeatures: PlanFeatureRow[] = [
     {
-      name: "Section 1",
+      name: "Portfolio Features",
       header: true,
     },
     {
-      name: "Feature 1",
-      freeIncluded: true,
-      proIncluded: true,
+      name: "Projects",
+      freeString: "Up to 3",
+      starterString: "Up to 10",
+      unlimitedString: "Unlimited",
     },
     {
-      name: "Feature 2",
+      name: "Custom Domain",
       freeIncluded: false,
-      proIncluded: true,
+      starterIncluded: false,
+      unlimitedIncluded: true,
     },
     {
-      name: "Feature 3",
-      freeString: "3",
-      proString: "Unlimited",
+      name: "Screenshot Generation",
+      freeIncluded: true,
+      starterIncluded: true,
+      unlimitedIncluded: true,
     },
     {
-      name: "Section 2",
+      name: "Tech Stack Tags",
+      freeIncluded: true,
+      starterIncluded: true,
+      unlimitedIncluded: true,
+    },
+    {
+      name: "Professional Features",
       header: true,
     },
     {
-      name: "Feature 4",
-      freeIncluded: true,
-      proIncluded: true,
+      name: "Testimonials",
+      freeString: "Up to 5",
+      starterString: "Unlimited",
+      unlimitedString: "Unlimited",
     },
     {
-      name: "Feature 5",
+      name: "Hackathon Certificates",
+      freeString: "Up to 3",
+      starterString: "Unlimited",
+      unlimitedString: "Unlimited",
+    },
+    {
+      name: "Client Portals",
       freeIncluded: false,
-      proIncluded: true,
+      starterIncluded: false,
+      unlimitedIncluded: true,
+    },
+    {
+      name: "Contact Form",
+      freeIncluded: true,
+      starterIncluded: true,
+      unlimitedIncluded: true,
+    },
+    {
+      name: "Analytics & SEO",
+      header: true,
+    },
+    {
+      name: "Portfolio Analytics",
+      freeIncluded: false,
+      starterIncluded: true,
+      unlimitedIncluded: true,
+    },
+    {
+      name: "SEO Optimization",
+      freeIncluded: false,
+      starterIncluded: false,
+      unlimitedIncluded: true,
+    },
+    {
+      name: "Social Media Integration",
+      freeIncluded: true,
+      starterIncluded: true,
+      unlimitedIncluded: true,
     },
   ]
 </script>
 
 <svelte:head>
-  <title>Pricing</title>
-  <meta name="description" content="Pricing - {WebsiteName}" />
+  <title>Pricing - MyDevfol.io</title>
+  <meta name="description" content="Choose the perfect plan for your developer portfolio. Start free and upgrade as you grow." />
 </svelte:head>
 
 <div class="min-h-[70vh] pb-8 pt-[5vh] px-4">
-  <h1 class="text-3xl font-bold text-center">Pricing</h1>
+  <h1 class="text-3xl font-bold text-center">Simple, Transparent Pricing</h1>
   <h2 class="text-xl text-center text-slate-500 mt-1 pb-3">
-    Totally free, scale to millions of users
+    Start free, upgrade when you're ready to showcase more
   </h2>
 
   <div class="w-full my-8">
-    <PricingModule callToAction="Get Started" highlightedPlanId="pro" />
-    <h1 class="text-2xl font-bold text-center mt-24">Pricing FAQ</h1>
+    <PricingModule callToAction="Get Started" highlightedPlanId="unlimited_ltd" />
+    
+    <h1 class="text-2xl font-bold text-center mt-24">Frequently Asked Questions</h1>
     <div class="flex place-content-center">
       <div class="join join-vertical max-w-xl py-6 mx-auto">
         <div class="collapse collapse-arrow join-item border border-primary">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
-            Is this template free to use?
+            Can I start with the free plan?
           </div>
           <div class="collapse-content">
-            <p>Yup! This template is free to use for any project.</p>
+            <p>Absolutely! Our free plan includes everything you need to create a professional portfolio with up to 3 projects, 5 testimonials, and automatic screenshot generation.</p>
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
-            Why does a free template have a pricing page?
+            What are Lifetime Deals (LTD)?
           </div>
           <div class="collapse-content">
             <p>
-              The pricing page is part of the boilerplate. It shows how the
-              pricing page integrates into the billing portal and the Stripe
-              Checkout flows.
+              Lifetime Deals are one-time payments that give you access to premium features forever. No monthly subscriptions, no recurring charges - just pay once and enjoy the features for life.
             </p>
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
-            What license is the template under?
+            What's the difference between Starter LTD and Unlimited LTD?
           </div>
           <div class="collapse-content">
-            <p>The template is under the MIT license.</p>
+            <p>Starter LTD ($15) gives you up to 10 projects, unlimited testimonials, and analytics. Unlimited LTD ($55) includes unlimited projects, custom domains, client portals, and SEO optimization.</p>
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
-            Can I try out purchase flows without real a credit card?
+            Do you offer refunds on Lifetime Deals?
           </div>
           <div class="collapse-content">
             <p>
-              Our demo page <a href="https://saasstarter.work" class="link"
-                >SaasStarter.work</a
-              > has a functional demo page, using Stripe's test environment.
+              Yes! We offer a 30-day money-back guarantee on all Lifetime Deals. If you're not satisfied within the first 30 days, contact us for a full refund.
             </p>
-            <p class="mt-4">
-              You can use the credit card number 4242 4242 4242 4242 with any
-              future expiry date to test the payment and upgrade flows.
+          </div>
+        </div>
+        <div class="collapse collapse-arrow join-item border border-primary">
+          <input type="radio" name="faq-accordion" />
+          <div class="collapse-title text-lg font-medium">
+            How does the screenshot generation work?
+          </div>
+          <div class="collapse-content">
+            <p>
+              Simply provide your project URL and our system automatically captures high-quality screenshots of your live projects. This feature is available on both free and Pro plans.
             </p>
           </div>
         </div>
@@ -142,12 +193,12 @@
       </defs>
     </svg>
 
-    <h1 class="text-2xl font-bold text-center mt-16">Plan Features</h1>
+    <h1 class="text-2xl font-bold text-center mt-16">Plan Comparison</h1>
     <h2 class="text-xl text-center text-slate-500 mt-1 pb-3">
-      Example feature table
+      See what's included in each plan
     </h2>
 
-    <div class="overflow-visible mx-auto max-w-xl mt-4">
+    <div class="overflow-visible mx-auto max-w-4xl mt-4">
       <table class="table">
         <thead
           class="text-lg sticky top-0 bg-base-100 bg-opacity-50 z-10 backdrop-blur-sm"
@@ -155,14 +206,15 @@
           <tr>
             <th></th>
             <th class="text-center">Free</th>
-            <th class="text-center">Pro</th>
+            <th class="text-center">Starter LTD</th>
+            <th class="text-center">Unlimited LTD</th>
           </tr>
         </thead>
         <tbody>
           {#each planFeatures as feature}
             {#if feature.header}
               <tr class="bg-base-200 font-bold">
-                <td colspan="3">{feature.name} </td>
+                <td colspan="4">{feature.name} </td>
               </tr>
             {:else}
               <tr class="relative">
@@ -187,9 +239,28 @@
                   {/if}
                 </td>
                 <td class="text-center">
-                  {#if feature.proString}
-                    {feature.proString}
-                  {:else if feature.proIncluded}
+                  {#if feature.starterString}
+                    {feature.starterString}
+                  {:else if feature.starterIncluded}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-8 h-8 ml-2 inline text-success"
+                    >
+                      <use href="#checkcircle" />
+                    </svg>
+                  {:else}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="w-[26px] h-[26px] inline text-base-200"
+                    >
+                      <use href="#nocircle" />
+                    </svg>
+                  {/if}
+                </td>
+                <td class="text-center">
+                  {#if feature.unlimitedString}
+                    {feature.unlimitedString}
+                  {:else if feature.unlimitedIncluded}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="w-8 h-8 ml-2 inline text-success"

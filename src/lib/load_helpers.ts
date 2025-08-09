@@ -1,6 +1,6 @@
 import { isBrowser } from "@supabase/ssr"
 import type { Session, SupabaseClient } from "@supabase/supabase-js"
-import type { Database } from "../DatabaseDefinitions.js"
+import type { Database } from "./DatabaseDefinitions.js"
 
 export const load_helper = async (
   server_session: Session | null,

@@ -8,7 +8,7 @@ import {
   isBrowser,
 } from "@supabase/ssr"
 import { redirect } from "@sveltejs/kit"
-import type { Database } from "../../../DatabaseDefinitions.js"
+import type { Database } from "../../lib/DatabaseDefinitions.js"
 import { CreateProfileStep } from "../../../config"
 import { load_helper } from "$lib/load_helpers"
 

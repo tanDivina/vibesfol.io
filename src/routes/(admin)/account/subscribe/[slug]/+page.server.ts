@@ -52,7 +52,7 @@ export const load: PageServerLoad = async ({
         },
       ],
       customer: customerId,
-      mode: "subscription",
+      mode: "payment",
       success_url: `${url.origin}/account`,
       cancel_url: `${url.origin}/account/billing`,
     })
