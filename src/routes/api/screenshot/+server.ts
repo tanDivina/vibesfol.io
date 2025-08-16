@@ -6,10 +6,16 @@ import { chromium } from 'playwright';
 
 const supabaseServiceRole = createClient(PUBLIC_SUPABASE_URL, PRIVATE_SUPABASE_SERVICE_ROLE);
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request, locals: { safeGetSession } }) => {
   let browser;
   
   try {
+    const { session } = await safeGetSession();
+    if (!session) {
+      return error(401, 'Unauthorized');
+    }
+    const userId = session.user.id;
+
     const { url } = await request.json();
 
     if (!url) {
@@ -69,6 +75,11 @@ export const POST: RequestHandler = async ({ request }) => {
       console.error('Error uploading screenshot:', uploadError);
       return error(500, 'Failed to upload screenshot');
     }
+
+    // After successful upload, trigger gamification checks
+    const { gamificationService } = await import('$lib/gamification');
+    await gamificationService.calculatePortfolioScore(userId);
+    await gamificationService.checkAchievements(userId);
 
     // Get the public URL
     const { data: publicUrlData } = supabaseServiceRole.storage

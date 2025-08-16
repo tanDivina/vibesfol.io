@@ -96,6 +96,11 @@ export const actions: Actions = {
       };
     }
 
+    // After successful update, trigger gamification checks
+    const { gamificationService } = await import('$lib/gamification');
+    await gamificationService.calculatePortfolioScore(session.user.id);
+    await gamificationService.checkAchievements(session.user.id);
+
     return {
       success: true,
       message: 'Profile updated successfully!'

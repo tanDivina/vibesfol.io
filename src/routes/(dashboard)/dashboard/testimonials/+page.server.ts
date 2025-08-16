@@ -2,8 +2,8 @@ import { error, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
-  createTestimonial: async ({ request, locals: { supabase, getSession } }) => {
-    const session = await getSession();
+  createTestimonial: async ({ request, locals: { supabase, safeGetSession } }) => {
+    const session = await safeGetSession();
     if (!session) {
       throw redirect(303, '/login');
     }
@@ -26,11 +26,16 @@ export const actions: Actions = {
       throw error(500, 'Failed to create testimonial');
     }
 
+    // After successful creation, trigger gamification checks
+    const { gamificationService } = await import('$lib/gamification');
+    await gamificationService.calculatePortfolioScore(session.user.id);
+    await gamificationService.checkAchievements(session.user.id);
+
     return { success: true };
   },
 
-  updateTestimonial: async ({ request, locals: { supabase, getSession } }) => {
-    const session = await getSession();
+  updateTestimonial: async ({ request, locals: { supabase, safeGetSession } }) => {
+    const session = await safeGetSession();
     if (!session) {
       throw redirect(303, '/login');
     }
@@ -55,11 +60,16 @@ export const actions: Actions = {
       throw error(500, 'Failed to update testimonial');
     }
 
+    // After successful update, trigger gamification checks
+    const { gamificationService } = await import('$lib/gamification');
+    await gamificationService.calculatePortfolioScore(session.user.id);
+    await gamificationService.checkAchievements(session.user.id);
+
     return { success: true };
   },
 
-  deleteTestimonial: async ({ request, locals: { supabase, getSession } }) => {
-    const session = await getSession();
+  deleteTestimonial: async ({ request, locals: { supabase, safeGetSession } }) => {
+    const session = await safeGetSession();
     if (!session) {
       throw redirect(303, '/login');
     }
@@ -76,6 +86,11 @@ export const actions: Actions = {
     if (deleteError) {
       throw error(500, 'Failed to delete testimonial');
     }
+
+    // After successful deletion, trigger gamification checks
+    const { gamificationService } = await import('$lib/gamification');
+    await gamificationService.calculatePortfolioScore(session.user.id);
+    await gamificationService.checkAchievements(session.user.id);
 
     return { success: true };
   },

@@ -110,6 +110,13 @@
       loading = false;
       closeForm();
     }
+
+    // After successful save, trigger gamification checks
+    if (!error) {
+      const { gamificationService } = await import('$lib/gamification');
+      await gamificationService.calculatePortfolioScore(user.id);
+      await gamificationService.checkAchievements(user.id);
+    }
   }
 
   async function deleteProject(projectId: string) {

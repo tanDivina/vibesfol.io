@@ -244,7 +244,7 @@
   }
 
   .alert {
-    @apply flex items-center gap-3 p-4 rounded-lg;
+    @apply flex items-center space-x-4 p-4 rounded-lg;
   }
 
   .alert-success {
