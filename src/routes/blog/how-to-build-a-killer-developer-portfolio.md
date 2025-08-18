@@ -1,7 +1,7 @@
 ---
 title: "How to Build a Killer Developer Portfolio: The Ultimate Guide"
 date: "2025-08-13"
-author: "Jane Doe"
+author: "Dorien"
 summary: "Your developer portfolio is your digital resume, your project showcase, and your personal brand all in one. A standout portfolio can be the deciding factor in landing your dream job. In this guide, we'll walk you through everything you need to know to create a portfolio that gets you noticed."
 ---
 
