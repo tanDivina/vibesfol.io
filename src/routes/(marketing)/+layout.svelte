@@ -1,4 +1,52 @@
-<script lang="ts">
+SaaS Starter Blog
+rss feed
+A demo blog with sample content.
+How we built a beautiful 41kb SaaS website with this template
+Mar 10, 2024
+How to use this template you to bootstrap your own site.
+Example Blog Post
+Mar 13, 2023
+A sample blog post, showing our blog engine
+Example Blog Post 2
+Sep 23, 2022
+Even more example content!
+Explore
+Overview
+Pricing
+Blog
+Contact Us
+Github
+[plugin:vite-plugin-svelte] Error while preprocessing /Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/src/lib/ContactForm.svelte - [postcss] Cannot apply unknown utility class: gap-3
+/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/src/lib/ContactForm.svelte
+Error: Error while preprocessing /Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/src/lib/ContactForm.svelte - [postcss] Cannot apply unknown utility class: gap-3
+    at onInvalidCandidate (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/tailwindcss/dist/lib.js:17:297)
+    at ne (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/tailwindcss/dist/lib.js:12:115877)
+    at /Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/tailwindcss/dist/lib.js:17:260
+    at _ (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/tailwindcss/dist/lib.js:5:1652)
+    at _ (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/tailwindcss/dist/lib.js:5:1930)
+    at $e (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/tailwindcss/dist/lib.js:17:150)
+    at Lr (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/tailwindcss/dist/lib.js:33:724)
+    at async Mr (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/tailwindcss/dist/lib.js:33:977)
+    at async ot (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/@tailwindcss/node/dist/index.js:10:3272)
+    at async p (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/@tailwindcss/postcss/dist/index.js:8:3242)
+    at async Object.Once (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/@tailwindcss/postcss/dist/index.js:8:3422)
+    at async LazyResult.runAsync (/Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/postcss/lib/lazy-result.js:293:11)
+    at async runPostCSS (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:43824:21)
+    at async compilePostCSS (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:43794:18)
+    at async compileCSS (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:43649:27)
+    at async preprocessCSS (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:43930:10)
+    at async style (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/@sveltejs/vite-plugin-svelte/src/preprocess.js:77:31)
+    at async process_single_tag (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/svelte/src/compiler/preprocess/index.js:283:21)
+    at async Promise.all (index 0)
+    at async replace_in_code (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/svelte/src/compiler/preprocess/replace_in_code.js:70:23)
+    at async process_tag (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/svelte/src/compiler/preprocess/index.js:300:26)
+    at async Module.preprocess (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/svelte/src/compiler/preprocess/index.js:363:25)
+    at async compileSvelte (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/@sveltejs/vite-plugin-svelte/src/utils/compile.js:85:20)
+    at async TransformPluginContext.transform (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/@sveltejs/vite-plugin-svelte/src/index.js:164:20)
+    at async EnvironmentPluginContainer.transform (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:42294:18)
+    at async loadAndTransform (file:///Users/dorienvandenabbeele/vibe-catcher/vibesfol.io/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:35735:27
+Click outside, press Esc key, or fix the code to dismiss.
+You can also disable this overlay by setting server.hmr.overlay to false in vite.config.ts.<script lang="ts">
   import { WebsiteName } from "./../../config"
   import "../../app.css"
 

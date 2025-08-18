@@ -6,7 +6,7 @@
   export let portfolioUserName: string = '';
   export let title: string = 'Get In Touch';
   export let description: string = "I'd love to hear from you! Send me a message and I'll get back to you as soon as possible.";
-
+  
   const dispatch = createEventDispatcher();
 
   let formData = {
