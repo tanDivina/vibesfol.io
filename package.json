@@ -55,7 +55,8 @@
     "marked": "^16.1.2",
     "playwright": "^1.54.2",
     "resend": "^3.5.0",
-    "stripe": "^13.3.0"
+    "stripe": "^13.3.0",
+    "uuid": "^11.1.0"
   },
   "overrides": {
     "@supabase/auth-ui-svelte": {
