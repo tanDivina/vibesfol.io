@@ -91,31 +91,39 @@
     <div class="footer-content max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
       <nav>
         <h6 class="footer-title">Product</h6>
-        <a class="link link-hover" href="/">Overview</a>
-        <a class="link link-hover" href="/pricing">Pricing</a>
-        <a class="link link-hover" href="/demo">Live Demo</a>
-        <a class="link link-hover" href="/demo-profile">Demo Profile</a>
+        <div class="flex flex-col space-y-2">
+          <a class="link link-hover" href="/">Overview</a>
+          <a class="link link-hover" href="/pricing">Pricing</a>
+          <a class="link link-hover" href="/demo">Live Demo</a>
+          <a class="link link-hover" href="/demo-profile">Demo Profile</a>
+        </div>
       </nav>
       <nav>
         <h6 class="footer-title">Resources</h6>
-        <a class="link link-hover" href="/blog">Blog</a>
-        <a class="link link-hover" href="https://github.com/tanDivina/vibesfol.io">GitHub</a>
-        <a class="link link-hover" href="/search">Search</a>
+        <div class="flex flex-col space-y-2">
+          <a class="link link-hover" href="/blog">Blog</a>
+          <a class="link link-hover" href="https://github.com/tanDivina/vibesfol.io">GitHub</a>
+          <a class="link link-hover" href="/search">Search</a>
+        </div>
       </nav>
       <nav>
         <h6 class="footer-title">Comparisons</h6>
-        <a class="link link-hover" href="/vs/indiepage">vs. IndiePage</a>
-        <a class="link link-hover" href="/vs/portfolio">vs. Portfolio.io</a>
-        <a class="link link-hover" href="/vs/gitconnected">vs. GitConnected</a>
-        <a class="link link-hover" href="/vs/devfolio">vs. Devfolio</a>
+        <div class="flex flex-col space-y-2">
+          <a class="link link-hover" href="/vs/indiepage">vs. IndiePage</a>
+          <a class="link link-hover" href="/vs/portfolio">vs. Portfolio.io</a>
+          <a class="link link-hover" href="/vs/gitconnected">vs. GitConnected</a>
+          <a class="link link-hover" href="/vs/devfolio">vs. Devfolio</a>
+        </div>
       </nav>
       <nav>
         <h6 class="footer-title">Company</h6>
-        <a class="link link-hover" href="/about">About</a>
-        <a class="link link-hover" href="/contact_us">Contact Us</a>
-        <a class="link link-hover" href="/privacy">Privacy Policy</a>
-        <a class="link link-hover" href="/terms">Terms of Service</a>
-        <a class="link link-hover" href="/support">Support</a>
+        <div class="flex flex-col space-y-2">
+          <a class="link link-hover" href="/about">About</a>
+          <a class="link link-hover" href="/contact_us">Contact Us</a>
+          <a class="link link-hover" href="/privacy">Privacy Policy</a>
+          <a class="link link-hover" href="/terms">Terms of Service</a>
+          <a class="link link-hover" href="/support">Support</a>
+        </div>
       </nav>
     </div>
     
