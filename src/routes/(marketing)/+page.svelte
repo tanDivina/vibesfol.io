@@ -145,18 +145,7 @@
         >
       </div>
       <div class="mt-6 md:mt-10 text-sm md:text-lg">
-        Showcase your projects with <span class="font-bold">automated screenshots</span> and <span class="font-bold">tech stack tagging</span>. 
-        Built with <a
-          href="https://kit.svelte.dev"
-          class="link font-bold"
-          target="_blank">SvelteKit</a
-        >,
-        <a href="https://supabase.com" class="link font-bold" target="_blank"
-          >Supabase</a
-        >, and
-        <a href="https://stripe.com" class="link font-bold" target="_blank"
-          >Stripe</a
-        >
+        Create stunning portfolios in minutes with <span class="font-bold">automated screenshots</span>, <span class="font-bold">tech stack tagging</span>, and <span class="font-bold">professional themes</span>. Perfect for developers, indie hackers, and creative professionals.
       </div>
       <div
         class="mt-6 md:mt-4 flex flex-row flex-wrap gap-4 place-content-center"
