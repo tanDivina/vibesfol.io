@@ -4,7 +4,7 @@
   import { onMount } from 'svelte';
   import ToastContainer from '$lib/ToastContainer.svelte';
 
-  let user: any = null;
+  let user: any = null
 
   onMount(async () => {
     const { data: { user: currentUser } } = await supabase.auth.getUser();

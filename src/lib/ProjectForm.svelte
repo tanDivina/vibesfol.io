@@ -1,140 +1,156 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte';
-  import { supabase } from '$lib/supabaseClient';
-  import type { Database } from '$lib/DatabaseDefinitions';
+  import { createEventDispatcher, onMount } from "svelte"
+  import { supabase } from "$lib/supabaseClient"
+  import type { Database } from "$lib/DatabaseDefinitions"
 
-  export let open = false;
-  export let project: Database['public']['Tables']['projects']['Row'] | null = null;
+  export let open = false
+  export let project: Database["public"]["Tables"]["projects"]["Row"] | null =
+    null
 
-  const dispatch = createEventDispatcher<{ close: void; submit: { project: Database['public']['Tables']['projects']['Insert']; technologies: Database['public']['Tables']['technologies']['Row'][] } }>();
+  const dispatch = createEventDispatcher<{
+    close: void
+    submit: {
+      project: Database["public"]["Tables"]["projects"]["Insert"]
+      technologies: Database["public"]["Tables"]["technologies"]["Row"][]
+    }
+  }>()
 
-  let title = '';
-  let url = '';
-  let description = '';
-  let screenshotUrl = '';
-  let status: 'LIVE' | 'IN PROGRESS' | 'DEMO' = 'LIVE';
-  let selectedTechnologies: Database['public']['Tables']['technologies']['Row'][] = [];
-  let technologies: Database['public']['Tables']['technologies']['Row'][] = [];
-  let loading = false;
-  let screenshotLoading = false;
-  let error: string | null = null;
+  let title = ""
+  let url = ""
+  let description = ""
+  let screenshotUrl = ""
+  let status: "LIVE" | "IN PROGRESS" | "DEMO" = "LIVE"
+  let selectedTechnologies: Database["public"]["Tables"]["technologies"]["Row"][] =
+    []
+  let technologies: Database["public"]["Tables"]["technologies"]["Row"][] = []
+  let loading = false
+  let screenshotLoading = false
+  let error: string | null = null
 
   onMount(async () => {
     if (open) {
       const { data, error: fetchError } = await supabase
-        .from('technologies')
-        .select('id, name')
-        .order('name');
+        .from("technologies")
+        .select("id, name")
+        .order("name")
 
       if (fetchError) {
-        console.error('Error fetching technologies:', fetchError);
-        error = 'Failed to load technologies';
+        console.error("Error fetching technologies:", fetchError)
+        error = "Failed to load technologies"
       } else {
-        technologies = data || [];
+        technologies = data || []
       }
 
       if (project) {
-        title = project.title;
-        url = project.url || '';
-        description = project.description || '';
-        screenshotUrl = project.screenshot_url || '';
-        status = project.status;
+        title = project.title
+        url = project.url || ""
+        description = project.description || ""
+        screenshotUrl = project.screenshot_url || ""
+        status = project.status
         // TODO: Fetch selected technologies for the project
       }
     }
-  });
+  })
 
   $: if (open && !project) {
-    title = '';
-    url = '';
-    description = '';
-    screenshotUrl = '';
-    status = 'LIVE';
-    selectedTechnologies = [];
+    title = ""
+    url = ""
+    description = ""
+    screenshotUrl = ""
+    status = "LIVE"
+    selectedTechnologies = []
   }
 
   async function handleSubmit() {
     if (!title.trim()) {
-      error = 'Title is required';
-      return;
+      error = "Title is required"
+      return
     }
 
-    loading = true;
-    error = null;
+    loading = true
+    error = null
 
-    const projectData: Database['public']['Tables']['projects']['Insert'] = {
+    const projectData: Database["public"]["Tables"]["projects"]["Insert"] = {
       title: title.trim(),
       url: url.trim() || null,
       description: description.trim() || null,
       screenshot_url: screenshotUrl.trim() || null,
       status,
-    };
+    }
 
     try {
       if (project) {
         // TODO: Update project
-        console.log('Updating project:', projectData);
+        console.log("Updating project:", projectData)
       } else {
         // TODO: Create project
-        console.log('Creating project:', projectData);
+        console.log("Creating project:", projectData)
       }
 
-      dispatch('submit', { project: projectData, technologies: selectedTechnologies });
+      dispatch("submit", {
+        project: projectData,
+        technologies: selectedTechnologies,
+      })
     } catch (err) {
-      console.error('Error saving project:', err);
-      error = 'Failed to save project';
+      console.error("Error saving project:", err)
+      error = "Failed to save project"
     } finally {
-      loading = false;
+      loading = false
     }
   }
 
   async function generateScreenshot() {
     if (!url.trim()) {
-      error = 'URL is required to generate a screenshot';
-      return;
+      error = "URL is required to generate a screenshot"
+      return
     }
 
-    screenshotLoading = true;
-    error = null;
+    screenshotLoading = true
+    error = null
 
     try {
-      const response = await fetch('/api/screenshot', {
-        method: 'POST',
+      const response = await fetch("/api/screenshot", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ url: url.trim() }),
-      });
+      })
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to generate screenshot');
+        const errorData = await response.json()
+        throw new Error(errorData.message || "Failed to generate screenshot")
       }
 
-      const { url: newScreenshotUrl } = await response.json();
-      screenshotUrl = newScreenshotUrl;
+      const { url: newScreenshotUrl } = await response.json()
+      screenshotUrl = newScreenshotUrl
     } catch (err) {
-      console.error('Error generating screenshot:', err);
-      error = 'Failed to generate screenshot. Please check the URL and try again.';
+      console.error("Error generating screenshot:", err)
+      error =
+        "Failed to generate screenshot. Please check the URL and try again."
     } finally {
-      screenshotLoading = false;
+      screenshotLoading = false
     }
   }
 
   function close() {
-    dispatch('close');
+    dispatch("close")
   }
 </script>
 
 {#if open}
-  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+  >
     <div class="bg-base-100 rounded-lg shadow-xl w-full max-w-md p-6">
       <h2 class="text-2xl font-bold mb-4">
-        {project ? 'Edit Project' : 'Add New Project'}
+        {project ? "Edit Project" : "Add New Project"}
       </h2>
 
       {#if error}
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <div
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+        >
           <p>{error}</p>
         </div>
       {/if}
@@ -187,18 +203,20 @@
               <span class="label-text">Screenshot Preview</span>
             </label>
             <div class="border border-base-300 rounded-lg p-2">
-              <img 
-                src={screenshotUrl} 
-                alt="Project screenshot" 
+              <img
+                src={screenshotUrl}
+                alt="Project screenshot"
                 class="w-full h-32 object-cover rounded"
                 loading="lazy"
               />
               <div class="flex justify-between items-center mt-2">
-                <span class="text-sm text-base-content/70">Screenshot generated successfully</span>
-                <button 
-                  type="button" 
+                <span class="text-sm text-base-content/70"
+                  >Screenshot generated successfully</span
+                >
+                <button
+                  type="button"
                   class="btn btn-xs btn-ghost"
-                  on:click={() => screenshotUrl = ''}
+                  on:click={() => (screenshotUrl = "")}
                 >
                   Remove
                 </button>
@@ -238,7 +256,7 @@
             <div tabindex="0" role="button" class="btn m-1">
               {selectedTechnologies.length > 0
                 ? `${selectedTechnologies.length} technologies selected`
-                : 'Select technologies'}
+                : "Select technologies"}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 ml-2"
@@ -280,7 +298,7 @@
             Cancel
           </button>
           <button type="submit" class="btn btn-primary" disabled={loading}>
-            {loading ? 'Saving...' : (project ? 'Update' : 'Add')} Project
+            {loading ? "Saving..." : project ? "Update" : "Add"} Project
           </button>
         </div>
       </form>

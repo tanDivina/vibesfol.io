@@ -1,34 +1,37 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { supabase } from '$lib/supabaseClient';
-  import type { Database } from '$lib/DatabaseDefinitions';
+  import { onMount } from "svelte"
+  import { supabase } from "$lib/supabaseClient"
+  import type { Database } from "$lib/DatabaseDefinitions"
 
-  let clientPortals: Database['public']['Tables']['client_portals']['Row'][] = [];
-  let loading = true;
-  let error: string | null = null;
+  let clientPortals: Database["public"]["Tables"]["client_portals"]["Row"][] =
+    []
+  let loading = true
+  let error: string | null = null
 
   onMount(async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
     if (!user) {
-      window.location.href = '/login';
-      return;
+      window.location.href = "/login"
+      return
     }
 
     try {
       const { data, error: fetchError } = await supabase
-        .from('client_portals')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
+        .from("client_portals")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
 
-      if (fetchError) throw fetchError;
-      clientPortals = data || [];
+      if (fetchError) throw fetchError
+      clientPortals = data || []
     } catch (err: any) {
-      error = err.message;
+      error = err.message
     } finally {
-      loading = false;
+      loading = false
     }
-  });
+  })
 </script>
 
 <svelte:head>
@@ -51,10 +54,19 @@
             <p class="text-sm text-gray-500">{portal.client_email}</p>
             <p class="mt-4">{portal.project_description}</p>
             <div class="card-actions justify-end mt-4">
-              <span class="badge {portal.is_active ? 'badge-success' : 'badge-error'}">
-                {portal.is_active ? 'Active' : 'Inactive'}
+              <span
+                class="badge {portal.is_active
+                  ? 'badge-success'
+                  : 'badge-error'}"
+              >
+                {portal.is_active ? "Active" : "Inactive"}
               </span>
-              <a href="/client-portal/{portal.access_token}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">
+              <a
+                href="/client-portal/{portal.access_token}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-sm btn-primary"
+              >
                 View Portal
               </a>
             </div>

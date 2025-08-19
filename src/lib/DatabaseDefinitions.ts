@@ -160,7 +160,7 @@ export interface Database {
           url: string | null
           description: string | null
           screenshot_url: string | null
-          status: 'LIVE' | 'IN PROGRESS' | 'DEMO'
+          status: "LIVE" | "IN PROGRESS" | "DEMO"
           created_at: Date
           updated_at: Date
         }
@@ -171,7 +171,7 @@ export interface Database {
           url?: string | null
           description?: string | null
           screenshot_url?: string | null
-          status?: 'LIVE' | 'IN PROGRESS' | 'DEMO'
+          status?: "LIVE" | "IN PROGRESS" | "DEMO"
           created_at?: Date
           updated_at?: Date
         }
@@ -182,7 +182,7 @@ export interface Database {
           url?: string | null
           description?: string | null
           screenshot_url?: string | null
-          status?: 'LIVE' | 'IN PROGRESS' | 'DEMO'
+          status?: "LIVE" | "IN PROGRESS" | "DEMO"
           created_at?: Date
           updated_at?: Date
         }
@@ -253,7 +253,7 @@ export interface Database {
             columns: ["collaborator_user_id"]
             referencedRelation: "profiles"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       tags: {
@@ -299,7 +299,7 @@ export interface Database {
             columns: ["tag_id"]
             referencedRelation: "tags"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       testimonials: {
@@ -339,7 +339,7 @@ export interface Database {
             columns: ["user_id"]
             referencedRelation: "profiles"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       client_portals: {
@@ -379,7 +379,7 @@ export interface Database {
             columns: ["user_id"]
             referencedRelation: "profiles"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       contact_submissions: {
@@ -419,7 +419,7 @@ export interface Database {
             columns: ["user_id"]
             referencedRelation: "profiles"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       hackathons: {
@@ -495,7 +495,7 @@ export interface Database {
             columns: ["user_id"]
             referencedRelation: "profiles"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       achievements: {
@@ -571,7 +571,7 @@ export interface Database {
             columns: ["achievement_id"]
             referencedRelation: "achievements"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       portfolio_scores: {
@@ -617,7 +617,7 @@ export interface Database {
             columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       user_streaks: {
@@ -654,7 +654,7 @@ export interface Database {
             columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
       leaderboard_entries: {
@@ -697,7 +697,7 @@ export interface Database {
             columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
-          }
+          },
         ]
       }
     }

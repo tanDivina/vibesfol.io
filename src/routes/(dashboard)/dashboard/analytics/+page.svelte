@@ -1,41 +1,43 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { supabase } from '$lib/supabaseClient';
-  import type { Database } from '$lib/DatabaseDefinitions';
+  import { onMount } from "svelte"
+  import { supabase } from "$lib/supabaseClient"
+  import type { Database } from "$lib/DatabaseDefinitions"
 
-  let portfolioViews: any[] = [];
-  let projectClicks: any[] = [];
-  let socialClicks: any[] = [];
-  let loading = true;
-  let error: string | null = null;
+  let portfolioViews: any[] = []
+  let projectClicks: any[] = []
+  let socialClicks: any[] = []
+  let loading = true
+  let error: string | null = null
 
   onMount(async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
     if (!user) {
-      window.location.href = '/login';
-      return;
+      window.location.href = "/login"
+      return
     }
 
     try {
       const [views, pClicks, sClicks] = await Promise.all([
-        supabase.from('portfolio_views').select('*').eq('user_id', user.id),
-        supabase.from('project_clicks').select('*').eq('user_id', user.id),
-        supabase.from('social_clicks').select('*').eq('user_id', user.id),
-      ]);
+        supabase.from("portfolio_views").select("*").eq("user_id", user.id),
+        supabase.from("project_clicks").select("*").eq("user_id", user.id),
+        supabase.from("social_clicks").select("*").eq("user_id", user.id),
+      ])
 
-      if (views.error) throw views.error;
-      if (pClicks.error) throw pClicks.error;
-      if (sClicks.error) throw sClicks.error;
+      if (views.error) throw views.error
+      if (pClicks.error) throw pClicks.error
+      if (sClicks.error) throw sClicks.error
 
-      portfolioViews = views.data;
-      projectClicks = pClicks.data;
-      socialClicks = sClicks.data;
+      portfolioViews = views.data
+      projectClicks = pClicks.data
+      socialClicks = sClicks.data
     } catch (err: any) {
-      error = err.message;
+      error = err.message
     } finally {
-      loading = false;
+      loading = false
     }
-  });
+  })
 </script>
 
 <svelte:head>
@@ -50,7 +52,9 @@
       <p class="text-gray-600">Loading analytics...</p>
     </div>
   {:else if error}
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+    <div
+      class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+    >
       <p>{error}</p>
     </div>
   {:else}
@@ -88,7 +92,9 @@
               </tr>
             </thead>
             <tbody>
-              {#each [...portfolioViews, ...projectClicks, ...socialClicks].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()).slice(0, 20) as event}
+              {#each [...portfolioViews, ...projectClicks, ...socialClicks]
+                .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+                .slice(0, 20) as event}
                 <tr>
                   <td>
                     {#if event.page_path}

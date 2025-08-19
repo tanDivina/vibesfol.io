@@ -1,67 +1,70 @@
 <script lang="ts">
-  import { invalidate } from "$app/navigation";
-  import { onMount } from "svelte";
-  import { supabase } from "$lib/supabaseClient"; // Assuming supabaseClient is available
+  import { invalidate } from "$app/navigation"
+  import { onMount } from "svelte"
+  import { supabase } from "$lib/supabaseClient" // Assuming supabaseClient is available
 
-  let email = $state('');
-  let password = $state('');
-  let loading = $state(false);
-  let error = $state<string | null>(null);
-  let authMode = $state<'signup' | 'signin'>('signup'); // Default to signup
+  let email = $state("")
+  let password = $state("")
+  let loading = $state(false)
+  let error = $state<string | null>(null)
+  let authMode = $state<"signup" | "signin">("signup") // Default to signup
 
   async function handleAuth() {
-    loading = true;
-    error = null;
+    loading = true
+    error = null
 
     try {
-      if (authMode === 'signup') {
+      if (authMode === "signup") {
         const { data, error: signUpError } = await supabase.auth.signUp({
           email,
           password,
           options: {
             emailRedirectTo: `${window.location.origin}/auth/callback`,
           },
-        });
+        })
 
         if (signUpError) {
-          throw signUpError;
+          throw signUpError
         }
 
         if (data.user) {
-          alert('Check your email for a login link!');
+          alert("Check your email for a login link!")
         } else {
-          alert('Sign up successful! Please check your email to confirm your account.');
+          alert(
+            "Sign up successful! Please check your email to confirm your account.",
+          )
         }
-      } else { // authMode === 'signin'
+      } else {
+        // authMode === 'signin'
         const { error: signInError } = await supabase.auth.signInWithPassword({
           email,
           password,
-        });
+        })
 
         if (signInError) {
-          throw signInError;
+          throw signInError
         }
       }
     } catch (err: any) {
-      error = err.message;
-      console.error('Authentication error:', err);
+      error = err.message
+      console.error("Authentication error:", err)
     } finally {
-      loading = false;
+      loading = false
     }
   }
 
-  let session = $state(null);
+  let session = $state(null)
 
   onMount(() => {
     const { data } = supabase.auth.onAuthStateChange((event, _session) => {
       if (_session?.expires_at !== session?.expires_at) {
-        session = _session;
-        invalidate("supabase:auth");
+        session = _session
+        invalidate("supabase:auth")
       }
-    });
+    })
 
-    return () => data.subscription.unsubscribe();
-  });
+    return () => data.subscription.unsubscribe()
+  })
 </script>
 
 <svelte:head>
@@ -73,7 +76,9 @@
     <h2 class="text-2xl font-bold mb-6 text-center">Sign Up or Sign In</h2>
 
     {#if error}
-      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+      <div
+        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+      >
         <p>{error}</p>
       </div>
     {/if}
@@ -108,11 +113,21 @@
       </div>
 
       <div class="flex flex-col gap-4">
-        <button type="submit" class="btn btn-primary w-full" disabled={loading} onclick={() => (authMode = 'signup')}>
-          {loading && authMode === 'signup' ? 'Signing Up...' : 'Sign Up'}
+        <button
+          type="submit"
+          class="btn btn-primary w-full"
+          disabled={loading}
+          onclick={() => (authMode = "signup")}
+        >
+          {loading && authMode === "signup" ? "Signing Up..." : "Sign Up"}
         </button>
-        <button type="submit" class="btn btn-outline w-full" disabled={loading} onclick={() => (authMode = 'signin')}>
-          {loading && authMode === 'signin' ? 'Signing In...' : 'Sign In'}
+        <button
+          type="submit"
+          class="btn btn-outline w-full"
+          disabled={loading}
+          onclick={() => (authMode = "signin")}
+        >
+          {loading && authMode === "signin" ? "Signing In..." : "Sign In"}
         </button>
       </div>
     </form>

@@ -97,7 +97,10 @@
 
 <svelte:head>
   <title>Pricing - MyDevfol.io</title>
-  <meta name="description" content="Choose the perfect plan for your developer portfolio. Start free and upgrade as you grow." />
+  <meta
+    name="description"
+    content="Choose the perfect plan for your developer portfolio. Start free and upgrade as you grow."
+  />
 </svelte:head>
 
 <div class="min-h-[70vh] pb-8 pt-[5vh] px-4">
@@ -107,9 +110,14 @@
   </h2>
 
   <div class="w-full my-8">
-    <PricingModule callToAction="Get Started" highlightedPlanId="unlimited_ltd" />
-    
-    <h1 class="text-2xl font-bold text-center mt-24">Frequently Asked Questions</h1>
+    <PricingModule
+      callToAction="Get Started"
+      highlightedPlanId="unlimited_ltd"
+    />
+
+    <h1 class="text-2xl font-bold text-center mt-24">
+      Frequently Asked Questions
+    </h1>
     <div class="flex place-content-center">
       <div class="join join-vertical max-w-xl py-6 mx-auto">
         <div class="collapse collapse-arrow join-item border border-primary">
@@ -118,7 +126,11 @@
             Can I start with the free plan?
           </div>
           <div class="collapse-content">
-            <p>Absolutely! Our free plan includes everything you need to create a professional portfolio with up to 3 projects, 5 testimonials, and automatic screenshot generation.</p>
+            <p>
+              Absolutely! Our free plan includes everything you need to create a
+              professional portfolio with up to 3 projects, 5 testimonials, and
+              automatic screenshot generation.
+            </p>
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
@@ -128,7 +140,9 @@
           </div>
           <div class="collapse-content">
             <p>
-              Lifetime Deals are one-time payments that give you access to premium features forever. No monthly subscriptions, no recurring charges - just pay once and enjoy the features for life.
+              Lifetime Deals are one-time payments that give you access to
+              premium features forever. No monthly subscriptions, no recurring
+              charges - just pay once and enjoy the features for life.
             </p>
           </div>
         </div>
@@ -138,7 +152,12 @@
             What's the difference between Starter LTD and Unlimited LTD?
           </div>
           <div class="collapse-content">
-            <p>Starter LTD ($15) gives you up to 10 projects, unlimited testimonials, and analytics. Unlimited LTD ($55) includes unlimited projects, custom domains, client portals, and SEO optimization.</p>
+            <p>
+              Starter LTD ($15) gives you up to 10 projects, unlimited
+              testimonials, and analytics. Unlimited LTD ($55) includes
+              unlimited projects, custom domains, client portals, and SEO
+              optimization.
+            </p>
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
@@ -148,7 +167,9 @@
           </div>
           <div class="collapse-content">
             <p>
-              Yes! We offer a 30-day money-back guarantee on all Lifetime Deals. If you're not satisfied within the first 30 days, contact us for a full refund.
+              Yes! We offer a 30-day money-back guarantee on all Lifetime Deals.
+              If you're not satisfied within the first 30 days, contact us for a
+              full refund.
             </p>
           </div>
         </div>
@@ -159,7 +180,9 @@
           </div>
           <div class="collapse-content">
             <p>
-              Simply provide your project URL and our system automatically captures high-quality screenshots of your live projects. This feature is available on both free and Pro plans.
+              Simply provide your project URL and our system automatically
+              captures high-quality screenshots of your live projects. This
+              feature is available on both free and Pro plans.
             </p>
           </div>
         </div>

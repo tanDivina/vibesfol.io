@@ -1,16 +1,19 @@
 <script lang="ts">
-  import { page } from '$app/stores';
+  import { page } from "$app/stores"
 
-  export let title: string = 'MyDevfol.io - Your Professional Developer Portfolio';
-  export let description: string = 'Create and share a professional developer portfolio in minutes. Showcase your projects, skills, and experience with a stunning, modern design.';
-  export let imageUrl: string | null = null;
-  export let keywords: string | null = 'developer, portfolio, projects, software engineer, web developer, coding, programming';
+  export let title: string =
+    "MyDevfol.io - Your Professional Developer Portfolio"
+  export let description: string =
+    "Create and share a professional developer portfolio in minutes. Showcase your projects, skills, and experience with a stunning, modern design."
+  export let imageUrl: string | null = null
+  export let keywords: string | null =
+    "developer, portfolio, projects, software engineer, web developer, coding, programming"
 
-  const siteName = 'MyDevfol.io';
-  const twitterHandle = '@MyDevfolApp'; // Replace with your actual Twitter handle if you have one
+  const siteName = "MyDevfol.io"
+  const twitterHandle = "@MyDevfolApp" // Replace with your actual Twitter handle if you have one
 
-  $: canonicalUrl = $page.url.href;
-  $: finalImageUrl = imageUrl || `${$page.url.origin}/logo512.png`;
+  $: canonicalUrl = $page.url.href
+  $: finalImageUrl = imageUrl || `${$page.url.origin}/logo512.png`
 </script>
 
 <svelte:head>

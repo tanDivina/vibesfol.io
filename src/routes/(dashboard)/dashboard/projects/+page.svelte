@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { supabase } from '$lib/supabaseClient';
   import ProjectForm from '$lib/ProjectForm.svelte';
-  import type { Database } from '$lib/DatabaseDefinitions';
+  import type { Database } from '$lib/DatabaseDefinitions'
 
   let projects: Database['public']['Tables']['projects']['Row'][] = [];
   let loading = true;

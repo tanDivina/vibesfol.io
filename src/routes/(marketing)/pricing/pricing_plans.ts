@@ -15,7 +15,7 @@ export const pricingPlans = [
       "Public portfolio page",
       "Contact form",
       "Up to 5 testimonials",
-      "Social media links"
+      "Social media links",
     ],
   },
   {
@@ -32,7 +32,7 @@ export const pricingPlans = [
       "Unlimited testimonials",
       "Hackathon certificates",
       "Advanced analytics",
-      "Priority support"
+      "Priority support",
     ],
   },
   {
@@ -50,7 +50,7 @@ export const pricingPlans = [
       "Client portals",
       "White-label options",
       "SEO optimization",
-      "Premium support"
+      "Premium support",
     ],
-  }
+  },
 ]

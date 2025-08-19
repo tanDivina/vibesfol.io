@@ -1,32 +1,32 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid"
 
-let sessionId: string | null = null;
+let sessionId: string | null = null
 
 function getSessionId(): string {
   if (sessionId) {
-    return sessionId;
+    return sessionId
   }
-  
-  if (typeof sessionStorage !== 'undefined') {
-    sessionId = sessionStorage.getItem('sessionId');
+
+  if (typeof sessionStorage !== "undefined") {
+    sessionId = sessionStorage.getItem("sessionId")
     if (!sessionId) {
-      sessionId = uuidv4();
-      sessionStorage.setItem('sessionId', sessionId);
+      sessionId = uuidv4()
+      sessionStorage.setItem("sessionId", sessionId)
     }
   } else {
     // Fallback for server-side rendering
-    sessionId = uuidv4();
+    sessionId = uuidv4()
   }
-  
-  return sessionId;
+
+  return sessionId
 }
 
 export async function trackEvent(event: string, data: Record<string, any>) {
   try {
-    await fetch('/api/track', {
-      method: 'POST',
+    await fetch("/api/track", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         event,
@@ -35,8 +35,8 @@ export async function trackEvent(event: string, data: Record<string, any>) {
           session_id: getSessionId(),
         },
       }),
-    });
+    })
   } catch (error) {
-    console.error('Error tracking event:', error);
+    console.error("Error tracking event:", error)
   }
 }
