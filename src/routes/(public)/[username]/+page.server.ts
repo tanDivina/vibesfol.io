@@ -9,6 +9,11 @@ export const load: PageServerLoad = async ({
   const { session } = await safeGetSession()
   const { username } = params
 
+  // Redirect to marketing page if no username is provided
+  if (!username || username.trim() === '') {
+    throw error(404, "User not found")
+  }
+
   // Demo data for showcasing the public portfolio functionality
   if (username === "demo") {
     return {
