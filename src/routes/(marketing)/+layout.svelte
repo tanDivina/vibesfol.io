@@ -99,7 +99,6 @@
       <nav>
         <h6 class="footer-title">Resources</h6>
         <a class="link link-hover" href="/blog">Blog</a>
-        <a class="link link-hover" href="/contact_us">Contact Us</a>
         <a class="link link-hover" href="https://github.com/yourusername/your-repo-name">GitHub</a>
         <a class="link link-hover" href="/search">Search</a>
       </nav>
@@ -113,6 +112,7 @@
       <nav>
         <h6 class="footer-title">Company</h6>
         <a class="link link-hover" href="/about">About</a>
+        <a class="link link-hover" href="/contact_us">Contact Us</a>
         <a class="link link-hover" href="/privacy">Privacy Policy</a>
         <a class="link link-hover" href="/terms">Terms of Service</a>
         <a class="link link-hover" href="/support">Support</a>
