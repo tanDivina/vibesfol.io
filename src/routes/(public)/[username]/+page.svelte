@@ -68,6 +68,16 @@
 />
 
 <div class="container mx-auto px-4 py-8 {data.user.portfolio_theme === 'dark' ? 'bg-gray-900 min-h-screen' : ''}">
+  <!-- Back to Homepage Button -->
+  <div class="mb-6">
+    <a href="/" class="btn btn-outline btn-sm">
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Back to Homepage
+    </a>
+  </div>
+
   <!-- Hero Section -->
   <div class="{currentTheme.heroClass} rounded-lg p-8 mb-8">
     <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
