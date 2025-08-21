@@ -3,8 +3,16 @@ import fs from "fs"
 import path from "path"
 import grayMatter from "gray-matter"
 
+interface Post {
+  title: string
+  date: string
+  author: string
+  summary: string
+  slug: string
+}
+
 export const load = async () => {
-  const posts = fs
+  const posts: Post[] = fs
     .readdirSync("src/routes/blog")
     .filter((file) => file.endsWith(".md"))
     .map((file) => {
@@ -14,7 +22,7 @@ export const load = async () => {
       return {
         ...data,
         slug: file.slice(0, -3),
-      }
+      } as Post
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 

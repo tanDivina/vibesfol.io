@@ -385,7 +385,7 @@ export class GamificationService {
         .select("user_id, total_score")
         .order("total_score", { ascending: false })
 
-      const rank = rankData?.findIndex((r) => r.user_id === userId) + 1 || null
+      const rank = rankData ? rankData.findIndex((r) => r.user_id === userId) + 1 : null
 
       return {
         achievements: achievements || [],

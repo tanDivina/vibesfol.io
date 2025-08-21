@@ -18,7 +18,7 @@ export interface Database {
           last_name: string | null
           message_body: string | null
           phone: string | null
-          updated_at: Date | null
+          updated_at: string | null
         }
         Insert: {
           company_name?: string | null
@@ -28,7 +28,7 @@ export interface Database {
           last_name?: string | null
           message_body?: string | null
           phone?: string | null
-          updated_at?: Date | null
+          updated_at?: string | null
         }
         Update: {
           company_name?: string | null
@@ -38,9 +38,67 @@ export interface Database {
           last_name?: string | null
           message_body?: string | null
           phone?: string | null
-          updated_at?: Date | null
+          updated_at?: string | null
         }
         Relationships: []
+      }
+      contact_submissions: {
+        Row: {
+          id: string
+          portfolio_user_id: string
+          sender_name: string
+          sender_email: string
+          sender_company: string | null
+          subject: string
+          message: string
+          visitor_ip: string | null
+          user_agent: string | null
+          is_read: boolean
+          is_starred: boolean
+          replied_at: string | null
+          created_at: string
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          portfolio_user_id: string
+          sender_name: string
+          sender_email: string
+          sender_company?: string | null
+          subject: string
+          message: string
+          visitor_ip?: string | null
+          user_agent?: string | null
+          is_read?: boolean
+          is_starred?: boolean
+          replied_at?: string | null
+          created_at?: string
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          portfolio_user_id?: string
+          sender_name?: string
+          sender_email?: string
+          sender_company?: string | null
+          subject?: string
+          message?: string
+          visitor_ip?: string | null
+          user_agent?: string | null
+          is_read?: boolean
+          is_starred?: boolean
+          replied_at?: string | null
+          created_at?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_submissions_portfolio_user_id_fkey"
+            columns: ["portfolio_user_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -56,6 +114,7 @@ export interface Database {
           github_url: string | null
           linkedin_url: string | null
           twitter_url: string | null
+          instagram_url: string | null
           username: string | null
           portfolio_theme: string | null
           medium_url: string | null
@@ -67,20 +126,33 @@ export interface Database {
           availability: string | null
           location: string | null
           is_featured: boolean
+          contact_form_enabled: boolean
+          contact_form_title: string | null
+          contact_form_description: string | null
+          contact_email_notifications: boolean
+          seo_title: string | null
+          seo_description: string | null
+          seo_image_url: string | null
+          seo_keywords: string | null
+          custom_domain: string | null
+          custom_domain_verified: boolean
+          custom_domain_verification_token: string | null
+          analytics_enabled: boolean
         }
         Insert: {
           avatar_url?: string | null
           full_name?: string | null
           id: string
-          updated_at?: Date | null
+          updated_at?: string | null
           company_name?: string | null
           website?: string | null
-          unsubscribed: boolean
+          unsubscribed?: boolean
           planId?: string | null
           bio?: string | null
           github_url?: string | null
           linkedin_url?: string | null
           twitter_url?: string | null
+          instagram_url?: string | null
           username?: string | null
           portfolio_theme?: string | null
           medium_url?: string | null
@@ -92,6 +164,18 @@ export interface Database {
           availability?: string | null
           location?: string | null
           is_featured?: boolean
+          contact_form_enabled?: boolean
+          contact_form_title?: string | null
+          contact_form_description?: string | null
+          contact_email_notifications?: boolean
+          seo_title?: string | null
+          seo_description?: string | null
+          seo_image_url?: string | null
+          seo_keywords?: string | null
+          custom_domain?: string | null
+          custom_domain_verified?: boolean
+          custom_domain_verification_token?: string | null
+          analytics_enabled?: boolean
         }
         Update: {
           avatar_url?: string | null
@@ -100,12 +184,13 @@ export interface Database {
           updated_at?: string | null
           company_name?: string | null
           website?: string | null
-          unsubscribed: boolean
+          unsubscribed?: boolean
           planId?: string | null
           bio?: string | null
           github_url?: string | null
           linkedin_url?: string | null
           twitter_url?: string | null
+          instagram_url?: string | null
           username?: string | null
           portfolio_theme?: string | null
           medium_url?: string | null
@@ -117,6 +202,18 @@ export interface Database {
           availability?: string | null
           location?: string | null
           is_featured?: boolean
+          contact_form_enabled?: boolean
+          contact_form_title?: string | null
+          contact_form_description?: string | null
+          contact_email_notifications?: boolean
+          seo_title?: string | null
+          seo_description?: string | null
+          seo_image_url?: string | null
+          seo_keywords?: string | null
+          custom_domain?: string | null
+          custom_domain_verified?: boolean
+          custom_domain_verification_token?: string | null
+          analytics_enabled?: boolean
         }
         Relationships: [
           {
@@ -130,17 +227,17 @@ export interface Database {
       stripe_customers: {
         Row: {
           stripe_customer_id: string
-          updated_at: Date | null
+          updated_at: string | null
           user_id: string
         }
         Insert: {
           stripe_customer_id: string
-          updated_at?: Date | null
+          updated_at?: string | null
           user_id: string
         }
         Update: {
           stripe_customer_id?: string
-          updated_at?: Date | null
+          updated_at?: string | null
           user_id?: string
         }
         Relationships: [
@@ -161,8 +258,8 @@ export interface Database {
           description: string | null
           screenshot_url: string | null
           status: "LIVE" | "IN PROGRESS" | "DEMO"
-          created_at: Date
-          updated_at: Date
+          created_at: string
+          updated_at: string
         }
         Insert: {
           id?: string
@@ -172,8 +269,8 @@ export interface Database {
           description?: string | null
           screenshot_url?: string | null
           status?: "LIVE" | "IN PROGRESS" | "DEMO"
-          created_at?: Date
-          updated_at?: Date
+          created_at?: string
+          updated_at?: string
         }
         Update: {
           id?: string
@@ -183,8 +280,8 @@ export interface Database {
           description?: string | null
           screenshot_url?: string | null
           status?: "LIVE" | "IN PROGRESS" | "DEMO"
-          created_at?: Date
-          updated_at?: Date
+          created_at?: string
+          updated_at?: string
         }
         Relationships: [
           {
@@ -199,20 +296,20 @@ export interface Database {
         Row: {
           id: string
           name: string
-          created_at: Date
-          updated_at: Date
+          created_at: string
+          updated_at: string
         }
         Insert: {
           id?: string
           name: string
-          created_at?: Date
-          updated_at?: Date
+          created_at?: string
+          updated_at?: string
         }
         Update: {
           id?: string
           name?: string
-          created_at?: Date
-          updated_at?: Date
+          created_at?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -260,17 +357,17 @@ export interface Database {
         Row: {
           id: string
           name: string
-          created_at: Date
+          created_at: string
         }
         Insert: {
           id?: string
           name: string
-          created_at?: Date
+          created_at?: string
         }
         Update: {
           id?: string
           name?: string
-          created_at?: Date
+          created_at?: string
         }
         Relationships: []
       }
@@ -311,7 +408,7 @@ export interface Database {
           client_company: string | null
           testimonial_text: string
           is_published: boolean
-          created_at: Date
+          created_at: string
         }
         Insert: {
           id?: string
@@ -321,7 +418,7 @@ export interface Database {
           client_company?: string | null
           testimonial_text: string
           is_published?: boolean
-          created_at?: Date
+          created_at?: string
         }
         Update: {
           id?: string
@@ -331,7 +428,7 @@ export interface Database {
           client_company?: string | null
           testimonial_text?: string
           is_published?: boolean
-          created_at?: Date
+          created_at?: string
         }
         Relationships: [
           {
@@ -351,7 +448,7 @@ export interface Database {
           project_description: string | null
           access_token: string
           is_active: boolean
-          created_at: Date
+          created_at: string
         }
         Insert: {
           id?: string
@@ -361,7 +458,7 @@ export interface Database {
           project_description?: string | null
           access_token: string
           is_active?: boolean
-          created_at?: Date
+          created_at?: string
         }
         Update: {
           id?: string
@@ -371,51 +468,11 @@ export interface Database {
           project_description?: string | null
           access_token?: string
           is_active?: boolean
-          created_at?: Date
+          created_at?: string
         }
         Relationships: [
           {
             foreignKeyName: "client_portals_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      contact_submissions: {
-        Row: {
-          id: string
-          user_id: string
-          visitor_name: string | null
-          visitor_email: string
-          message: string
-          visitor_ip: string | null
-          user_agent: string | null
-          created_at: Date
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          visitor_name?: string | null
-          visitor_email: string
-          message: string
-          visitor_ip?: string | null
-          user_agent?: string | null
-          created_at?: Date
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          visitor_name?: string | null
-          visitor_email?: string
-          message?: string
-          visitor_ip?: string | null
-          user_agent?: string | null
-          created_at?: Date
-        }
-        Relationships: [
-          {
-            foreignKeyName: "contact_submissions_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -430,7 +487,7 @@ export interface Database {
           website: string | null
           start_date: string | null
           end_date: string | null
-          created_at: Date
+          created_at: string
         }
         Insert: {
           id?: string
@@ -439,7 +496,7 @@ export interface Database {
           website?: string | null
           start_date?: string | null
           end_date?: string | null
-          created_at?: Date
+          created_at?: string
         }
         Update: {
           id?: string
@@ -448,7 +505,7 @@ export interface Database {
           website?: string | null
           start_date?: string | null
           end_date?: string | null
-          created_at?: Date
+          created_at?: string
         }
         Relationships: []
       }
@@ -461,7 +518,7 @@ export interface Database {
           project_description: string | null
           certificate_url: string | null
           award: string | null
-          created_at: Date
+          created_at: string
         }
         Insert: {
           id?: string
@@ -471,7 +528,7 @@ export interface Database {
           project_description?: string | null
           certificate_url?: string | null
           award?: string | null
-          created_at?: Date
+          created_at?: string
         }
         Update: {
           id?: string
@@ -481,7 +538,7 @@ export interface Database {
           project_description?: string | null
           certificate_url?: string | null
           award?: string | null
-          created_at?: Date
+          created_at?: string
         }
         Relationships: [
           {
