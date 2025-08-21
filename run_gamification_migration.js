@@ -8,7 +8,7 @@ const __dirname = dirname(__filename)
 
 // Read environment variables
 const supabaseUrl = "https://zmhkrvrdmjndktbdedbk.supabase.co"
-const supabaseServiceKey = "sb_secret_fIOPXHDBBbueDFaYFq616g_v2uFqH_8"
+const supabaseServiceKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InptaGtydnJkbWpuZGt0YmRlZGJrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNjEyNzI5NCwiZXhwIjoyMDUxNzAzMjk0fQ.fIOPXHDBBbueDFaYFq616g_v2uFqH_8"
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
