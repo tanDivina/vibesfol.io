@@ -1,9 +1,6 @@
 // src/hooks.server.ts
-import { PRIVATE_SUPABASE_SERVICE_ROLE } from "$env/static/private"
-import {
-  PUBLIC_SUPABASE_ANON_KEY,
-  PUBLIC_SUPABASE_URL,
-} from "$env/static/public"
+import { env as privateEnv } from "$env/dynamic/private"
+import { env as publicEnv } from "$env/dynamic/public"
 import { createServerClient } from "@supabase/ssr"
 import { createClient } from "@supabase/supabase-js"
 import type { Handle } from "@sveltejs/kit"
@@ -12,8 +9,8 @@ import { sequence } from "@sveltejs/kit/hooks"
 // Trigger server reload to pick up .env.local changes
 export const supabase: Handle = async ({ event, resolve }) => {
   event.locals.supabase = createServerClient(
-    PUBLIC_SUPABASE_URL,
-    PUBLIC_SUPABASE_ANON_KEY,
+    publicEnv.PUBLIC_SUPABASE_URL,
+    publicEnv.PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll: () => event.cookies.getAll(),
@@ -32,8 +29,8 @@ export const supabase: Handle = async ({ event, resolve }) => {
   )
 
   event.locals.supabaseServiceRole = createClient(
-    PUBLIC_SUPABASE_URL,
-    PRIVATE_SUPABASE_SERVICE_ROLE,
+    publicEnv.PUBLIC_SUPABASE_URL,
+    privateEnv.PRIVATE_SUPABASE_SERVICE_ROLE,
     { auth: { persistSession: false } },
   )
 

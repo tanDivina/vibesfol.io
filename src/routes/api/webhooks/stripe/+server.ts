@@ -1,17 +1,16 @@
 import {
-  PRIVATE_STRIPE_API_KEY,
-  PRIVATE_SUPABASE_SERVICE_ROLE,
-} from "$env/static/private"
-import { PUBLIC_SUPABASE_URL } from "$env/static/public"
+  env as privateEnv
+} from "$env/dynamic/private"
+import { env as publicEnv } from "$env/dynamic/public"
 import { error, json, type RequestEvent } from "@sveltejs/kit"
 import { createClient } from "@supabase/supabase-js"
 import Stripe from "stripe"
 import type { Database } from "../../../lib/DatabaseDefinitions"
 
-const stripe = new Stripe(PRIVATE_STRIPE_API_KEY, { apiVersion: "2023-08-16" })
+const stripe = new Stripe(privateEnv.PRIVATE_STRIPE_API_KEY, { apiVersion: "2023-08-16" })
 const supabase = createClient<Database>(
-  PUBLIC_SUPABASE_URL,
-  PRIVATE_SUPABASE_SERVICE_ROLE,
+  publicEnv.PUBLIC_SUPABASE_URL,
+  privateEnv.PRIVATE_SUPABASE_SERVICE_ROLE,
 )
 
 export async function POST({ request }: RequestEvent) {

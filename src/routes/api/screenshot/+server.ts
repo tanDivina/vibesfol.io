@@ -1,12 +1,12 @@
 import { error, type RequestHandler } from "@sveltejs/kit"
 import { createClient } from "@supabase/supabase-js"
-import { PRIVATE_SUPABASE_SERVICE_ROLE } from "$env/static/private"
-import { PUBLIC_SUPABASE_URL } from "$env/static/public"
+import { env as privateEnv } from "$env/dynamic/private"
+import { env as publicEnv } from "$env/dynamic/public"
 import { chromium } from "playwright"
 
 const supabaseServiceRole = createClient(
-  PUBLIC_SUPABASE_URL,
-  PRIVATE_SUPABASE_SERVICE_ROLE,
+  publicEnv.PUBLIC_SUPABASE_URL,
+  privateEnv.PRIVATE_SUPABASE_SERVICE_ROLE,
 )
 
 export const POST: RequestHandler = async ({
