@@ -144,6 +144,7 @@
   }
 }
 
+@layer components {
 a {
   @apply cursor-pointer;
 }
@@ -160,4 +161,5 @@ button[disabled].authBtn::before {
   font-size: 14px;
   content: "Loading...";
   color: white;
+}
 }
