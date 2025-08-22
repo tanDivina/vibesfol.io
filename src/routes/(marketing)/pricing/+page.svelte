@@ -224,7 +224,7 @@
     <div class="overflow-visible mx-auto max-w-4xl mt-4">
       <table class="table">
         <thead
-          class="text-lg sticky top-0 bg-base-100 bg-opacity-50 z-10 backdrop-blur-sm"
+          class="text-lg sticky top-0 bg-base-100/50 z-10 backdrop-blur-sm"
         >
           <tr>
             <th></th>
