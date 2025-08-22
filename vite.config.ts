@@ -4,6 +4,11 @@ import { buildAndCacheSearchIndex } from "./src/lib/build_index"
 import tailwindcss from "@tailwindcss/vite"
 
 export default defineConfig({
+  server: {
+    hmr: {
+      overlay: false
+    }
+  },
   plugins: [
     sveltekit(),
     tailwindcss(),
