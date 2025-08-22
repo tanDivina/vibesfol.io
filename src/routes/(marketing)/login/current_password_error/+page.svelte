@@ -1,3 +1,7 @@
+<script lang="ts">
+  // Page component for current password error
+</script>
+
 <svelte:head>
   <title>Current Password Incorrect</title>
 </svelte:head>
