@@ -62,4 +62,8 @@ export default {
       'gray-600-50': 'rgba(75, 85, 99, 0.5)',
     },
   },
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('daisyui'),
+  ],
 } satisfies Config
