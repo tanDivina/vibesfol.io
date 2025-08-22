@@ -1,10 +1,12 @@
 import { sveltekit } from "@sveltejs/kit/vite"
 import { defineConfig } from "vitest/config"
 import { buildAndCacheSearchIndex } from "./src/lib/build_index"
+import tailwindcss from "@tailwindcss/vite"
 
 export default defineConfig({
   plugins: [
     sveltekit(),
+    tailwindcss(),
     {
       name: "vite-build-search-index",
       writeBundle: {

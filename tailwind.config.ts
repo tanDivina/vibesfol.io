@@ -1,6 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{html,js,svelte,ts}"],
+import type { Config } from '@tailwindcss/vite'
+
+export default {
+  content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
       colors: {
@@ -44,15 +45,6 @@ module.exports = {
     },
   },
   plugins: [
-    require("@tailwindcss/typography"),
-    require("daisyui"),
+    '@tailwindcss/typography',
   ],
-  daisyui: {
-    themes: [
-      "light"
-    ],
-    base: true,
-    styled: true,
-    utils: true,
-  },
-}
+} satisfies Config
