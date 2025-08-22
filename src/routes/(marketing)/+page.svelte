@@ -119,34 +119,33 @@
 </svelte:head>
 
 <div class="hero min-h-[60vh]">
-  <div class="hero-content text-center py-12">
-    <div class="max-w-xl">
+  <div class="hero-content text-center py-16 px-4">
+    <div class="max-w-4xl mx-auto">
       <div
-        class="text-xl md:text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-accent mb-3 md:mb-7 pb-1"
+        class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 md:mb-8"
       >
         MyDevfol.io
       </div>
 
       <div
-        class="text-4xl md:text-6xl font-bold px-2"
-        style="line-height: 1.2;"
+        class="text-5xl md:text-7xl font-black text-gray-900 leading-tight mb-6 md:mb-8"
       >
         The
         <span
-          class="underline decoration-secondary decoration-4 md:decoration-[6px]"
+          class="text-blue-600 underline decoration-blue-400 decoration-4 md:decoration-8 underline-offset-4"
           >ultimate</span
         >
         <span
-          class="underline decoration-secondary decoration-4 md:decoration-[6px]"
+          class="text-purple-600 underline decoration-purple-400 decoration-4 md:decoration-8 underline-offset-4"
           >portfolio platform</span
         >
         for
         <span
-          class="underline decoration-secondary decoration-4 md:decoration-[6px]"
+          class="text-indigo-600 underline decoration-indigo-400 decoration-4 md:decoration-8 underline-offset-4"
           >developers</span
         >
       </div>
-      <div class="mt-6 md:mt-10 text-sm md:text-lg">
+      <div class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-8 md:mb-12">
         Create stunning portfolios in minutes with <span class="font-bold"
           >automated screenshots</span
         >, <span class="font-bold">tech stack tagging</span>, and
@@ -154,13 +153,17 @@
         developers, indie hackers, and creative professionals.
       </div>
       <div
-        class="mt-6 md:mt-4 flex flex-row flex-wrap gap-4 place-content-center"
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center"
       >
         <a href="/login">
-          <button class="btn btn-primary px-6">Get Started Free</button>
+          <button class="btn btn-primary btn-lg px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+            Get Started Free
+          </button>
         </a>
         <a href="/pricing">
-          <button class="btn btn-outline btn-primary px-6">View Pricing</button>
+          <button class="btn btn-outline btn-primary btn-lg px-8 py-4 text-lg font-semibold hover:bg-blue-50 transition-all duration-200">
+            View Pricing
+          </button>
         </a>
       </div>
     </div>
