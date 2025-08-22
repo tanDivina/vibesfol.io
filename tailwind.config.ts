@@ -58,6 +58,8 @@ export default {
           950: '#030712',
         }
       }
+      'black-50': 'rgba(0, 0, 0, 0.5)',
+      'gray-600-50': 'rgba(75, 85, 99, 0.5)',
     },
   },
 } satisfies Config

@@ -140,7 +140,7 @@
 
 {#if open}
   <div
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    class="fixed inset-0 bg-black-50 flex items-center justify-center z-50"
   >
     <div class="bg-base-100 rounded-lg shadow-xl w-full max-w-md p-6">
       <h2 class="text-2xl font-bold mb-4">
