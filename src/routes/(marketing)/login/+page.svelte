@@ -82,7 +82,7 @@
       </div>
     {/if}
 
-    <form on:submit|preventDefault={handleAuth}>
+    <form onsubmit={handleAuth}>
       <div class="form-control mb-4">
         <label class="label" for="email">
           <span class="label-text">Email</span>
