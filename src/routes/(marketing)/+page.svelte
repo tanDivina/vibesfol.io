@@ -161,18 +161,18 @@
         The
         <span
           class="underline decoration-4 md:decoration-8 underline-offset-4"
-          style="text-decoration-color: #9b59b6;"
+          style="text-decoration-color: white;"
           >ultimate</span
         >
         <span
           class="underline decoration-4 md:decoration-8 underline-offset-4"
-          style="text-decoration-color: #9b59b6;"
+          style="text-decoration-color: white;"
           >portfolio platform</span
         >
         for
         <span
           class="underline decoration-4 md:decoration-8 underline-offset-4"
-          style="text-decoration-color: #9b59b6;"
+          style="text-decoration-color: white;"
           >developers</span
         >
       </div>
