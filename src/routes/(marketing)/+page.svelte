@@ -192,6 +192,11 @@
             Get Started Free
           </button>
         </a>
+        <a href="/build">
+          <button class="btn btn-secondary btn-lg px-8 py-4 text-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+            Try Builder (No Signup)
+          </button>
+        </a>
         <a href="/pricing">
           <button class="btn btn-outline btn-primary btn-lg px-8 py-4 text-lg font-semibold hover:bg-blue-50 transition-all duration-200">
             View Pricing

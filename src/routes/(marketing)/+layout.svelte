@@ -108,6 +108,7 @@
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/">Overview</a>
           <a class="link link-hover" href="/pricing">Pricing</a>
+          <a class="link link-hover" href="/build">Portfolio Builder</a>
           <a class="link link-hover" href="/demo">Live Demo</a>
           <a class="link link-hover" href="/demo-profile">Demo Profile</a>
         </div>
