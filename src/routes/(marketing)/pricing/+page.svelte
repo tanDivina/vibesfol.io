@@ -121,7 +121,7 @@
     <div class="flex place-content-center">
       <div class="join join-vertical max-w-xl py-6 mx-auto">
         <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" id="faq-1" />
+          <input type="radio" name="faq-accordion" checked="checked" />
           <div class="collapse-title text-lg font-medium">
             Can I start with the free plan?
           </div>
@@ -134,7 +134,7 @@
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" id="faq-2" />
+          <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
             What are Lifetime Deals (LTD)?
           </div>
@@ -147,7 +147,7 @@
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" id="faq-3" />
+          <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
             What's the difference between Starter LTD and Unlimited LTD?
           </div>
@@ -161,7 +161,7 @@
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" id="faq-4" />
+          <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
             Do you offer refunds on Lifetime Deals?
           </div>
@@ -174,7 +174,7 @@
           </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" id="faq-5" />
+          <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
             How does the screenshot generation work?
           </div>
