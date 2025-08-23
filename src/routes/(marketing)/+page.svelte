@@ -205,7 +205,7 @@
   <div class="pt-20 pb-8 px-7">
     <div class="max-w-lg mx-auto text-center">
       <div
-        class="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-accent pb-2"
+        class="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-accent"
       >
         Powerful Features
       </div>
