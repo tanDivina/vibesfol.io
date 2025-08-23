@@ -82,7 +82,7 @@
       </div>
     {/if}
 
-    <form onsubmit={handleAuth}>
+    <form on:submit|preventDefault={handleAuth}>
       <div class="form-control mb-4">
         <label class="label" for="email">
           <span class="label-text">Email</span>
@@ -116,7 +116,7 @@
           type="submit"
           class="btn btn-primary w-full"
           disabled={loading}
-          onclick={() => (authMode = "signup")}
+          on:click={() => (authMode = "signup")}
         >
           {loading && authMode === "signup" ? "Signing Up..." : "Sign Up"}
         </button>
@@ -124,7 +124,7 @@
           type="submit"
           class="btn btn-outline w-full"
           disabled={loading}
-          onclick={() => (authMode = "signin")}
+          on:click={() => (authMode = "signin")}
         >
           {loading && authMode === "signin" ? "Signing In..." : "Sign In"}
         </button>
