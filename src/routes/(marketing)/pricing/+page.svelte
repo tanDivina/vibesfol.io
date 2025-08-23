@@ -118,37 +118,36 @@
     <h1 class="text-2xl font-bold text-center mt-24">
       Frequently Asked Questions
     </h1>
+    
     <!-- FAQ Section -->
-    <div class="max-w-4xl mx-auto mt-24 mb-16">
-      <h2 class="text-3xl font-bold text-center mb-8">
+    <div class="max-w-4xl mx-auto mt-8 mb-16">
       <div class="join join-vertical max-w-xl py-6 mx-auto">
-      </h2>
       <div class="space-y-4">
         <div class="collapse collapse-plus bg-base-200">
           <input type="radio" name="faq-accordion" checked="checked" />
           <div class="collapse-title text-xl font-medium">
             Can I start with the free plan?
-          <div class="collapse-title text-lg font-medium">
+          </div>
           <div class="collapse-content">
             <p class="text-gray-700">
               Absolutely! Our free plan includes everything you need to create a
               professional portfolio with up to 3 projects, 5 testimonials, and
               automatic screenshot generation.
             </p>
-          <div class="collapse-title text-lg font-medium">
+          </div>
         </div>
         <div class="collapse collapse-plus bg-base-200">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-xl font-medium">
             What are Lifetime Deals (LTD)?
-          <div class="collapse-title text-lg font-medium">
+          </div>
           <div class="collapse-content">
             <p class="text-gray-700">
               Lifetime Deals are one-time payments that give you access to
               premium features forever. No monthly subscriptions, no recurring
               charges - just pay once and enjoy the features for life.
             </p>
-          <div class="collapse-title text-lg font-medium">
+          </div>
         </div>
         <div class="collapse collapse-plus bg-base-200">
           <input type="radio" name="faq-accordion" />
@@ -191,6 +190,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- Plan Comparison Section -->
@@ -314,8 +314,4 @@
           </table>
         </div>
       </div>
-    </div>
-
-  </div>
-</div>
     </div>
