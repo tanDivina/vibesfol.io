@@ -149,7 +149,8 @@
   <div class="hero-content text-center py-16 px-4">
     <div class="max-w-4xl mx-auto">
       <div
-        class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-yellow-100 to-blue-600 bg-clip-text text-transparent mb-4 md:mb-8"
+        class="text-4xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-yellow-200 via-purple-400 to-blue-500 bg-clip-text text-transparent mb-6 md:mb-10 tracking-tight drop-shadow-2xl"
+        style="text-shadow: 0 0 30px rgba(147, 51, 234, 0.3);"
       >
         MyDevfol.io
       </div>
