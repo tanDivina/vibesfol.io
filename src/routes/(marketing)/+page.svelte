@@ -248,7 +248,7 @@
 
               <a
                 href={feature.link}
-                class="pb-4"
+                class="pb-4 mt-4"
                 target={feature.newPage ? "_blank" : ""}
               >
                 <button
