@@ -118,41 +118,45 @@
     <h1 class="text-2xl font-bold text-center mt-24">
       Frequently Asked Questions
     </h1>
-    <div class="flex place-content-center">
+    <!-- FAQ Section -->
+    <div class="max-w-4xl mx-auto mt-24 mb-16">
+      <h2 class="text-3xl font-bold text-center mb-8">
       <div class="join join-vertical max-w-xl py-6 mx-auto">
-        <div class="collapse collapse-arrow join-item border border-primary">
+      </h2>
+      <div class="space-y-4">
+        <div class="collapse collapse-plus bg-base-200">
           <input type="radio" name="faq-accordion" checked="checked" />
-          <div class="collapse-title text-lg font-medium">
+          <div class="collapse-title text-xl font-medium">
             Can I start with the free plan?
-          </div>
+          <div class="collapse-title text-lg font-medium">
           <div class="collapse-content">
-            <p>
+            <p class="text-gray-700">
               Absolutely! Our free plan includes everything you need to create a
               professional portfolio with up to 3 projects, 5 testimonials, and
               automatic screenshot generation.
             </p>
-          </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
+        </div>
+        <div class="collapse collapse-plus bg-base-200">
+          <input type="radio" name="faq-accordion" />
+          <div class="collapse-title text-xl font-medium">
             What are Lifetime Deals (LTD)?
-          </div>
+          <div class="collapse-title text-lg font-medium">
           <div class="collapse-content">
-            <p>
+            <p class="text-gray-700">
               Lifetime Deals are one-time payments that give you access to
               premium features forever. No monthly subscriptions, no recurring
               charges - just pay once and enjoy the features for life.
             </p>
-          </div>
-        </div>
-        <div class="collapse collapse-arrow join-item border border-primary">
-          <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-lg font-medium">
+        </div>
+        <div class="collapse collapse-plus bg-base-200">
+          <input type="radio" name="faq-accordion" />
+          <div class="collapse-title text-xl font-medium">
             What's the difference between Starter LTD and Unlimited LTD?
           </div>
           <div class="collapse-content">
-            <p>
+            <p class="text-gray-700">
               Starter LTD ($15) gives you up to 10 projects, unlimited
               testimonials, and analytics. Unlimited LTD ($55) includes
               unlimited projects, custom domains, client portals, and SEO
@@ -160,26 +164,26 @@
             </p>
           </div>
         </div>
-        <div class="collapse collapse-arrow join-item border border-primary">
+        <div class="collapse collapse-plus bg-base-200">
           <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-lg font-medium">
+          <div class="collapse-title text-xl font-medium">
             Do you offer refunds on Lifetime Deals?
           </div>
           <div class="collapse-content">
-            <p>
+            <p class="text-gray-700">
               Yes! We offer a 30-day money-back guarantee on all Lifetime Deals.
               If you're not satisfied within the first 30 days, contact us for a
               full refund.
             </p>
           </div>
         </div>
-        <div class="collapse collapse-arrow join-item border border-primary">
+        <div class="collapse collapse-plus bg-base-200">
           <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-lg font-medium">
+          <div class="collapse-title text-xl font-medium">
             How does the screenshot generation work?
           </div>
           <div class="collapse-content">
-            <p>
+            <p class="text-gray-700">
               Simply provide your project URL and our system automatically
               captures high-quality screenshots of your live projects. This
               feature is available on both free and Pro plans.
@@ -189,121 +193,129 @@
       </div>
     </div>
 
-    <svg style="display:none" version="2.0">
-      <defs>
-        <symbol
-          id="checkcircle"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          fill="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            d="M16.417 10.283A7.917 7.917 0 1 1 8.5 2.366a7.916 7.916 0 0 1 7.917 7.917zm-4.105-4.498a.791.791 0 0 0-1.082.29l-3.828 6.63-1.733-2.08a.791.791 0 1 0-1.216 1.014l2.459 2.952a.792.792 0 0 0 .608.285.83.83 0 0 0 .068-.003.791.791 0 0 0 .618-.393L12.6 6.866a.791.791 0 0 0-.29-1.081z"
-          />
-        </symbol>
-      </defs>
-    </svg>
+    <!-- Plan Comparison Section -->
+    <div class="max-w-6xl mx-auto mt-24 mb-16">
+      <h2 class="text-3xl font-bold text-center mb-8">Plan Comparison</h2>
+      <p class="text-xl text-center text-gray-600 mb-12">
+        See what's included in each plan
+      </p>
 
-    <svg style="display:none" version="2.0">
-      <defs>
-        <symbol id="nocircle" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm4,11H8a1,1,0,0,1,0-2h8a1,1,0,0,1,0,2Z"
-          />
-        </symbol>
-      </defs>
-    </svg>
-
-    <h1 class="text-2xl font-bold text-center mt-16">Plan Comparison</h1>
-    <h2 class="text-xl text-center text-slate-500 mt-1 pb-3">
-      See what's included in each plan
-    </h2>
-
-    <div class="overflow-visible mx-auto max-w-4xl mt-4">
-      <table class="table">
-        <thead
-          class="text-lg sticky top-0 bg-base-100/50 z-10 backdrop-blur-sm"
-        >
-          <tr>
-            <th></th>
-            <th class="text-center">Free</th>
-            <th class="text-center">Starter LTD</th>
-            <th class="text-center">Unlimited LTD</th>
-          </tr>
-        </thead>
-        <tbody>
-          {#each planFeatures as feature}
-            {#if feature.header}
-              <tr class="bg-base-200 font-bold">
-                <td colspan="4">{feature.name} </td>
+      <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="table w-full">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="text-left font-bold text-gray-900 py-4">Features</th>
+                <th class="text-center font-bold text-gray-900 py-4">Free</th>
+                <th class="text-center font-bold text-gray-900 py-4">Starter LTD</th>
+                <th class="text-center font-bold text-gray-900 py-4">Unlimited LTD</th>
               </tr>
-            {:else}
-              <tr class="relative">
-                <td>{feature.name} </td>
-                <td class="text-center">
-                  {#if feature.freeString}
-                    {feature.freeString}
-                  {:else if feature.freeIncluded}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="w-8 h-8 ml-2 inline text-success"
-                    >
-                      <use href="#checkcircle" />
-                    </svg>
-                  {:else}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="w-[26px] h-[26px] inline text-base-200"
-                    >
-                      <use href="#nocircle" />
-                    </svg>
-                  {/if}
-                </td>
-                <td class="text-center">
-                  {#if feature.starterString}
-                    {feature.starterString}
-                  {:else if feature.starterIncluded}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="w-8 h-8 ml-2 inline text-success"
-                    >
-                      <use href="#checkcircle" />
-                    </svg>
-                  {:else}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="w-[26px] h-[26px] inline text-base-200"
-                    >
-                      <use href="#nocircle" />
-                    </svg>
-                  {/if}
-                </td>
-                <td class="text-center">
-                  {#if feature.unlimitedString}
-                    {feature.unlimitedString}
-                  {:else if feature.unlimitedIncluded}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="w-8 h-8 ml-2 inline text-success"
-                    >
-                      <use href="#checkcircle" />
-                    </svg>
-                  {:else}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="w-[26px] h-[26px] inline text-base-200"
-                    >
-                      <use href="#nocircle" />
-                    </svg>
-                  {/if}
-                </td>
-              </tr>
-            {/if}
-          {/each}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {#each planFeatures as feature}
+                {#if feature.header}
+                  <tr class="bg-blue-50">
+                    <td colspan="4" class="font-bold text-blue-900 py-3 text-lg">{feature.name}</td>
+                  </tr>
+                {:else}
+                  <tr class="hover:bg-gray-50">
+                    <td class="font-medium py-4">{feature.name}</td>
+                    <td class="text-center py-4">
+                      {#if feature.freeString}
+                        <span class="text-gray-700 font-medium">{feature.freeString}</span>
+                      {:else if feature.freeIncluded}
+                        <svg
+                          class="w-6 h-6 text-green-500 mx-auto"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      {:else}
+                        <svg
+                          class="w-6 h-6 text-gray-300 mx-auto"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      {/if}
+                    </td>
+                    <td class="text-center py-4">
+                      {#if feature.starterString}
+                        <span class="text-gray-700 font-medium">{feature.starterString}</span>
+                      {:else if feature.starterIncluded}
+                        <svg
+                          class="w-6 h-6 text-green-500 mx-auto"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      {:else}
+                        <svg
+                          class="w-6 h-6 text-gray-300 mx-auto"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      {/if}
+                    </td>
+                    <td class="text-center py-4">
+                      {#if feature.unlimitedString}
+                        <span class="text-gray-700 font-medium">{feature.unlimitedString}</span>
+                      {:else if feature.unlimitedIncluded}
+                        <svg
+                          class="w-6 h-6 text-green-500 mx-auto"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      {:else}
+                        <svg
+                          class="w-6 h-6 text-gray-300 mx-auto"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"
+                          ></path>
+                        </svg>
+                      {/if}
+                    </td>
+                  </tr>
+                {/if}
+              {/each}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
+    </div>
