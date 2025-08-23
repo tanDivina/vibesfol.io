@@ -1,8 +1,35 @@
 <script lang="ts">
-  import { Auth } from "@supabase/auth-ui-svelte"
-  import { sharedAppearance, oauthProviders } from "../login_config"
+  import { page } from "$app/stores"
 
   let { data } = $props()
+  let { supabase } = data
+
+  let email = $state("")
+  let loading = $state(false)
+  let error = $state<string | null>(null)
+  let success = $state(false)
+
+  async function handleForgotPassword() {
+    loading = true
+    error = null
+
+    try {
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${$page.url.origin}/auth/callback?next=%2Faccount%2Fsettings%2Freset_password`,
+      })
+
+      if (resetError) {
+        throw resetError
+      }
+
+      success = true
+    } catch (err: any) {
+      error = err.message
+      console.error("Password reset error:", err)
+    } finally {
+      loading = false
+    }
+  }
 </script>
 
 <svelte:head>
@@ -10,17 +37,45 @@
 </svelte:head>
 
 <h1 class="text-2xl font-bold mb-6">Forgot Password</h1>
-<Auth
-  supabaseClient={data.supabase}
-  view="forgotten_password"
-  redirectTo={`${data.url}/auth/callback?next=%2Faccount%2Fsettings%2Freset_password`}
-  providers={oauthProviders}
-  socialLayout="horizontal"
-  showLinks={false}
-  appearance={sharedAppearance}
-  additionalData={undefined}
-/>
+
+{#if success}
+  <div class="alert alert-success mb-4">
+    <span>Check your email for a password reset link!</span>
+  </div>
+{:else}
+  {#if error}
+    <div
+      class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+    >
+      <p>{error}</p>
+    </div>
+  {/if}
+
+  <form on:submit|preventDefault={handleForgotPassword}>
+    <div class="form-control mb-6">
+      <label class="label" for="email">
+        <span class="label-text">Email</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        bind:value={email}
+        class="input input-bordered w-full"
+        placeholder="your@example.com"
+        required
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary w-full"
+      disabled={loading}
+    >
+      {loading ? "Sending..." : "Send Reset Link"}
+    </button>
+  </form>
+{/if}
+
 <div class="text-l text-slate-800 mt-4">
-  Remember your password? <a class="underline" href="/login/sign_in">Sign in</a
-  >.
+  Remember your password? <a class="underline" href="/login/sign_in">Sign in</a>.
 </div>

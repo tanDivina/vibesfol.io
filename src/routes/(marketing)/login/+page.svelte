@@ -1,13 +1,13 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation"
   import { onMount } from "svelte"
-  import { supabase } from "$lib/supabaseClient" // Assuming supabaseClient is available
+  import { supabase } from "$lib/supabaseClient"
 
   let email = $state("")
   let password = $state("")
   let loading = $state(false)
   let error = $state<string | null>(null)
-  let authMode = $state<"signup" | "signin">("signup") // Default to signup
+  let authMode = $state<"signup" | "signin">("signup")
 
   async function handleAuth() {
     loading = true
@@ -35,7 +35,6 @@
           )
         }
       } else {
-        // authMode === 'signin'
         const { error: signInError } = await supabase.auth.signInWithPassword({
           email,
           password,
@@ -83,7 +82,7 @@
       </div>
     {/if}
 
-    <form onsubmit={handleAuth}>
+    <form on:submit|preventDefault={handleAuth}>
       <div class="form-control mb-4">
         <label class="label" for="email">
           <span class="label-text">Email</span>

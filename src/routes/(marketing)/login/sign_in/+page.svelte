@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { Auth } from "@supabase/auth-ui-svelte"
-  import { sharedAppearance, oauthProviders } from "../login_config"
   import { goto } from "$app/navigation"
   import { onMount } from "svelte"
   import { page } from "$app/stores"
@@ -8,19 +6,41 @@
   let { data } = $props()
   let { supabase } = data
 
+  let email = $state("")
+  let password = $state("")
+  let loading = $state(false)
+  let error = $state<string | null>(null)
+
   onMount(() => {
     supabase.auth.onAuthStateChange((event) => {
-      // Redirect to account after successful login
       if (event == "SIGNED_IN") {
-        // Delay needed because order of callback not guaranteed.
-        // Give the layout callback priority to update state or
-        // we'll just bounch back to login when /account tries to load
         setTimeout(() => {
           goto("/account")
         }, 1)
       }
     })
   })
+
+  async function handleSignIn() {
+    loading = true
+    error = null
+
+    try {
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+
+      if (signInError) {
+        throw signInError
+      }
+    } catch (err: any) {
+      error = err.message
+      console.error("Sign in error:", err)
+    } finally {
+      loading = false
+    }
+  }
 </script>
 
 <svelte:head>
@@ -44,17 +64,55 @@
     <span>Email verified! Please sign in.</span>
   </div>
 {/if}
+
 <h1 class="text-2xl font-bold mb-6">Sign In</h1>
-<Auth
-  supabaseClient={data.supabase}
-  view="sign_in"
-  redirectTo={`${data.url}/auth/callback`}
-  providers={oauthProviders}
-  socialLayout="horizontal"
-  showLinks={false}
-  appearance={sharedAppearance}
-  additionalData={undefined}
-/>
+
+{#if error}
+  <div
+    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+  >
+    <p>{error}</p>
+  </div>
+{/if}
+
+<form on:submit|preventDefault={handleSignIn}>
+  <div class="form-control mb-4">
+    <label class="label" for="email">
+      <span class="label-text">Email</span>
+    </label>
+    <input
+      type="email"
+      id="email"
+      bind:value={email}
+      class="input input-bordered w-full"
+      placeholder="your@example.com"
+      required
+    />
+  </div>
+
+  <div class="form-control mb-6">
+    <label class="label" for="password">
+      <span class="label-text">Password</span>
+    </label>
+    <input
+      type="password"
+      id="password"
+      bind:value={password}
+      class="input input-bordered w-full"
+      placeholder="••••••••"
+      required
+    />
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary w-full"
+    disabled={loading}
+  >
+    {loading ? "Signing In..." : "Sign In"}
+  </button>
+</form>
+
 <div class="text-l text-slate-800 mt-4">
   <a class="underline" href="/login/forgot_password">Forgot password?</a>
 </div>
