@@ -143,7 +143,7 @@
 
 <div 
   bind:this={heroElement}
-  class="hero min-h-[60vh] bg-gradient-to-r from-yellow-100 via-blue-200 to-blue-600 bg-[length:300%_300%] animate-gradient-slow interactive-gradient"
+  class="hero min-h-[60vh] interactive-gradient animate-gradient-slow"
   style="--mouse-x: 50%; --mouse-y: 50%"
 >
   <div class="hero-content text-center py-16 px-4">

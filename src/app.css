@@ -188,7 +188,14 @@ body {
     }
   }
 
-  .animate-gradient {
-    animation: gradient 6s ease infinite;
+  .animate-gradient-slow {
+    animation: gradient 15s ease infinite;
+  }
+
+  .interactive-gradient {
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                #fef3c7, #dbeafe, #3b82f6);
+    background-size: 300% 300%;
+    transition: background-position 0.3s ease;
   }
 }
