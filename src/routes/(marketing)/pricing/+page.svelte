@@ -2,6 +2,35 @@
   import PricingModule from "./pricing_module.svelte"
   import { WebsiteName } from "$config"
 
+  let openFaq = 0 // Track which FAQ is open
+
+  const faqs = [
+    {
+      question: "Can I start with the free plan?",
+      answer: "Absolutely! Our free plan includes everything you need to create a professional portfolio with up to 3 projects, 5 testimonials, and automatic screenshot generation."
+    },
+    {
+      question: "What are Lifetime Deals (LTD)?",
+      answer: "Lifetime Deals are one-time payments that give you access to premium features forever. No monthly subscriptions, no recurring charges - just pay once and enjoy the features for life."
+    },
+    {
+      question: "What's the difference between Starter LTD and Unlimited LTD?",
+      answer: "Starter LTD ($15) gives you up to 10 projects, unlimited testimonials, and analytics. Unlimited LTD ($55) includes unlimited projects, custom domains, client portals, and SEO optimization."
+    },
+    {
+      question: "Do you offer refunds on Lifetime Deals?",
+      answer: "Yes! We offer a 30-day money-back guarantee on all Lifetime Deals. If you're not satisfied within the first 30 days, contact us for a full refund."
+    },
+    {
+      question: "How does the screenshot generation work?",
+      answer: "Simply provide your project URL and our system automatically captures high-quality screenshots of your live projects. This feature is available on both free and Pro plans."
+    }
+  ]
+
+  function toggleFaq(index: number) {
+    openFaq = openFaq === index ? -1 : index
+  }
+
   type PlanFeatureRow = {
     name: string
     freeIncluded?: boolean
@@ -120,74 +149,36 @@
     </h1>
     
     <!-- FAQ Section -->
-    <div class="max-w-4xl mx-auto mt-8 mb-16">
+    <div class="max-w-4xl mx-auto mt-16 mb-16">
       <div class="space-y-4 max-w-3xl mx-auto">
-        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
-          <input type="radio" name="faq-accordion" checked />
-          <div class="collapse-title text-xl font-medium">
-            Can I start with the free plan?
+        {#each faqs as faq, index}
+          <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+            <button
+              class="w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors"
+              on:click={() => toggleFaq(index)}
+            >
+              <span class="text-xl font-medium text-gray-900">{faq.question}</span>
+              <svg
+                class="w-6 h-6 text-gray-500 transform transition-transform {openFaq === index ? 'rotate-45' : ''}"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                ></path>
+              </svg>
+            </button>
+            {#if openFaq === index}
+              <div class="px-6 pb-6">
+                <p class="text-gray-700 leading-relaxed">{faq.answer}</p>
+              </div>
+            {/if}
           </div>
-          <div class="collapse-content">
-            <p class="text-gray-700">
-              Absolutely! Our free plan includes everything you need to create a
-              professional portfolio with up to 3 projects, 5 testimonials, and
-              automatic screenshot generation.
-            </p>
-          </div>
-        </div>
-        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-medium">
-            What are Lifetime Deals (LTD)?
-          </div>
-          <div class="collapse-content">
-            <p class="text-gray-700">
-              Lifetime Deals are one-time payments that give you access to
-              premium features forever. No monthly subscriptions, no recurring
-              charges - just pay once and enjoy the features for life.
-            </p>
-          </div>
-        </div>
-        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-medium">
-            What's the difference between Starter LTD and Unlimited LTD?
-          </div>
-          <div class="collapse-content">
-            <p class="text-gray-700">
-              Starter LTD ($15) gives you up to 10 projects, unlimited
-              testimonials, and analytics. Unlimited LTD ($55) includes
-              unlimited projects, custom domains, client portals, and SEO
-              optimization.
-            </p>
-          </div>
-        </div>
-        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-medium">
-            Do you offer refunds on Lifetime Deals?
-          </div>
-          <div class="collapse-content">
-            <p class="text-gray-700">
-              Yes! We offer a 30-day money-back guarantee on all Lifetime Deals.
-              If you're not satisfied within the first 30 days, contact us for a
-              full refund.
-            </p>
-          </div>
-        </div>
-        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-medium">
-            How does the screenshot generation work?
-          </div>
-          <div class="collapse-content">
-            <p class="text-gray-700">
-              Simply provide your project URL and our system automatically
-              captures high-quality screenshots of your live projects. This
-              feature is available on both free and Pro plans.
-            </p>
-          </div>
-        </div>
+        {/each}
       </div>
     </div>
 
