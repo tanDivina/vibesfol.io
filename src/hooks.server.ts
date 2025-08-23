@@ -1,25 +1,16 @@
 // src/hooks.server.ts
-import { env as privateEnv } from "$env/dynamic/private"
-import { env as publicEnv } from "$env/dynamic/public"
+import { PRIVATE_SUPABASE_SERVICE_ROLE } from "$env/static/private"
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from "$env/static/public"
 import { createServerClient } from "@supabase/ssr"
 import { createClient } from "@supabase/supabase-js"
 import type { Handle } from "@sveltejs/kit"
 import { sequence } from "@sveltejs/kit/hooks"
 
-// Check if Supabase environment variables are available
-const hasSupabaseEnv = publicEnv.PUBLIC_SUPABASE_URL && publicEnv.PUBLIC_SUPABASE_ANON_KEY && privateEnv.PRIVATE_SUPABASE_SERVICE_ROLE
-
 // Trigger server reload to pick up .env.local changes
 export const supabase: Handle = async ({ event, resolve }) => {
-  // If Supabase env vars are missing, skip Supabase initialization
-  if (!hasSupabaseEnv) {
-    console.warn("Supabase environment variables not found. Please connect to Supabase.")
-    return resolve(event)
-  }
-
   event.locals.supabase = createServerClient(
-    publicEnv.PUBLIC_SUPABASE_URL,
-    publicEnv.PUBLIC_SUPABASE_ANON_KEY,
+    PUBLIC_SUPABASE_URL,
+    PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll: () => event.cookies.getAll(),
@@ -38,8 +29,8 @@ export const supabase: Handle = async ({ event, resolve }) => {
   )
 
   event.locals.supabaseServiceRole = createClient(
-    publicEnv.PUBLIC_SUPABASE_URL,
-    privateEnv.PRIVATE_SUPABASE_SERVICE_ROLE,
+    PUBLIC_SUPABASE_URL,
+    PRIVATE_SUPABASE_SERVICE_ROLE,
     { auth: { persistSession: false } },
   )
 
