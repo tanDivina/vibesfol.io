@@ -122,8 +122,8 @@
     <!-- FAQ Section -->
     <div class="max-w-4xl mx-auto mt-8 mb-16">
       <div class="space-y-4 max-w-3xl mx-auto">
-        <div class="collapse collapse-plus bg-base-200">
-          <input type="radio" name="faq-accordion" checked="checked" />
+        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
+          <input type="radio" name="faq-accordion" checked />
           <div class="collapse-title text-xl font-medium">
             Can I start with the free plan?
           </div>
@@ -135,7 +135,7 @@
             </p>
           </div>
         </div>
-        <div class="collapse collapse-plus bg-base-200">
+        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-xl font-medium">
             What are Lifetime Deals (LTD)?
@@ -148,7 +148,7 @@
             </p>
           </div>
         </div>
-        <div class="collapse collapse-plus bg-base-200">
+        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-xl font-medium">
             What's the difference between Starter LTD and Unlimited LTD?
@@ -162,7 +162,7 @@
             </p>
           </div>
         </div>
-        <div class="collapse collapse-plus bg-base-200">
+        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-xl font-medium">
             Do you offer refunds on Lifetime Deals?
@@ -175,7 +175,7 @@
             </p>
           </div>
         </div>
-        <div class="collapse collapse-plus bg-base-200">
+        <div class="collapse collapse-plus bg-white shadow-lg border border-gray-200">
           <input type="radio" name="faq-accordion" />
           <div class="collapse-title text-xl font-medium">
             How does the screenshot generation work?
