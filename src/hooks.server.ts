@@ -6,8 +6,17 @@ import { createClient } from "@supabase/supabase-js"
 import type { Handle } from "@sveltejs/kit"
 import { sequence } from "@sveltejs/kit/hooks"
 
+// Check if Supabase environment variables are available
+const hasSupabaseEnv = publicEnv.PUBLIC_SUPABASE_URL && publicEnv.PUBLIC_SUPABASE_ANON_KEY && privateEnv.PRIVATE_SUPABASE_SERVICE_ROLE
+
 // Trigger server reload to pick up .env.local changes
 export const supabase: Handle = async ({ event, resolve }) => {
+  // If Supabase env vars are missing, skip Supabase initialization
+  if (!hasSupabaseEnv) {
+    console.warn("Supabase environment variables not found. Please connect to Supabase.")
+    return resolve(event)
+  }
+
   event.locals.supabase = createServerClient(
     publicEnv.PUBLIC_SUPABASE_URL,
     publicEnv.PUBLIC_SUPABASE_ANON_KEY,
