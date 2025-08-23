@@ -1,3 +1,4 @@
+import { redirect } from "@sveltejs/kit"
 import { error } from "@sveltejs/kit"
 import { supabaseServiceRole } from "$lib/supabaseServiceRole"
 import type { PageServerLoad } from "./$types"
@@ -11,7 +12,7 @@ export const load: PageServerLoad = async ({
 
   // Handle empty or invalid usernames
   if (!username || username.trim() === "") {
-    throw error(404, "User not found")
+    throw redirect(302, "/")
   }
 
   // Demo data for showcasing the public portfolio functionality
