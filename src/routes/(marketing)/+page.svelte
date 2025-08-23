@@ -155,24 +155,6 @@
       </div>
 
       <div
-        class="text-5xl md:text-7xl font-black text-gray-900 leading-tight mb-6 md:mb-8"
-      >
-        The
-        <span
-          class="text-indigo-600 underline decoration-indigo-400 decoration-4 md:decoration-8 underline-offset-4"
-          >ultimate</span
-        >
-        <span
-          class="text-blue-600 underline decoration-blue-400 decoration-4 md:decoration-8 underline-offset-4"
-          >portfolio platform</span
-        >
-        for
-        <span
-          class="text-purple-600 underline decoration-purple-400 decoration-4 md:decoration-8 underline-offset-4"
-          >developers</span
-        >
-      </div>
-      <div
         class="text-5xl md:text-7xl font-black leading-tight mb-6 md:mb-8"
         style="color: #2c3e50;"
       >
