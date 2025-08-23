@@ -174,4 +174,21 @@ body {
   .stat-desc {
     @apply text-sm text-gray-600 mt-1;
   }
+
+  /* Custom animations */
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-gradient {
+    animation: gradient 6s ease infinite;
+  }
 }
