@@ -100,29 +100,12 @@ export const load: PageServerLoad = async ({
     .select(
       `
       id, 
-      username, 
       full_name, 
-      bio, 
+      company_name,
       avatar_url, 
-      website, 
-      github_url, 
-      linkedin_url, 
-      twitter_url, 
-      medium_url, 
-      gumroad_url, 
-      substack_url, 
-      amazon_gear_list_url, 
-      whatsapp_number, 
-      youtube_url, 
-      portfolio_theme,
-      contact_form_enabled,
-      contact_form_title,
-      contact_form_description,
-      contact_email_notifications,
-      seo_title,
-      seo_description,
-      seo_image_url,
-      seo_keywords
+      website,
+      unsubscribed,
+      planId
     `,
     )
     .eq("username", username)
