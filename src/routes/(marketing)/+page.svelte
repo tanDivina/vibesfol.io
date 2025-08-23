@@ -527,8 +527,8 @@
   </div>
 </div>
 
-<div class="hero min-h-[60vh] mt-12" style="background-color: #fefce8; color: #374151;">
-  <div class="hero-content text-center pb-16 pt-4 px-4 text-gray-700">
+<div class="min-h-[60vh] mt-12" style="background-color: #fefce8; color: #374151;">
+  <div class="text-center pb-16 pt-4 px-4 text-gray-700">
     <div class="max-w-lg mx-auto text-center">
       <div class="mt-6 text-lg md:text-xl">
         Check out our demo portfolio to see how your projects will look
