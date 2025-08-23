@@ -172,6 +172,28 @@
           >developers</span
         >
       </div>
+      <div
+        class="text-5xl md:text-7xl font-black leading-tight mb-6 md:mb-8"
+        style="color: #2c3e50;"
+      >
+        The
+        <span
+          class="underline decoration-4 md:decoration-8 underline-offset-4"
+          style="text-decoration-color: #9b59b6;"
+          >ultimate</span
+        >
+        <span
+          class="underline decoration-4 md:decoration-8 underline-offset-4"
+          style="text-decoration-color: #9b59b6;"
+          >portfolio platform</span
+        >
+        for
+        <span
+          class="underline decoration-4 md:decoration-8 underline-offset-4"
+          style="text-decoration-color: #9b59b6;"
+          >developers</span
+        >
+      </div>
       <div class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-8 md:mb-12">
         Create stunning portfolios in minutes with <span class="font-bold"
           >automated screenshots</span
