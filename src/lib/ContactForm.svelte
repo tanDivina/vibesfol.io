@@ -282,18 +282,6 @@
     @apply text-white bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 disabled:bg-blue-400;
   }
 
-  .btn-outline {
-    @apply text-gray-700 bg-white border-gray-300 hover:bg-gray-50 focus:ring-blue-500;
-  }
-
-  .btn-ghost {
-    @apply text-gray-500 bg-transparent border-transparent hover:text-gray-700 hover:bg-gray-100;
-  }
-
-  .btn-error {
-    @apply text-white bg-red-600 hover:bg-red-700 focus:ring-red-500;
-  }
-
   .contact-form-container {
     max-width: 600px;
     margin: 0 auto;
