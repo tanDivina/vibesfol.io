@@ -542,7 +542,7 @@
 >
   <div class="text-center pb-16 pt-4 px-4" style="color: #2c3e50;">
     <div class="max-w-lg mx-auto text-center">
-      <div class="mt-6 text-lg md:text-xl">
+      <div class="mt-16 text-lg md:text-xl">
         Check out our demo portfolio to see how your projects will look
       </div>
       <div class="mt-8">
@@ -550,10 +550,10 @@
           <button class="btn btn-primary btn-wide">View Demo Portfolio</button>
         </a>
       </div>
-      <div class="mt-6 text-base">
+      <div class="mt-8 text-base">
         Or start building your own portfolio today
       </div>
-      <div class="mt-4">
+      <div class="mt-2">
         <a href="/login">
           <button class="btn btn-outline btn-primary">Get Started Free</button>
         </a>
