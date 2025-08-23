@@ -148,7 +148,7 @@
           {#if data.user.github_url}
             <a
               href={data.user.github_url}
-              on:click={() => handleSocialClick("github")}
+              onclick={() => handleSocialClick("github")}
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-600 hover:text-gray-800 transition-colors"
@@ -163,7 +163,7 @@
           {#if data.user.linkedin_url}
             <a
               href={data.user.linkedin_url}
-              on:click={() => handleSocialClick("linkedin")}
+              onclick={() => handleSocialClick("linkedin")}
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-600 hover:text-blue-600 transition-colors"
@@ -178,7 +178,7 @@
           {#if data.user.twitter_url}
             <a
               href={data.user.twitter_url}
-              on:click={() => handleSocialClick("twitter")}
+              onclick={() => handleSocialClick("twitter")}
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-600 hover:text-blue-400 transition-colors"
@@ -193,7 +193,7 @@
           {#if data.user.medium_url}
             <a
               href={data.user.medium_url}
-              on:click={() => handleSocialClick("medium")}
+              onclick={() => handleSocialClick("medium")}
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-600 hover:text-black transition-colors"
@@ -208,7 +208,7 @@
           {#if data.user.gumroad_url}
             <a
               href={data.user.gumroad_url}
-              on:click={() => handleSocialClick("gumroad")}
+              onclick={() => handleSocialClick("gumroad")}
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-600 hover:text-pink-400 transition-colors"
@@ -223,7 +223,7 @@
           {#if data.user.substack_url}
             <a
               href={data.user.substack_url}
-              on:click={() => handleSocialClick("substack")}
+              onclick={() => handleSocialClick("substack")}
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-600 hover:text-orange-500 transition-colors"
@@ -238,7 +238,7 @@
           {#if data.user.amazon_gear_list_url}
             <a
               href={data.user.amazon_gear_list_url}
-              on:click={() => handleSocialClick("amazon")}
+              onclick={() => handleSocialClick("amazon")}
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-600 hover:text-yellow-500 transition-colors"
@@ -256,7 +256,7 @@
                 /[^0-9]/g,
                 '',
               )}"
-              on:click={() => handleSocialClick("whatsapp")}
+              onclick={() => handleSocialClick("whatsapp")}
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-600 hover:text-green-500 transition-colors"
@@ -271,7 +271,7 @@
           {#if data.user.youtube_url}
             <a
               href={data.user.youtube_url}
-              on:click={() => handleSocialClick("youtube")}
+              onclick={() => handleSocialClick("youtube")}
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-600 hover:text-red-600 transition-colors"
@@ -302,7 +302,10 @@
         <div class="card {currentTheme.cardClass} shadow-xl">
           <figure
             class="h-48 bg-gray-200"
-            on:click={() => handleProjectClick(project.id, "view_screenshot")}
+            onclick={() => handleProjectClick(project.id, "view_screenshot")}
+            role="button"
+            tabindex="0"
+            aria-label="View screenshot of {project.title}"
           >
             {#if project.screenshot_url}
               <img
@@ -333,7 +336,7 @@
               {#if project.url}
                 <a
                   href={project.url}
-                  on:click={() => handleProjectClick(project.id, "visit_link")}
+                  onclick={() => handleProjectClick(project.id, "visit_link")}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="btn btn-sm btn-primary"
