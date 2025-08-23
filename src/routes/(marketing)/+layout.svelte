@@ -121,6 +121,8 @@
             href="https://github.com/tanDivina/vibesfol.io">GitHub</a
           >
           <a class="link link-hover" href="/search">Search</a>
+          <a class="link link-hover" href="/pricing#faq">FAQ</a>
+          <a class="link link-hover" href="/pricing#plan-comparison">Plan Comparison</a>
         </div>
       </nav>
       <nav>
