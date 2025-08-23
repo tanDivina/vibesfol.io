@@ -354,15 +354,17 @@
               </label>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {#each themes as theme}
-                  <label class="cursor-pointer">
+                  <div class="cursor-pointer">
                     <input
                       type="radio"
                       bind:group={selectedTheme}
                       value={theme.id}
                       on:change={handleProfileUpdate}
                       class="radio radio-primary mr-3"
+                      id="theme-{theme.id}"
                     />
-                    <div
+                    <label
+                      for="theme-{theme.id}"
                       class="card bg-base-100 border-2 {selectedTheme === theme.id
                         ? 'border-primary'
                         : 'border-base-300'} hover:border-primary transition-colors"
@@ -376,8 +378,8 @@
                         <h3 class="font-bold">{theme.name}</h3>
                         <p class="text-sm text-gray-600">{theme.description}</p>
                       </div>
-                    </div>
-                  </label>
+                    </label>
+                  </div>
                 {/each}
               </div>
             </div>
@@ -659,11 +661,12 @@
           </label>
           <div class="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border border-base-300 rounded p-2">
             {#each availableTechnologies as tech}
-              <label class="label cursor-pointer justify-start">
+              <label class="label cursor-pointer justify-start" for="tech-{tech}">
                 <input
                   type="checkbox"
                   name="technologies"
                   value={tech}
+                  id="tech-{tech}"
                   checked={currentProject?.technologies?.includes(tech) || false}
                   class="checkbox checkbox-primary checkbox-sm mr-2"
                 />
