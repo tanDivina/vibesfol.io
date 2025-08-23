@@ -245,6 +245,7 @@
               {feature.description}
             </p>
             {#if feature.link}
+
               <a
                 href={feature.link}
                 class="pb-4"
