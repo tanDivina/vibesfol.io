@@ -11,6 +11,12 @@ export const load: PageServerLoad = async ({
   const { session } = await safeGetSession()
   const { username } = params
 
+  // Explicit check for pricing route to prevent conflicts
+  if (username === "pricing") {
+    throw redirect(302, "/pricing")
+    return
+  }
+
   // If we're at the root path, redirect to marketing page
   if (url.pathname === "/" || url.pathname === "") {
     throw redirect(302, "/")
