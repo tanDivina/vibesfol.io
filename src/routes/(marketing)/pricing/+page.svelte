@@ -149,7 +149,7 @@
     </h1>
     
     <!-- FAQ Section -->
-    <div class="max-w-4xl mx-auto mt-16 mb-16">
+    <div id="faq" class="max-w-4xl mx-auto mt-16 mb-16">
       <div class="space-y-4 max-w-3xl mx-auto">
         {#each faqs as faq, index}
           <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
@@ -183,7 +183,7 @@
     </div>
 
     <!-- Plan Comparison Section -->
-    <div class="max-w-6xl mx-auto mt-24 mb-16">
+    <div id="plan-comparison" class="max-w-6xl mx-auto mt-24 mb-16">
       <h2 class="text-3xl font-bold text-center mb-8">Plan Comparison</h2>
       <p class="text-xl text-center text-gray-600 mb-12">
         See what's included in each plan
