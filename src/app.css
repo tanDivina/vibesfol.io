@@ -20,7 +20,7 @@ body {
   }
 
   .btn-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+    @apply bg-slate-700 text-white hover:bg-slate-800 focus:ring-slate-500;
   }
 
   .btn-secondary {
@@ -28,7 +28,7 @@ body {
   }
 
   .btn-outline {
-    @apply border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-blue-500;
+    @apply border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus:ring-slate-500;
   }
 
   .btn-ghost {
@@ -56,7 +56,7 @@ body {
   }
 
   .input {
-    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500;
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-slate-500 focus:border-slate-500;
   }
 
   .input-error {
@@ -64,11 +64,11 @@ body {
   }
 
   .textarea {
-    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 resize-y;
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-slate-500 focus:border-slate-500 resize-y;
   }
 
   .select {
-    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500;
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-slate-500 focus:border-slate-500;
   }
 
   .badge {
