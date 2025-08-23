@@ -209,7 +209,7 @@
       >
         Powerful Features
       </div>
-      <div class="mt-4 text-xl font-bold">
+      <div class="text-xl font-bold">
         Everything you need to create a
         <span
           class="underline decoration-secondary decoration-[3px] md:decoration-[4px]"
