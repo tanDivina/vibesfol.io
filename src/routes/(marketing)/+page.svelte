@@ -122,7 +122,7 @@
   <div class="hero-content text-center py-16 px-4">
     <div class="max-w-4xl mx-auto">
       <div
-        class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 md:mb-8"
+        class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-yellow-100 to-blue-600 bg-clip-text text-transparent mb-4 md:mb-8"
       >
         MyDevfol.io
       </div>
