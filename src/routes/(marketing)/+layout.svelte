@@ -104,7 +104,7 @@
       class="footer-content max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8"
     >
       <nav>
-        <h6 class="footer-title">Product</h6>
+        <h6 class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide">Product</h6>
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/">Overview</a>
           <a class="link link-hover" href="/pricing">Pricing</a>
@@ -113,7 +113,7 @@
         </div>
       </nav>
       <nav>
-        <h6 class="footer-title">Resources</h6>
+        <h6 class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide">Resources</h6>
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/blog">Blog</a>
           <a
@@ -124,7 +124,7 @@
         </div>
       </nav>
       <nav>
-        <h6 class="footer-title">Comparisons</h6>
+        <h6 class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide">Comparisons</h6>
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/vs/indiepage">vs. IndiePage</a>
           <a class="link link-hover" href="/vs/portfolio">vs. Portfolio.io</a>
@@ -134,7 +134,7 @@
         </div>
       </nav>
       <nav>
-        <h6 class="footer-title">Company</h6>
+        <h6 class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide">Company</h6>
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/about">About</a>
           <a class="link link-hover" href="/contact_us">Contact Us</a>
