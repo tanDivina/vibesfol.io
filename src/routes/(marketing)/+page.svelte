@@ -3,7 +3,7 @@
     WebsiteName,
     WebsiteBaseUrl,
     WebsiteDescription,
-  } from "./../../config"
+  } from "$config"
   import { onMount } from "svelte"
 
   let heroElement: HTMLElement

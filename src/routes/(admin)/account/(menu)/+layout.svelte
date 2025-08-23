@@ -2,7 +2,7 @@
   import "../../../../app.css"
   import { writable } from "svelte/store"
   import { setContext } from "svelte"
-  import { WebsiteName } from "../../../../config"
+  import { WebsiteName } from "$config"
   interface Props {
     children?: import("svelte").Snippet
   }
