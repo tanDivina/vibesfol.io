@@ -503,11 +503,6 @@
 <div class="hero min-h-[60vh] mt-12">
   <div class="hero-content text-center pb-16 pt-4 px-4">
     <div class="max-w-lg">
-      <div
-        class="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-accent mt-4 pb-2"
-      >
-        See it in Action
-      </div>
       <div class="mt-6 text-lg md:text-xl">
         Check out our demo portfolio to see how your projects will look
       </div>
