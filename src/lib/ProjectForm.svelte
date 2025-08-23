@@ -259,7 +259,7 @@
                 : "Select technologies"}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 ml-2"
+                class="h-4 w-4 ml-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -272,7 +272,6 @@
                 />
               </svg>
             </div>
-            <ul
               tabindex="0"
               class="dropdown-content menu bg-base-100 rounded-box z-[1] w-full p-2 shadow"
             >
