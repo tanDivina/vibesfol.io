@@ -180,7 +180,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 
   <h2 class="text-3xl font-bold mb-6 {currentTheme.textClass}">Projects</h2>
