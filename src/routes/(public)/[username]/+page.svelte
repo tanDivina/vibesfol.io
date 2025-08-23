@@ -246,27 +246,7 @@
   {/if}
 
   <!-- Contact Form Section -->
-  <div class="mt-16">
-    <div class="{currentTheme.cardClass} rounded-lg p-8 shadow-xl">
-      <ContactForm
-        portfolioUserId={data.user.id}
-        portfolioUserName={data.user.full_name}
-        title="Get In Touch"
-        description="I'd love to hear from you! Send me a message and I'll get back to you as soon as possible."
-        on:success={() => {
-          trackEvent("contact_form_success", {
-            portfolio_user_id: data.user.id,
-          })
-        }}
-        on:error={() => {
-          trackEvent("contact_form_error", {
-            portfolio_user_id: data.user.id,
-          })
-        }}
-      />
-    </div>
-  </div>
-</div>
+  {#if data.user.contact_form_enabled}
     <div class="mt-16">
       <div class="{currentTheme.cardClass} rounded-lg p-8 shadow-xl">
         <ContactForm
