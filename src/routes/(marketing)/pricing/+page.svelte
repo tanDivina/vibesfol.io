@@ -183,13 +183,13 @@
     </div>
 
     <!-- Plan Comparison Section -->
-    <div id="plan-comparison" class="max-w-6xl mx-auto mt-24 mb-16">
+    <div id="plan-comparison" class="max-w-4xl mx-auto mt-24 mb-16">
       <h2 class="text-3xl font-bold text-center mb-8">Plan Comparison</h2>
       <p class="text-xl text-center text-gray-600 mb-12">
         See what's included in each plan
       </p>
 
-      <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+      <div class="bg-white rounded-xl shadow-xl overflow-hidden max-w-3xl mx-auto">
         <div class="overflow-x-auto">
           <table class="table w-full">
             <thead class="bg-gray-50">
