@@ -121,8 +121,7 @@
     
     <!-- FAQ Section -->
     <div class="max-w-4xl mx-auto mt-8 mb-16">
-      <div class="join join-vertical max-w-xl py-6 mx-auto">
-      <div class="space-y-4">
+      <div class="space-y-4 max-w-3xl mx-auto">
         <div class="collapse collapse-plus bg-base-200">
           <input type="radio" name="faq-accordion" checked="checked" />
           <div class="collapse-title text-xl font-medium">
@@ -190,7 +189,6 @@
           </div>
         </div>
       </div>
-    </div>
     </div>
 
     <!-- Plan Comparison Section -->
