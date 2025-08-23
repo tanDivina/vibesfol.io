@@ -249,11 +249,11 @@
         </div>
 
         <div class="form-control mb-6">
-          <label class="label">
+          <label class="label" for="tech-stack-dropdown">
             <span class="label-text">Tech Stack</span>
           </label>
           <div class="dropdown">
-            <div tabindex="0" role="button" class="btn m-1">
+            <div tabindex="0" role="button" class="btn m-1" id="tech-stack-dropdown">
               {selectedTechnologies.length > 0
                 ? `${selectedTechnologies.length} technologies selected`
                 : "Select technologies"}
@@ -271,17 +271,14 @@
                   d="M19 9l-7 7-7-7"
                 />
               </svg>
-            </div>
-              tabindex="0"
-              class="dropdown-content menu bg-base-100 rounded-box z-[1] w-full p-2 shadow"
-            >
+            <ul class="dropdown-content menu bg-base-100 rounded-box z-[1] w-full p-2 shadow">
               {#each technologies as tech (tech.id)}
                 <li>
                   <label class="label cursor-pointer">
                     <input
                       type="checkbox"
                       bind:group={selectedTechnologies}
-                      value={tech.id}
+                      value={tech}
                       class="checkbox checkbox-primary"
                     />
                     <span>{tech.name}</span>
