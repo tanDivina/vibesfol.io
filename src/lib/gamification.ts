@@ -81,8 +81,7 @@ export class GamificationService {
   // Calculate portfolio score
   async calculatePortfolioScore(userId: string): Promise<PortfolioScore> {
     try {
-      const completionPercentage =
-        await this.calculatePortfolioCompletion(userId)
+      const completionPercentage = await this.calculatePortfolioCompletion(userId)
 
       // Get project count and technologies
       const { data: projects } = await this.supabase
@@ -109,22 +108,16 @@ export class GamificationService {
         .select("achievements(points)")
         .eq("user_id", userId)
 
-      const achievementPoints =
-        userAchievements?.reduce((total, ua) => {
-          return total + (ua.achievements?.points || 0)
-        }, 0) || 0
+      const achievementPoints = userAchievements?.reduce((total, ua) => {
+        return total + (ua.achievements?.points || 0)
+      }, 0) || 0
 
       // Calculate scores
       const projectsScore = Math.min(projectCount * 10, 100)
       const profileScore = completionPercentage
       const socialScore = Math.min((testimonialCount || 0) * 5, 50)
       const engagementScore = Math.min(uniqueTechCount * 5, 50)
-      const totalScore =
-        projectsScore +
-        profileScore +
-        socialScore +
-        engagementScore +
-        achievementPoints
+      const totalScore = projectsScore + profileScore + socialScore + engagementScore + achievementPoints
 
       const scoreData = {
         user_id: userId,
@@ -206,10 +199,7 @@ export class GamificationService {
   }
 
   // Check a single achievement
-  private async checkSingleAchievement(
-    userId: string,
-    achievement: Achievement,
-  ): Promise<boolean> {
+  private async checkSingleAchievement(userId: string, achievement: Achievement): Promise<boolean> {
     try {
       switch (achievement.requirement_type) {
         case "count":
@@ -227,10 +217,7 @@ export class GamificationService {
     }
   }
 
-  private async checkCountAchievement(
-    userId: string,
-    achievement: Achievement,
-  ): Promise<boolean> {
+  private async checkCountAchievement(userId: string, achievement: Achievement): Promise<boolean> {
     const requiredCount = achievement.requirement_value || 0
     let actualCount = 0
 
@@ -300,10 +287,7 @@ export class GamificationService {
     return actualCount >= requiredCount
   }
 
-  private async checkBooleanAchievement(
-    userId: string,
-    achievement: Achievement,
-  ): Promise<boolean> {
+  private async checkBooleanAchievement(userId: string, achievement: Achievement): Promise<boolean> {
     switch (achievement.name) {
       case "Welcome Aboard":
         const { data: profile } = await this.supabase
@@ -330,10 +314,7 @@ export class GamificationService {
     }
   }
 
-  private async checkStreakAchievement(
-    userId: string,
-    achievement: Achievement,
-  ): Promise<boolean> {
+  private async checkStreakAchievement(userId: string, achievement: Achievement): Promise<boolean> {
     const requiredStreak = achievement.requirement_value || 0
 
     const { data: streak } = await this.supabase
@@ -374,10 +355,9 @@ export class GamificationService {
         .eq("user_id", userId)
 
       // Calculate total points
-      const totalPoints =
-        userAchievements?.reduce((total, ua) => {
-          return total + (ua.achievements?.points || 0)
-        }, 0) || 0
+      const totalPoints = userAchievements?.reduce((total, ua) => {
+        return total + (ua.achievements?.points || 0)
+      }, 0) || 0
 
       // Get user's rank
       const { data: rankData } = await this.supabase
@@ -457,12 +437,10 @@ export class GamificationService {
     try {
       const { data } = await this.supabase
         .from("portfolio_scores")
-        .select(
-          `
+        .select(`
           *,
           profiles(full_name, username, avatar_url)
-        `,
-        )
+        `)
         .order("total_score", { ascending: false })
         .limit(limit)
 

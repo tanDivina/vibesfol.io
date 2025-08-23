@@ -82,18 +82,17 @@ export const supabase: Handle = async ({ event, resolve }) => {
   })
 }
 
-import { gamificationService } from "$lib/gamification"
-
-// Not called for prerendered marketing pages so generally okay to call on ever server request
+// Not called for prerendered marketing pages so generally okay to call on ever server request  
 // Next-page CSR will mean relatively minimal calls to this hook
 const authGuard: Handle = async ({ event, resolve }) => {
   const { session, user } = await event.locals.safeGetSession()
   event.locals.session = session
   event.locals.user = user
 
-  if (user) {
-    await gamificationService.updateStreak(user.id, "login")
-  }
+  // Temporarily disabled gamification to fix SSR issues
+  // if (user) {
+  //   await gamificationService.updateStreak(user.id, "login")
+  // }
 
   return resolve(event)
 }
