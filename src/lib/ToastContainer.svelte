@@ -35,6 +35,7 @@
       <div class="flex-shrink-0">
         <button
           on:click={() => toasts.remove(toast.id)}
+          aria-label="Close notification"
           class="btn btn-sm btn-ghost"
         >
           <svg

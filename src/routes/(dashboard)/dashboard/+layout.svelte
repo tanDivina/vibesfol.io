@@ -106,7 +106,7 @@
     
     <div class="navbar-end">
       <div class="dropdown dropdown-end">
-        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">
             {#if user?.user_metadata?.avatar_url}
               <img src={user.user_metadata.avatar_url} alt="Avatar" />
@@ -118,8 +118,8 @@
               </div>
             {/if}
           </div>
-        </label>
-        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+        </div>
+        <ul role="menu" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
           <li><a href="/dashboard/profile">Profile Settings</a></li>
           <li><a href="/account">Account</a></li>
           <li><button on:click={signOut}>Logout</button></li>
