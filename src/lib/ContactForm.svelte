@@ -308,36 +308,4 @@
     @apply w-full;
   }
 
-  .label {
-    @apply block mb-1;
-  }
-
-  .label-text {
-    @apply text-sm font-medium text-gray-700;
-  }
-
-  .input,
-  .textarea {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-  }
-
-  .input:disabled,
-  .textarea:disabled {
-    @apply bg-gray-100 cursor-not-allowed;
-  }
-
-  .loading {
-    @apply inline-block animate-spin;
-  }
-
-  .loading-spinner {
-    @apply border-2 border-current border-t-transparent rounded-full;
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .loading-sm {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
 </style>
