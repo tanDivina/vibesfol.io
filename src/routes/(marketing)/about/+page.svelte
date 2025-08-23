@@ -39,6 +39,9 @@
     </p>
   </div>
 
+  <!-- Spacer -->
+  <div class="py-8"></div>
+
   <!-- Mission Section -->
   <div class="grid md:grid-cols-2 gap-12 mb-16">
     <div>
@@ -81,6 +84,9 @@
     </div>
   </div>
 
+  <!-- Spacer -->
+  <div class="py-8"></div>
+
   <!-- Story Section -->
   <div class="bg-white rounded-lg shadow-xl p-8 mb-16">
     <h2 class="text-3xl font-bold mb-6 text-center">Our Story</h2>
@@ -99,6 +105,9 @@
       </p>
     </div>
   </div>
+
+  <!-- Spacer -->
+  <div class="py-8"></div>
 
   <!-- Values Section -->
   <div class="grid md:grid-cols-3 gap-8 mb-16">
@@ -137,6 +146,9 @@
     </div>
   </div>
 
+  <!-- Spacer -->
+  <div class="py-8"></div>
+
   <!-- Team Section -->
   <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-8 mb-16">
     <h2 class="text-3xl font-bold mb-8 text-center">Built by Developers</h2>
@@ -151,6 +163,9 @@
       </p>
     </div>
   </div>
+
+  <!-- Spacer -->
+  <div class="py-8"></div>
 
   <!-- Call to Action -->
   <div class="text-center">
