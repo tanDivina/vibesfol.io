@@ -244,6 +244,7 @@
             <p class="text-sm">
               {feature.description}
             </p>
+            <div></div>
             {#if feature.link}
 
               <a
