@@ -6,12 +6,24 @@ import type { PageServerLoad } from "./$types"
 export const load: PageServerLoad = async ({
   params,
   locals: { safeGetSession },
+  url,
 }) => {
   const { session } = await safeGetSession()
   const { username } = params
 
+  // If we're at the root path, redirect to marketing page
+  if (url.pathname === "/" || url.pathname === "") {
+    throw redirect(302, "/")
+  }
+
   // Handle empty or invalid usernames
   if (!username || username.trim() === "") {
+    throw redirect(302, "/")
+  }
+
+  // Prevent common route conflicts
+  const reservedRoutes = ["api", "auth", "dashboard", "admin", "blog", "about", "contact", "pricing", "login", "signup"]
+  if (reservedRoutes.includes(username.toLowerCase())) {
     throw redirect(302, "/")
   }
 
