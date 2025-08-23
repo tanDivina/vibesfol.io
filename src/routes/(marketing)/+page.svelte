@@ -4,6 +4,29 @@
     WebsiteBaseUrl,
     WebsiteDescription,
   } from "./../../config"
+  import { onMount } from "svelte"
+
+  let heroElement: HTMLElement
+  let mouseX = 0
+  let mouseY = 0
+
+  onMount(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroElement) {
+        const rect = heroElement.getBoundingClientRect()
+        mouseX = ((e.clientX - rect.left) / rect.width) * 100
+        mouseY = ((e.clientY - rect.top) / rect.height) * 100
+        
+        heroElement.style.setProperty('--mouse-x', `${mouseX}%`)
+        heroElement.style.setProperty('--mouse-y', `${mouseY}%`)
+      }
+    }
+
+    if (heroElement) {
+      heroElement.addEventListener('mousemove', handleMouseMove)
+      return () => heroElement.removeEventListener('mousemove', handleMouseMove)
+    }
+  })
 
   const ldJson = {
     "@context": "https://schema.org",
@@ -118,7 +141,11 @@
   {@html jsonldScript}
 </svelte:head>
 
-<div class="hero min-h-[60vh] bg-gradient-to-r from-yellow-100 via-blue-200 to-blue-600 bg-[length:200%_200%] animate-gradient">
+<div 
+  bind:this={heroElement}
+  class="hero min-h-[60vh] bg-gradient-to-r from-yellow-100 via-blue-200 to-blue-600 bg-[length:300%_300%] animate-gradient-slow interactive-gradient"
+  style="--mouse-x: 50%; --mouse-y: 50%"
+>
   <div class="hero-content text-center py-16 px-4">
     <div class="max-w-4xl mx-auto">
       <div
