@@ -118,7 +118,7 @@
   {@html jsonldScript}
 </svelte:head>
 
-<div class="hero min-h-[60vh]">
+<div class="hero min-h-[60vh] bg-gradient-to-r from-yellow-100 to-blue-600">
   <div class="hero-content text-center py-16 px-4">
     <div class="max-w-4xl mx-auto">
       <div
