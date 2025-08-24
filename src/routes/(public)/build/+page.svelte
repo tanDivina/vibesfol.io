@@ -187,8 +187,14 @@
       return screenshotUrl
     } catch (err) {
       console.error("Error generating screenshot:", err)
-      screenshotError = err instanceof Error ? err.message : "Failed to generate screenshot"
-      throw err
+      let errorMessage = err instanceof Error ? err.message : "Failed to generate screenshot"
+      
+      // Provide more helpful error message if it's the generic fallback
+      if (errorMessage === "Failed to generate screenshot. Please try again.") {
+        errorMessage = "Failed to generate screenshot. Please check that the URL is valid and accessible, then try again. If the issue persists, the website might be blocking automated screenshots or temporarily unavailable."
+      }
+      
+      screenshotError = errorMessage
     } finally {
       screenshotLoading = false
     }
