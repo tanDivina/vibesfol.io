@@ -441,7 +441,7 @@
               </button>
             </div>
 
-                </div>
+            {#if guestProjects.length === 0}
               <div class="text-center py-8">
                 <p class="text-gray-600 mb-4">No projects added yet.</p>
                 <button class="btn btn-primary" on:click={() => openProjectForm()}>
@@ -472,6 +472,7 @@
                   </div>
                 {/each}
               </div>
+            {/if}
             {/if}
           </div>
         </div>
