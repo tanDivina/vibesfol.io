@@ -195,19 +195,19 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {#each data.projects as project (project.id)}
         <div class="card {currentTheme.cardClass} shadow-xl">
-          <figure
-            class="h-48 bg-gray-200"
-            onclick={() => handleProjectClick(project.id, "view_screenshot")}
-            role="button"
-            tabindex="0"
-            aria-label="View screenshot of {project.title}"
-          >
+          <div class="h-48 bg-gray-200 relative">
             {#if project.screenshot_url}
-              <img
-                src={project.screenshot_url}
-                alt={project.title}
-                class="object-cover w-full h-full"
-              />
+              <button
+                class="w-full h-full p-0 border-0 bg-transparent cursor-pointer"
+                onclick={() => handleProjectClick(project.id, "view_screenshot")}
+                aria-label="View screenshot of {project.title}"
+              >
+                <img
+                  src={project.screenshot_url}
+                  alt={project.title}
+                  class="object-cover w-full h-full"
+                />
+              </button>
             {:else}
               <div
                 class="flex items-center justify-center w-full h-full text-gray-500"
@@ -215,7 +215,7 @@
                 <span>No Screenshot</span>
               </div>
             {/if}
-          </figure>
+          </div>
           <div class="card-body">
             <h2 class="card-title">{project.title}</h2>
             <p class="text-gray-600">{project.description}</p>
