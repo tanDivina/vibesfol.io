@@ -391,7 +391,7 @@
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {#each themes as theme}
-                  <label for="theme-{theme.id}" class="cursor-pointer">
+                 <div class="cursor-pointer">
                     <input
                       type="radio"
                       bind:group={selectedTheme}
@@ -400,6 +400,7 @@
                       class="radio radio-primary mr-3"
                       id="theme-{theme.id}"
                     />
+                   <label for="theme-{theme.id}" class="cursor-pointer">
                       <div
                         class="card bg-base-100 border-2 {selectedTheme === theme.id
                           ? 'border-primary'
@@ -415,8 +416,8 @@
                           <p class="text-sm text-gray-600">{theme.description}</p>
                         </div>
                       </div>
-                  </label>
-                {/each}
+                   </label>
+                 </div>
               </div>
             </div>
           </div>
