@@ -296,7 +296,7 @@
                   pattern="[a-zA-Z0-9_-]+"
                   title="Only letters, numbers, underscores, and hyphens allowed"
                 />
-                <div class="label">
+                <label class="label" for="username">
                   <span class="label-text-alt">Portfolio URL: /{guestProfile.username || "username"}</span>
                 </label>
               </div>
@@ -395,9 +395,9 @@
             <div class="divider">Portfolio Theme</div>
 
             <div class="form-control mb-6">
-              <label class="label">
+              <div class="label">
                 <span class="label-text font-medium">Choose Your Portfolio Style</span>
-              </label>
+              </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {#each themes as theme}
                   <div class="cursor-pointer justify-start">
@@ -622,11 +622,12 @@
 
       <form on:submit={handleProjectSubmit}>
         <div class="form-control mb-4">
-          <label class="label">
+          <label class="label" for="project_title">
             <span class="label-text">Title *</span>
           </label>
           <input
             type="text"
+            id="project_title"
             name="title"
             value={currentProject?.title || ""}
             class="input input-bordered w-full"
@@ -636,12 +637,13 @@
         </div>
 
         <div class="form-control mb-4">
-          <label class="label">
+          <label class="label" for="project_url">
             <span class="label-text">URL</span>
           </label>
           <div class="flex gap-2">
             <input
               type="url"
+              id="project_url"
               name="url"
               value={currentProject?.url || ""}
               class="input input-bordered w-full"
@@ -677,11 +679,12 @@
         </div>
 
         <div class="form-control mb-4">
-          <label class="label">
+          <label class="label" for="project_screenshot_url">
             <span class="label-text">Screenshot URL</span>
           </label>
           <input
             type="url"
+            id="project_screenshot_url"
             name="screenshot_url"
             value={currentProject?.screenshot_url || ""}
             class="input input-bordered w-full"
@@ -693,10 +696,11 @@
         </div>
 
         <div class="form-control mb-4">
-          <label class="label">
+          <label class="label" for="project_description">
             <span class="label-text">Description</span>
           </label>
           <textarea
+            id="project_description"
             name="description"
             value={currentProject?.description || ""}
             class="textarea textarea-bordered w-full"
@@ -706,10 +710,10 @@
         </div>
 
         <div class="form-control mb-4">
-          <label class="label">
+          <label class="label" for="project_status">
             <span class="label-text">Status</span>
           </label>
-          <select name="status" value={currentProject?.status || "LIVE"} class="select select-bordered w-full">
+          <select id="project_status" name="status" value={currentProject?.status || "LIVE"} class="select select-bordered w-full">
             <option value="LIVE">Live</option>
             <option value="IN PROGRESS">In Progress</option>
             <option value="DEMO">Demo</option>
@@ -717,17 +721,18 @@
         </div>
 
         <div class="form-control mb-6">
-          <div class="label">
+          <fieldset>
+            <legend class="label">
             <span class="label-text">Technologies</span>
-          </div>
+            </legend>
           <div class="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border border-base-300 rounded p-2">
             {#each availableTechnologies as tech}
-              <label class="cursor-pointer flex items-center" for="tech-{tech}">
+              <label class="cursor-pointer flex items-center" for="tech-{tech.replace(/[^a-zA-Z0-9]/g, '_')}">
                 <input
                   type="checkbox"
                   name="technologies"
                   value={tech}
-                  id="tech-{tech}"
+                  id="tech-{tech.replace(/[^a-zA-Z0-9]/g, '_')}"
                   checked={currentProject?.technologies?.includes(tech) || false}
                   class="checkbox checkbox-primary checkbox-sm mr-2"
                 />
@@ -735,6 +740,7 @@
               </label>
             {/each}
           </div>
+          </fieldset>
         </div>
 
         <div class="flex justify-end gap-2">
