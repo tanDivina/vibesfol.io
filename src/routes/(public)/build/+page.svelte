@@ -521,7 +521,6 @@
                   </a>
                 </div>
               {/if}
-
               <div class="flex gap-3">
                 {#if guestProfile.github_url}
                   <div class="w-6 h-6 bg-gray-800 rounded"></div>
