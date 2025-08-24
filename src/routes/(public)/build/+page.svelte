@@ -150,6 +150,16 @@
   function openProjectForm(project: any = null) {
     currentProject = project
     showProjectForm = true
+    
+    // Reset form state when opening
+    if (project) {
+      url = project.url || ""
+      screenshotUrl = project.screenshot_url || ""
+    } else {
+      url = ""
+      screenshotUrl = ""
+    }
+    error = null
   }
 
   function closeProjectForm() {
@@ -165,8 +175,8 @@
       id: currentProject?.id || Date.now().toString(),
       title: formData.get("title") as string,
       description: formData.get("description") as string,
-      url: formData.get("url") as string,
-      screenshot_url: formData.get("screenshot_url") as string,
+      url: url || (formData.get("url") as string),
+      screenshot_url: screenshotUrl || (formData.get("screenshot_url") as string),
       status: formData.get("status") as string,
       technologies: Array.from(formData.getAll("technologies")) as string[]
     }
@@ -181,6 +191,11 @@
 
     saveToLocalStorage()
     closeProjectForm()
+    
+    // Reset form state
+    url = ""
+    screenshotUrl = ""
+    error = null
   }
 
   function deleteProject(projectId: string) {
@@ -649,12 +664,55 @@
               type="url"
               id="project_url"
               name="url"
+              bind:value={url}
               value={currentProject?.url || ""}
               class="input input-bordered w-full"
               placeholder="https://example.com"
             />
+            <button
+              type="button"
+              class="btn btn-secondary"
+              on:click={generateScreenshot}
+              disabled={!url.trim() || screenshotLoading}
+            >
+              {#if screenshotLoading}
+                <span class="loading loading-spinner loading-sm"></span>
+                Generating...
+              {:else}
+                📸 Screenshot
+              {/if}
+            </button>
+          </div>
+            />
           </div>
         </div>
+
+        <!-- Screenshot Preview -->
+        {#if screenshotUrl}
+          <div class="form-control mb-4">
+            <div class="label">
+              <span class="label-text">Screenshot Preview</span>
+            </div>
+            <div class="border border-base-300 rounded-lg p-2">
+              <img
+                src={screenshotUrl}
+                alt="Project screenshot"
+                class="w-full h-32 object-cover rounded"
+                loading="lazy"
+              />
+              <div class="flex justify-between items-center mt-2">
+                <span class="text-sm text-base-content/70">Screenshot generated successfully</span>
+                <button
+                  type="button"
+                  class="btn btn-xs btn-ghost"
+                  on:click={() => (screenshotUrl = "")}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        {/if}
 
         <div class="form-control mb-4">
           <label class="label" for="project_screenshot_url">
@@ -669,7 +727,7 @@
             placeholder="https://example.com/screenshot.png"
           />
           <div class="text-info text-sm mt-1">
-            Sign up to use automated screenshot generation
+            Or use the screenshot button above to generate automatically
           </div>
         </div>
 
