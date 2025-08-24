@@ -296,7 +296,7 @@
                   pattern="[a-zA-Z0-9_-]+"
                   title="Only letters, numbers, underscores, and hyphens allowed"
                 />
-                <label class="label">
+                <div class="label">
                   <span class="label-text-alt">Portfolio URL: /{guestProfile.username || "username"}</span>
                 </label>
               </div>
@@ -441,7 +441,7 @@
               </button>
             </div>
 
-            {#if guestProjects.length === 0}
+                </div>
               <div class="text-center py-8">
                 <p class="text-gray-600 mb-4">No projects added yet.</p>
                 <button class="btn btn-primary" on:click={() => openProjectForm()}>
@@ -717,12 +717,12 @@
         </div>
 
         <div class="form-control mb-6">
-          <label class="label">
+          <div class="label">
             <span class="label-text">Technologies</span>
-          </label>
+          </div>
           <div class="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border border-base-300 rounded p-2">
             {#each availableTechnologies as tech}
-              <label class="label cursor-pointer justify-start" for="tech-{tech}">
+              <label class="cursor-pointer flex items-center" for="tech-{tech}">
                 <input
                   type="checkbox"
                   name="technologies"
@@ -731,7 +731,7 @@
                   checked={currentProject?.technologies?.includes(tech) || false}
                   class="checkbox checkbox-primary checkbox-sm mr-2"
                 />
-                <span class="label-text text-sm">{tech}</span>
+                <span class="text-sm">{tech}</span>
               </label>
             {/each}
           </div>
