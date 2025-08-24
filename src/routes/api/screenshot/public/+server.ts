@@ -27,36 +27,34 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     try {
-      // Create the screenshot URL with ScreenshotOne API
-      const screenshotUrl = new URL("https://api.screenshotone.com/take")
-      
-      // Add parameters in alphabetical order for consistent signature generation
+      // Create parameters object (without signature)
       const params = {
         access_key: env.SCREENSHOTONE_ACCESS_KEY,
-        block_ads: "true",
-        block_cookie_banners: "true", 
-        block_trackers: "true",
-        cache: "true",
-        cache_ttl: "2592000",
-        delay: "3",
+        url: url,
+        viewport_width: "1200",
+        viewport_height: "800",
         device_scale_factor: "1",
         format: "png",
-        full_page: "false",
         image_quality: "80",
-        url: url,
-        viewport_height: "800",
-        viewport_width: "1200"
+        block_ads: "true",
+        block_cookie_banners: "true",
+        block_trackers: "true",
+        delay: "3",
+        full_page: "false",
+        cache: "true",
+        cache_ttl: "2592000"
       }
 
-      // Sort parameters alphabetically and create query string
-      const sortedKeys = Object.keys(params).sort()
-      const queryParts: string[] = []
+      // Create query string for signature generation
+      const queryParams = new URLSearchParams()
       
+      // Add parameters in alphabetical order (required by ScreenshotOne)
+      const sortedKeys = Object.keys(params).sort()
       for (const key of sortedKeys) {
-        queryParts.push(`${key}=${encodeURIComponent(params[key as keyof typeof params])}`)
+        queryParams.append(key, params[key as keyof typeof params])
       }
       
-      const queryString = queryParts.join('&')
+      const queryString = queryParams.toString()
       
       // Generate HMAC signature
       const crypto = await import("node:crypto")
@@ -65,10 +63,13 @@ export const POST: RequestHandler = async ({ request }) => {
         .update(queryString)
         .digest("hex")
       
-      // Add signature to the URL
+      // Create final URL with signature
+      const screenshotUrl = new URL("https://api.screenshotone.com/take")
       screenshotUrl.search = `${queryString}&signature=${signature}`
 
       console.log("Generated ScreenshotOne URL:", screenshotUrl.toString())
+      console.log("Query string for signature:", queryString)
+      console.log("Generated signature:", signature)
 
       // Test the screenshot URL
       const testResponse = await fetch(screenshotUrl.toString(), { 
@@ -81,7 +82,7 @@ export const POST: RequestHandler = async ({ request }) => {
       if (!testResponse.ok) {
         console.error(`ScreenshotOne API error: ${testResponse.status} ${testResponse.statusText}`)
         
-        // Get error details
+        // Get detailed error information
         const errorResponse = await fetch(screenshotUrl.toString(), {
           method: "GET",
           headers: {
@@ -109,7 +110,7 @@ export const POST: RequestHandler = async ({ request }) => {
       const placeholderUrl = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
       return json({ 
         url: placeholderUrl,
-        message: "Screenshot service temporarily unavailable, using placeholder. Please check your ScreenshotOne credentials."
+        message: "Screenshot service temporarily unavailable, using placeholder. Please verify your ScreenshotOne credentials are correct."
       })
     }
     

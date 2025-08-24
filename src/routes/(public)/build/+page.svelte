@@ -400,7 +400,7 @@
                       class="radio radio-primary mr-3"
                       id="theme-{theme.id}"
                     />
-                    <label for="theme-{theme.id}" class="cursor-pointer">
+                    <label for="theme-{theme.id}" class="cursor-pointer block">
                       <div
                         class="card bg-base-100 border-2 {selectedTheme === theme.id
                           ? 'border-primary'
