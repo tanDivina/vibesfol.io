@@ -157,11 +157,12 @@
 
       <form on:submit|preventDefault={handleSubmit}>
         <div class="form-control mb-4">
-          <label class="label">
+          <div class="label">
             <span class="label-text">Title *</span>
-          </label>
+          </div>
           <input
             type="text"
+            id="project-title"
             bind:value={title}
             class="input input-bordered w-full"
             placeholder="Project Title"
@@ -170,12 +171,13 @@
         </div>
 
         <div class="form-control mb-4">
-          <label class="label">
+          <div class="label">
             <span class="label-text">URL</span>
-          </label>
+          </div>
           <div class="flex gap-2">
             <input
               type="url"
+              id="project-url"
               bind:value={url}
               class="input input-bordered w-full"
               placeholder="https://example.com"
@@ -199,9 +201,9 @@
         <!-- Screenshot Preview -->
         {#if screenshotUrl}
           <div class="form-control mb-4">
-            <label class="label">
+            <div class="label">
               <span class="label-text">Screenshot Preview</span>
-            </label>
+            </div>
             <div class="border border-base-300 rounded-lg p-2">
               <img
                 src={screenshotUrl}
@@ -226,10 +228,11 @@
         {/if}
 
         <div class="form-control mb-4">
-          <label class="label">
+          <div class="label">
             <span class="label-text">Description</span>
-          </label>
+          </div>
           <textarea
+            id="project-description"
             bind:value={description}
             class="textarea textarea-bordered w-full"
             placeholder="Project Description"
@@ -238,9 +241,9 @@
         </div>
 
         <div class="form-control mb-4">
-          <label class="label">
+          <div class="label">
             <span class="label-text">Status</span>
-          </label>
+          </div>
           <select bind:value={status} class="select select-bordered w-full">
             <option value="LIVE">Live</option>
             <option value="IN PROGRESS">In Progress</option>
@@ -249,9 +252,9 @@
         </div>
 
         <div class="form-control mb-6">
-          <label class="label" for="tech-stack-dropdown">
+          <div class="label">
             <span class="label-text">Tech Stack</span>
-          </label>
+          </div>
           <div class="dropdown">
             <div tabindex="0" role="button" class="btn m-1" id="tech-stack-dropdown">
               {selectedTechnologies.length > 0
