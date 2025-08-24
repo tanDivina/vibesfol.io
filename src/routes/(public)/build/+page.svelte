@@ -665,7 +665,6 @@
               id="project_url"
               name="url"
               bind:value={url}
-              value={currentProject?.url || ""}
               class="input input-bordered w-full"
               placeholder="https://example.com"
             />
