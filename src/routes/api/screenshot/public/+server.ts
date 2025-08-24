@@ -27,38 +27,50 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     try {
-      // Create the screenshot URL with proper parameters
+      // Create the screenshot URL with ScreenshotOne API
       const screenshotUrl = new URL("https://api.screenshotone.com/take")
       
-      // Add required parameters in the correct order for signature generation
-      const params = new URLSearchParams()
-      params.set("access_key", env.SCREENSHOTONE_ACCESS_KEY)
-      params.set("url", url)
-      params.set("viewport_width", "1200")
-      params.set("viewport_height", "800")
-      params.set("device_scale_factor", "1")
-      params.set("format", "png")
-      params.set("image_quality", "80")
-      params.set("block_ads", "true")
-      params.set("block_cookie_banners", "true")
-      params.set("block_trackers", "true")
-      params.set("delay", "3")
-      params.set("full_page", "false")
-      params.set("cache", "true")
-      params.set("cache_ttl", "2592000") // 30 days
+      // Add parameters in alphabetical order for consistent signature generation
+      const params = {
+        access_key: env.SCREENSHOTONE_ACCESS_KEY,
+        block_ads: "true",
+        block_cookie_banners: "true", 
+        block_trackers: "true",
+        cache: "true",
+        cache_ttl: "2592000",
+        delay: "3",
+        device_scale_factor: "1",
+        format: "png",
+        full_page: "false",
+        image_quality: "80",
+        url: url,
+        viewport_height: "800",
+        viewport_width: "1200"
+      }
 
-      // Generate signature for authentication
+      // Sort parameters alphabetically and create query string
+      const sortedKeys = Object.keys(params).sort()
+      const queryParts: string[] = []
+      
+      for (const key of sortedKeys) {
+        queryParts.push(`${key}=${encodeURIComponent(params[key as keyof typeof params])}`)
+      }
+      
+      const queryString = queryParts.join('&')
+      
+      // Generate HMAC signature
       const crypto = await import("node:crypto")
-      const query = params.toString()
       const signature = crypto
         .createHmac("sha256", env.SCREENSHOTONE_SECRET_KEY)
-        .update(query)
+        .update(queryString)
         .digest("hex")
       
-      params.set("signature", signature)
-      screenshotUrl.search = params.toString()
+      // Add signature to the URL
+      screenshotUrl.search = `${queryString}&signature=${signature}`
 
-      // Test the screenshot URL by making a HEAD request first
+      console.log("Generated ScreenshotOne URL:", screenshotUrl.toString())
+
+      // Test the screenshot URL
       const testResponse = await fetch(screenshotUrl.toString(), { 
         method: "HEAD",
         headers: {
@@ -69,7 +81,7 @@ export const POST: RequestHandler = async ({ request }) => {
       if (!testResponse.ok) {
         console.error(`ScreenshotOne API error: ${testResponse.status} ${testResponse.statusText}`)
         
-        // Try to get more details about the error
+        // Get error details
         const errorResponse = await fetch(screenshotUrl.toString(), {
           method: "GET",
           headers: {
