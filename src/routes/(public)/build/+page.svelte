@@ -34,6 +34,10 @@
   let showProjectForm = false
   let currentProject: any = null
   let previewUrl = ""
+  let screenshotUrl = ""
+  let url = ""
+  let screenshotLoading = false
+  let error: string | null = null
 
   // Available themes
   const themes = [
