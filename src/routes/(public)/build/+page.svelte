@@ -154,15 +154,44 @@
   }
 
   function generateDemoScreenshot(url: string) {
-    // For demo purposes, return a placeholder image
-    const demoImages = [
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop"
-    ]
-    return demoImages[Math.floor(Math.random() * demoImages.length)]
+    // This function is no longer used - real screenshot generation is handled in the project form
+    return ""
+  }
+
+  let screenshotLoading = false
+  let screenshotError = ""
+
+  async function generateScreenshot(url: string): Promise<string> {
+    if (!url.trim()) {
+      throw new Error("URL is required to generate a screenshot")
+    }
+
+    screenshotLoading = true
+    screenshotError = ""
+
+    try {
+      const response = await fetch("/api/screenshot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: url.trim() }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.message || "Failed to generate screenshot")
+      }
+
+      const { url: screenshotUrl } = await response.json()
+      return screenshotUrl
+    } catch (err) {
+      console.error("Error generating screenshot:", err)
+      screenshotError = err instanceof Error ? err.message : "Failed to generate screenshot"
+      throw err
+    } finally {
+      screenshotLoading = false
+    }
   }
 </script>
 
@@ -605,15 +634,28 @@
             <button
               type="button"
               class="btn btn-secondary"
-              on:click={(e) => {
-                const urlInput = e.target.closest('.flex').querySelector('input[name="url"]')
-                const screenshotInput = e.target.closest('form').querySelector('input[name="screenshot_url"]')
+              on:click={async (e) => {
+                const form = e.target.closest('form')
+                const urlInput = form.querySelector('input[name="url"]')
+                const screenshotInput = form.querySelector('input[name="screenshot_url"]')
+                
                 if (urlInput.value) {
-                  screenshotInput.value = generateDemoScreenshot(urlInput.value)
+                  try {
+                    const screenshotUrl = await generateScreenshot(urlInput.value)
+                    screenshotInput.value = screenshotUrl
+                  } catch (error) {
+                    alert(`Failed to generate screenshot: ${error.message}`)
+                  }
                 }
               }}
+              disabled={screenshotLoading}
             >
-              📸 Demo
+              {#if screenshotLoading}
+                <span class="loading loading-spinner loading-sm"></span>
+                Generating...
+              {:else}
+                📸 Generate
+              {/if}
             </button>
           </div>
         </div>
@@ -629,6 +671,9 @@
             class="input input-bordered w-full"
             placeholder="https://example.com/screenshot.png"
           />
+          {#if screenshotError}
+            <div class="text-error text-sm mt-1">{screenshotError}</div>
+          {/if}
         </div>
 
         <div class="form-control mb-4">
