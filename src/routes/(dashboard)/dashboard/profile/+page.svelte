@@ -1,11 +1,13 @@
 <script lang="ts">
   import { enhance } from "$app/forms"
+  import { supabase } from "$lib/supabaseClient"
   import type { PageData, ActionData } from "./$types"
 
   export let data: PageData
   export let form: ActionData
 
   let loading = false
+  let uploadingAvatar = false
   let previewUrl = ""
   let selectedTheme = data.profile?.portfolio_theme || "modern"
 
@@ -40,6 +42,62 @@
   // Generate preview URL when username changes
   $: if (data.profile?.username) {
     previewUrl = `${window.location.origin}/${data.profile.username}`
+  }
+
+  async function uploadAvatar(event: Event) {
+    const target = event.target as HTMLInputElement
+    const file = target.files?.[0]
+    
+    if (!file) return
+    
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file')
+      return
+    }
+    
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File size must be less than 5MB')
+      return
+    }
+    
+    uploadingAvatar = true
+    
+    try {
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${data.session?.user.id}-${Math.random()}.${fileExt}`
+      
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, file, { upsert: true })
+      
+      if (uploadError) throw uploadError
+      
+      // Get the public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName)
+      
+      // Update the profile with the new avatar URL
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ avatar_url: publicUrl })
+        .eq('id', data.session?.user.id)
+      
+      if (updateError) throw updateError
+      
+      // Update local data
+      if (data.profile) {
+        data.profile.avatar_url = publicUrl
+      }
+      
+    } catch (error) {
+      console.error('Error uploading avatar:', error)
+      alert('Failed to upload avatar. Please try again.')
+    } finally {
+      uploadingAvatar = false
+    }
   }
 
   function handleSubmit() {
@@ -105,6 +163,40 @@
           <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
               <h2 class="card-title mb-4">Portfolio Information</h2>
+
+              <!-- Avatar Upload -->
+              <div class="form-control mb-6">
+                <label class="label">
+                  <span class="label-text font-medium">Profile Picture</span>
+                </label>
+                <div class="flex items-center gap-4">
+                  <div class="avatar">
+                    <div class="w-20 h-20 rounded-full">
+                      {#if data.profile?.avatar_url}
+                        <img src={data.profile.avatar_url} alt="Profile" class="w-full h-full object-cover rounded-full" />
+                      {:else}
+                        <div class="w-full h-full bg-gray-300 rounded-full flex items-center justify-center">
+                          <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                          </svg>
+                        </div>
+                      {/if}
+                    </div>
+                  </div>
+                  <div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      on:change={uploadAvatar}
+                      class="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                      disabled={uploadingAvatar}
+                    />
+                    <div class="text-xs text-gray-500 mt-1">
+                      Max file size: 5MB. Supported formats: JPG, PNG, GIF
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <!-- Basic Information -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -419,21 +511,27 @@
               >
                 <div class="flex items-center gap-4 mb-4">
                   <div
-                    class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center"
+                    class="w-16 h-16 rounded-full flex items-center justify-center overflow-hidden"
                   >
-                    <svg
-                      class="w-8 h-8 text-gray-500"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      ></path>
-                    </svg>
+                    {#if data.profile?.avatar_url}
+                      <img src={data.profile.avatar_url} alt="Profile" class="w-full h-full object-cover" />
+                    {:else}
+                      <div class="w-full h-full bg-gray-300 flex items-center justify-center">
+                        <svg
+                          class="w-8 h-8 text-gray-500"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          ></path>
+                        </svg>
+                      </div>
+                    {/if}
                   </div>
                   <div>
                     <h3
