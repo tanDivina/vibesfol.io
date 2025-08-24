@@ -1,5 +1,4 @@
 import { error, type RequestHandler } from "@sveltejs/kit"
-import { env } from "$env/dynamic/private"
 
 export const POST: RequestHandler = async ({
   request,
@@ -24,76 +23,21 @@ export const POST: RequestHandler = async ({
       return error(400, "Invalid URL format")
     }
 
-    // Check if ScreenshotOne credentials are available
-    if (!env.SCREENSHOTONE_ACCESS_KEY) {
-      console.warn("ScreenshotOne access key not configured, using placeholder")
-      const placeholderUrl = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
-      return new Response(JSON.stringify({ 
-        url: placeholderUrl,
-        message: "Demo mode: Configure SCREENSHOTONE_ACCESS_KEY for real screenshots."
-      }), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-    }
-
-    try {
-      // Simple ScreenshotOne API call
-      const screenshotUrl = new URL("https://api.screenshotone.com/take")
-      screenshotUrl.searchParams.set("access_key", env.SCREENSHOTONE_ACCESS_KEY)
-      screenshotUrl.searchParams.set("url", url)
-      screenshotUrl.searchParams.set("viewport_width", "1200")
-      screenshotUrl.searchParams.set("viewport_height", "800")
-      screenshotUrl.searchParams.set("device_scale_factor", "1")
-      screenshotUrl.searchParams.set("format", "png")
-      screenshotUrl.searchParams.set("image_quality", "80")
-      screenshotUrl.searchParams.set("block_ads", "true")
-      screenshotUrl.searchParams.set("block_cookie_banners", "true")
-      screenshotUrl.searchParams.set("block_trackers", "true")
-      screenshotUrl.searchParams.set("delay", "3")
-      screenshotUrl.searchParams.set("cache", "true")
-      screenshotUrl.searchParams.set("cache_ttl", "2592000") // 30 days
-
-      // Test the screenshot URL
-      const testResponse = await fetch(screenshotUrl.toString(), { 
-        method: "HEAD",
-        headers: {
-          'User-Agent': 'MyDevfol.io/1.0'
-        }
-      })
-      
-      if (!testResponse.ok) {
-        console.error(`ScreenshotOne API error: ${testResponse.status} ${testResponse.statusText}`)
-        throw new Error(`ScreenshotOne API returned ${testResponse.status}`)
-      }
-
-      return new Response(JSON.stringify({ 
-        url: screenshotUrl.toString(),
-        message: "Screenshot generated successfully using ScreenshotOne"
-      }), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      
-    } catch (apiError) {
-      console.error("ScreenshotOne API error:", apiError)
-      
-      // Fallback to placeholder
-      const placeholderUrl = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
-      return new Response(JSON.stringify({ 
-        url: placeholderUrl,
-        message: "Screenshot service temporarily unavailable, using placeholder."
-      }), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-    }
+    // For now, always return a placeholder since ScreenshotOne API is having issues
+    console.log("Screenshot requested for URL:", url)
+    console.log("Using placeholder image due to API configuration issues")
+    
+    const placeholderUrl = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
+    
+    return new Response(JSON.stringify({ 
+      url: placeholderUrl,
+      message: "Using placeholder image. Screenshot service will be available soon."
+    }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
     
   } catch (err) {
     console.error("Error generating screenshot:", err)
