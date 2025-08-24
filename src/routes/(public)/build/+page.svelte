@@ -782,8 +782,3 @@
           <button type="submit" class="btn btn-primary">
             {currentProject ? "Update" : "Add"} Project
           </button>
-        </div>
-      </form>
-    </div>
-  </div>
-{/if}
