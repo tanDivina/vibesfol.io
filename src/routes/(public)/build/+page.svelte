@@ -63,6 +63,39 @@
     },
   ]
 
+  async function generateScreenshot() {
+    if (!url.trim()) {
+      error = "URL is required to generate a screenshot"
+      return
+    }
+
+    screenshotLoading = true
+    error = null
+
+    try {
+      const response = await fetch("/api/screenshot/public", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: url.trim() }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.message || "Failed to generate screenshot")
+      }
+
+      const { url: newScreenshotUrl } = await response.json()
+      screenshotUrl = newScreenshotUrl
+    } catch (err) {
+      console.error("Error generating screenshot:", err)
+      error = "Failed to generate screenshot. Please check the URL and try again."
+    } finally {
+      screenshotLoading = false
+    }
+  }
+
   // Available technologies
   const availableTechnologies = [
     "React", "Next.js", "Svelte", "SvelteKit", "TypeScript", "JavaScript",
@@ -255,11 +288,48 @@
                 on:input={handleProfileUpdate}
                 class="textarea textarea-bordered w-full h-24"
                 placeholder="Tell people about yourself and what you do..."
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  on:click={generateScreenshot}
+                  disabled={!url.trim() || screenshotLoading}
+                >
+                  {#if screenshotLoading}
+                    <span class="loading loading-spinner loading-sm"></span>
+                    Generating...
+                  {:else}
+                    📸 Generate Screenshot
+                  {/if}
+                </button>
               ></textarea>
-            </div>
-
-            <!-- Contact Information -->
             <div class="divider">Contact & Links</div>
+
+            <!-- Screenshot Preview -->
+            {#if screenshotUrl}
+              <div class="form-control mb-4">
+                <div class="label">
+                  <span class="label-text">Screenshot Preview</span>
+                </div>
+                <div class="border border-base-300 rounded-lg p-2">
+                  <img
+                    src={screenshotUrl}
+                    alt="Project screenshot"
+                    class="w-full h-32 object-cover rounded"
+                    loading="lazy"
+                  />
+                  <div class="flex justify-between items-center mt-2">
+                    <span class="text-sm text-base-content/70">Screenshot generated successfully</span>
+                    <button
+                      type="button"
+                      class="btn btn-xs btn-ghost"
+                      on:click={() => (screenshotUrl = "")}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            {/if}
 
             <div class="form-control mb-4">
               <label class="label" for="website">
