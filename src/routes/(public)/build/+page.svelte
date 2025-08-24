@@ -153,63 +153,6 @@
     }
   }
 
-  function generateDemoScreenshot(url: string) {
-    // This function is no longer used - real screenshot generation is handled in the project form
-    return ""
-  }
-
-  let screenshotLoading = false
-  let screenshotError = ""
-
-  async function generateScreenshot(url: string): Promise<string> {
-    if (!url.trim()) {
-      throw new Error("URL is required to generate a screenshot")
-    }
-
-    screenshotLoading = true
-    screenshotError = ""
-
-    try {
-      const response = await fetch("/api/screenshot", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: url.trim() }),
-      })
-
-      if (!response.ok) {
-        let errorMessage = "Failed to generate screenshot"
-        
-        try {
-          // Try to parse as JSON first
-          const errorData = await response.json()
-          errorMessage = errorData.message || errorData.error || errorMessage
-        } catch (jsonError) {
-          // If JSON parsing fails, try to read as text
-          try {
-            const errorText = await response.text()
-            if (errorText && errorText.trim()) {
-              errorMessage = errorText
-            }
-          } catch (textError) {
-            // Keep the default error message if both parsing attempts fail
-          }
-        }
-        
-        throw new Error(errorMessage)
-      }
-
-      const { url: screenshotUrl } = await response.json()
-      return screenshotUrl
-    } catch (err) {
-      console.error("Error generating screenshot:", err)
-      screenshotError = err instanceof Error ? err.message : "Failed to generate screenshot"
-      throw err
-    } finally {
-      screenshotLoading = false
-    }
-  }
 </script>
 
 <svelte:head>
@@ -648,32 +591,6 @@
               class="input input-bordered w-full"
               placeholder="https://example.com"
             />
-            <button
-              type="button"
-              class="btn btn-secondary"
-              on:click={async (e) => {
-                const form = e.target.closest('form')
-                const urlInput = form.querySelector('input[name="url"]')
-                const screenshotInput = form.querySelector('input[name="screenshot_url"]')
-                
-                if (urlInput.value) {
-                  try {
-                    const screenshotUrl = await generateScreenshot(urlInput.value)
-                    screenshotInput.value = screenshotUrl
-                  } catch (error) {
-                    alert(`Failed to generate screenshot: ${error.message}`)
-                  }
-                }
-              }}
-              disabled={screenshotLoading}
-            >
-              {#if screenshotLoading}
-                <span class="loading loading-spinner loading-sm"></span>
-                Generating...
-              {:else}
-                📸 Generate
-              {/if}
-            </button>
           </div>
         </div>
 
@@ -689,9 +606,9 @@
             class="input input-bordered w-full"
             placeholder="https://example.com/screenshot.png"
           />
-          {#if screenshotError}
-            <div class="text-error text-sm mt-1">{screenshotError}</div>
-          {/if}
+          <div class="text-info text-sm mt-1">
+            Sign up to use automated screenshot generation
+          </div>
         </div>
 
         <div class="form-control mb-4">
