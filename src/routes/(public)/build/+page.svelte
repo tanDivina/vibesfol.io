@@ -473,7 +473,6 @@
                 {/each}
               </div>
             {/if}
-            {/if}
           </div>
         </div>
       </div>
