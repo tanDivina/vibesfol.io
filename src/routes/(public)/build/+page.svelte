@@ -418,6 +418,7 @@
                       </div>
                    </label>
                  </div>
+                {/each}
               </div>
             </div>
           </div>
