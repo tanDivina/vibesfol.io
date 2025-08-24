@@ -34,18 +34,20 @@ export const POST: RequestHandler = async ({
 
     // Since Playwright can't be installed in WebContainer, use a fallback service
     // In production, this would use a proper screenshot service or Playwright
-    const screenshotServiceUrl = `https://api.screenshotmachine.com/?key=demo&url=${encodeURIComponent(url)}&dimension=1200x800&format=png`
+    const placeholderUrl = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
     
-    // For demo purposes, we'll return the service URL directly
-    // In production, you'd want to download and store the image
-    const publicUrl = screenshotServiceUrl
+    // For demo purposes, return a placeholder image
+    const publicUrl = placeholderUrl
 
     // After successful upload, trigger gamification checks
     const { gamificationService } = await import("$lib/gamification")
     await gamificationService.calculatePortfolioScore(userId)
     await gamificationService.checkAchievements(userId)
 
-    return new Response(JSON.stringify({ url: publicUrl }), {
+    return new Response(JSON.stringify({ 
+      url: publicUrl,
+      message: "Demo mode: Using placeholder image. In production, this would capture actual screenshots."
+    }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
@@ -54,6 +56,6 @@ export const POST: RequestHandler = async ({
   } catch (err) {
     console.error("Error generating screenshot:", err)
 
-    return error(500, "Failed to generate screenshot. Please try again.")
+    return error(500, "Screenshot service temporarily unavailable")
   }
 }
