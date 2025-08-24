@@ -587,9 +587,9 @@
             <!-- Action Buttons -->
             <div class="space-y-3">
               <a
-                href="/preview/{guestProfile.username || 'demo'}"
                 target="_blank"
                 class="btn btn-outline btn-primary btn-sm w-full"
+                class="btn btn-secondary"
               >
                 Preview Portfolio
                 <svg
@@ -682,9 +682,6 @@
               {/if}
             </button>
           </div>
-            />
-          </div>
-        </div>
 
         <!-- Screenshot Preview -->
         {#if screenshotUrl}
