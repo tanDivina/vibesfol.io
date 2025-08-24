@@ -179,22 +179,33 @@
       })
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "Failed to generate screenshot")
+        let errorMessage = "Failed to generate screenshot"
+        
+        try {
+          // Try to parse as JSON first
+          const errorData = await response.json()
+          errorMessage = errorData.message || errorData.error || errorMessage
+        } catch (jsonError) {
+          // If JSON parsing fails, try to read as text
+          try {
+            const errorText = await response.text()
+            if (errorText && errorText.trim()) {
+              errorMessage = errorText
+            }
+          } catch (textError) {
+            // Keep the default error message if both parsing attempts fail
+          }
+        }
+        
+        throw new Error(errorMessage)
       }
 
       const { url: screenshotUrl } = await response.json()
       return screenshotUrl
     } catch (err) {
       console.error("Error generating screenshot:", err)
-      let errorMessage = err instanceof Error ? err.message : "Failed to generate screenshot"
-      
-      // Provide more helpful error message if it's the generic fallback
-      if (errorMessage === "Failed to generate screenshot. Please try again.") {
-        errorMessage = "Failed to generate screenshot. Please check that the URL is valid and accessible, then try again. If the issue persists, the website might be blocking automated screenshots or temporarily unavailable."
-      }
-      
-      screenshotError = errorMessage
+      screenshotError = err instanceof Error ? err.message : "Failed to generate screenshot"
+      throw err
     } finally {
       screenshotLoading = false
     }
