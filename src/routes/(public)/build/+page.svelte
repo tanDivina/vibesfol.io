@@ -288,20 +288,8 @@
                 on:input={handleProfileUpdate}
                 class="textarea textarea-bordered w-full h-24"
                 placeholder="Tell people about yourself and what you do..."
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  on:click={generateScreenshot}
-                  disabled={!url.trim() || screenshotLoading}
-                >
-                  {#if screenshotLoading}
-                    <span class="loading loading-spinner loading-sm"></span>
-                    Generating...
-                  {:else}
-                    📸 Generate Screenshot
-                  {/if}
-                </button>
               ></textarea>
+            </div>
             <div class="divider">Contact & Links</div>
 
             <!-- Screenshot Preview -->
