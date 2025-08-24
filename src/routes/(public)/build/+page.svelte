@@ -67,39 +67,6 @@
     },
   ]
 
-  async function generateScreenshot() {
-    if (!url.trim()) {
-      error = "URL is required to generate a screenshot"
-      return
-    }
-
-    screenshotLoading = true
-    error = null
-
-    try {
-      const response = await fetch("/api/screenshot/public", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: url.trim() }),
-      })
-
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "Failed to generate screenshot")
-      }
-
-      const { url: newScreenshotUrl } = await response.json()
-      screenshotUrl = newScreenshotUrl
-    } catch (err) {
-      console.error("Error generating screenshot:", err)
-      error = "Failed to generate screenshot. Please check the URL and try again."
-    } finally {
-      screenshotLoading = false
-    }
-  }
-
   // Available technologies
   const availableTechnologies = [
     "React", "Next.js", "Svelte", "SvelteKit", "TypeScript", "JavaScript",
@@ -165,6 +132,42 @@
   function closeProjectForm() {
     showProjectForm = false
     currentProject = null
+    url = ""
+    screenshotUrl = ""
+    error = null
+  }
+
+  async function generateScreenshot() {
+    if (!url.trim()) {
+      error = "URL is required to generate a screenshot"
+      return
+    }
+
+    screenshotLoading = true
+    error = null
+
+    try {
+      const response = await fetch("/api/screenshot/public", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: url.trim() }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.message || "Failed to generate screenshot")
+      }
+
+      const { url: newScreenshotUrl } = await response.json()
+      screenshotUrl = newScreenshotUrl
+    } catch (err) {
+      console.error("Error generating screenshot:", err)
+      error = "Failed to generate screenshot. Please check the URL and try again."
+    } finally {
+      screenshotLoading = false
+    }
   }
 
   function handleProjectSubmit(event: Event) {
@@ -175,8 +178,8 @@
       id: currentProject?.id || Date.now().toString(),
       title: formData.get("title") as string,
       description: formData.get("description") as string,
-      url: url || (formData.get("url") as string),
-      screenshot_url: screenshotUrl || (formData.get("screenshot_url") as string),
+      url: url,
+      screenshot_url: screenshotUrl,
       status: formData.get("status") as string,
       technologies: Array.from(formData.getAll("technologies")) as string[]
     }
@@ -191,11 +194,6 @@
 
     saveToLocalStorage()
     closeProjectForm()
-    
-    // Reset form state
-    url = ""
-    screenshotUrl = ""
-    error = null
   }
 
   function deleteProject(projectId: string) {
@@ -204,7 +202,6 @@
       saveToLocalStorage()
     }
   }
-
 </script>
 
 <svelte:head>
@@ -291,7 +288,7 @@
                   pattern="[a-zA-Z0-9_-]+"
                   title="Only letters, numbers, underscores, and hyphens allowed"
                 />
-                <label class="label" for="username">
+                <label class="label">
                   <span class="label-text-alt">Portfolio URL: /{guestProfile.username || "username"}</span>
                 </label>
               </div>
@@ -309,34 +306,8 @@
                 placeholder="Tell people about yourself and what you do..."
               ></textarea>
             </div>
-            <div class="divider">Contact & Links</div>
 
-            <!-- Screenshot Preview -->
-            {#if screenshotUrl}
-              <div class="form-control mb-4">
-                <div class="label">
-                  <span class="label-text">Screenshot Preview</span>
-                </div>
-                <div class="border border-base-300 rounded-lg p-2">
-                  <img
-                    src={screenshotUrl}
-                    alt="Project screenshot"
-                    class="w-full h-32 object-cover rounded"
-                    loading="lazy"
-                  />
-                  <div class="flex justify-between items-center mt-2">
-                    <span class="text-sm text-base-content/70">Screenshot generated successfully</span>
-                    <button
-                      type="button"
-                      class="btn btn-xs btn-ghost"
-                      on:click={() => (screenshotUrl = "")}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              </div>
-            {/if}
+            <div class="divider">Contact & Links</div>
 
             <div class="form-control mb-4">
               <label class="label" for="website">
@@ -420,21 +391,20 @@
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {#each themes as theme}
-                  <div class="cursor-pointer justify-start">
+                  <label class="cursor-pointer">
                     <input
                       type="radio"
                       bind:group={selectedTheme}
                       value={theme.id}
                       on:change={handleProfileUpdate}
                       class="radio radio-primary mr-3"
-                      id="theme-{theme.id}"
                     />
                     <div
                       class="card bg-base-100 border-2 {selectedTheme === theme.id
                         ? 'border-primary'
                         : 'border-base-300'} hover:border-primary transition-colors"
                     >
-                      <label for="theme-{theme.id}" class="cursor-pointer card-body p-4 block">
+                      <div class="card-body p-4">
                         <div
                           class="h-16 rounded {theme.preview} mb-2 flex items-center justify-center"
                         >
@@ -442,9 +412,9 @@
                         </div>
                         <h3 class="font-bold">{theme.name}</h3>
                         <p class="text-sm text-gray-600">{theme.description}</p>
-                      </label>
+                      </div>
                     </div>
-                  </div>
+                  </label>
                 {/each}
               </div>
             </div>
@@ -540,6 +510,7 @@
                   </a>
                 </div>
               {/if}
+
               <div class="flex gap-3">
                 {#if guestProfile.github_url}
                   <div class="w-6 h-6 bg-gray-800 rounded"></div>
@@ -586,24 +557,28 @@
 
             <!-- Action Buttons -->
             <div class="space-y-3">
-              <a
-                class="btn btn-secondary w-full"
-              >
-                Preview Portfolio
-                <svg
-                  class="w-4 h-4 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              {#if guestProfile.username}
+                <a
+                  href="/preview/{guestProfile.username}"
+                  target="_blank"
+                  class="btn btn-secondary w-full"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  ></path>
-                </svg>
-              </a>
+                  Preview Portfolio
+                  <svg
+                    class="w-4 h-4 ml-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    ></path>
+                  </svg>
+                </a>
+              {/if}
               
               <a href="/login" class="btn btn-primary w-full">
                 Sign Up to Publish
@@ -637,7 +612,13 @@
         {currentProject ? "Edit Project" : "Add New Project"}
       </h2>
 
-      <form on:submit={handleProjectSubmit}>
+      {#if error}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <p>{error}</p>
+        </div>
+      {/if}
+
+      <form on:submit|preventDefault={handleProjectSubmit}>
         <div class="form-control mb-4">
           <label class="label" for="project_title">
             <span class="label-text">Title *</span>
@@ -680,12 +661,7 @@
               {/if}
             </button>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
-{/if}
-          </div>
+        </div>
 
         <!-- Screenshot Preview -->
         {#if screenshotUrl}
@@ -715,23 +691,6 @@
         {/if}
 
         <div class="form-control mb-4">
-          <label class="label" for="project_screenshot_url">
-            <span class="label-text">Screenshot URL</span>
-          </label>
-          <input
-            type="url"
-            id="project_screenshot_url"
-            name="screenshot_url"
-            value={currentProject?.screenshot_url || ""}
-            class="input input-bordered w-full"
-            placeholder="https://example.com/screenshot.png"
-          />
-          <div class="text-info text-sm mt-1">
-            Or use the screenshot button above to generate automatically
-          </div>
-        </div>
-
-        <div class="form-control mb-4">
           <label class="label" for="project_description">
             <span class="label-text">Description</span>
           </label>
@@ -749,7 +708,12 @@
           <label class="label" for="project_status">
             <span class="label-text">Status</span>
           </label>
-          <select id="project_status" name="status" value={currentProject?.status || "LIVE"} class="select select-bordered w-full">
+          <select 
+            id="project_status" 
+            name="status" 
+            value={currentProject?.status || "LIVE"} 
+            class="select select-bordered w-full"
+          >
             <option value="LIVE">Live</option>
             <option value="IN PROGRESS">In Progress</option>
             <option value="DEMO">Demo</option>
@@ -759,23 +723,22 @@
         <div class="form-control mb-6">
           <fieldset>
             <legend class="label">
-            <span class="label-text">Technologies</span>
+              <span class="label-text">Technologies</span>
             </legend>
-          <div class="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border border-base-300 rounded p-2">
-            {#each availableTechnologies as tech}
-              <label class="cursor-pointer flex items-center" for="tech-{tech.replace(/[^a-zA-Z0-9]/g, '_')}">
-                <input
-                  type="checkbox"
-                  name="technologies"
-                  value={tech}
-                  id="tech-{tech.replace(/[^a-zA-Z0-9]/g, '_')}"
-                  checked={currentProject?.technologies?.includes(tech) || false}
-                  class="checkbox checkbox-primary checkbox-sm mr-2"
-                />
-                <span class="text-sm">{tech}</span>
-              </label>
-            {/each}
-          </div>
+            <div class="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border border-base-300 rounded p-2">
+              {#each availableTechnologies as tech}
+                <label class="cursor-pointer flex items-center">
+                  <input
+                    type="checkbox"
+                    name="technologies"
+                    value={tech}
+                    checked={currentProject?.technologies?.includes(tech) || false}
+                    class="checkbox checkbox-primary checkbox-sm mr-2"
+                  />
+                  <span class="text-sm">{tech}</span>
+                </label>
+              {/each}
+            </div>
           </fieldset>
         </div>
 
@@ -786,3 +749,8 @@
           <button type="submit" class="btn btn-primary">
             {currentProject ? "Update" : "Add"} Project
           </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{/if}
