@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
     try {
       // Create API client
-      const client = new screenshotone.Client(env.SCREENSHOTONE_ACCESS_KEY)
+      const client = new screenshotone.Client(env.SCREENSHOTONE_ACCESS_KEY, env.SCREENSHOTONE_SECRET_KEY)
 
       // Set up options
       const options = screenshotone.TakeOptions.url(url)
