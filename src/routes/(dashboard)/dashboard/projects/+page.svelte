@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { enhance } from '$app/forms';
   import { supabase } from '$lib/supabaseClient';
   import ProjectForm from '$lib/ProjectForm.svelte';
   import type { Database } from '$lib/DatabaseDefinitions'
@@ -43,64 +44,39 @@
   }
 
   async function handleProjectSubmit({ project: projectData, technologies }: { project: Database['public']['Tables']['projects']['Insert']; technologies: Database['public']['Tables']['technologies']['Row'][] }) {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
     loading = true;
     error = null;
 
     try {
-      let newProject: Database['public']['Tables']['projects']['Row'] | null = null;
-
+      const formData = new FormData();
+      formData.append('projectData', JSON.stringify(projectData));
+      formData.append('technologies', JSON.stringify(technologies));
+      formData.append('isUpdate', currentProject ? 'true' : 'false');
       if (currentProject) {
-        // Update project
-        const { error: updateError } = await supabase
-          .from('projects')
-          .update(projectData)
-          .eq('id', currentProject.id);
-
-        if (updateError) throw updateError;
-
-        // Update projects array
-        projects = projects.map(p => p.id === currentProject!.id ? { ...p, ...projectData } : p);
-        newProject = { ...currentProject, ...projectData };
-      } else {
-        // Create project
-        const { data: createdProject, error: insertError } = await supabase
-          .from('projects')
-          .insert({ ...projectData, user_id: user.id })
-          .select()
-          .single();
-
-        if (insertError) throw insertError;
-
-        newProject = createdProject;
-        // Add to projects array
-        projects = [newProject, ...projects];
+        formData.append('projectId', currentProject.id);
       }
 
-      // Update project_technologies join table
-      if (newProject) {
-        // Delete existing technologies
-        const { error: deleteError } = await supabase
-          .from('project_technologies')
-          .delete()
-          .eq('project_id', newProject.id);
+      const response = await fetch('?/saveProject', {
+        method: 'POST',
+        body: formData
+      });
 
-        if (deleteError) throw deleteError;
+      if (!response.ok) {
+        throw new Error('Failed to save project');
+      }
 
-        // Insert new technologies
-        if (technologies.length > 0) {
-          const projectTechnologies = technologies.map(tech => ({
-            project_id: newProject!.id,
-            technology_id: tech.id,
-          }));
-
-          const { error: insertError } = await supabase
-            .from('project_technologies')
-            .insert(projectTechnologies);
-
-          if (insertError) throw insertError;
+      const result = await response.json();
+      if (result.type === 'success') {
+        // Refresh the projects list
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const { data } = await supabase
+            .from('projects')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false });
+          
+          projects = data || [];
         }
       }
     } catch (err) {
@@ -109,13 +85,6 @@
     } finally {
       loading = false;
       closeForm();
-    }
-
-    // After successful save, trigger gamification checks
-    if (!error) {
-      const { gamificationService } = await import('$lib/gamification');
-      await gamificationService.calculatePortfolioScore(user.id);
-      await gamificationService.checkAchievements(user.id);
     }
   }
 
@@ -126,15 +95,23 @@
     error = null;
 
     try {
-      const { error: deleteError } = await supabase
-        .from('projects')
-        .delete()
-        .eq('id', projectId);
+      const formData = new FormData();
+      formData.append('projectId', projectId);
 
-      if (deleteError) throw deleteError;
+      const response = await fetch('?/deleteProject', {
+        method: 'POST',
+        body: formData
+      });
 
-      // Remove from projects array
-      projects = projects.filter(p => p.id !== projectId);
+      if (!response.ok) {
+        throw new Error('Failed to delete project');
+      }
+
+      const result = await response.json();
+      if (result.type === 'success') {
+        // Remove from projects array
+        projects = projects.filter(p => p.id !== projectId);
+      }
     } catch (err) {
       console.error('Error deleting project:', err);
       error = 'Failed to delete project';

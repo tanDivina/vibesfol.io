@@ -52,6 +52,7 @@
   {/if}
 
   <form on:submit|preventDefault={handleForgotPassword}>
+  <form onsubmit={handleForgotPassword}>
     <div class="form-control mb-6">
       <label class="label" for="email">
         <span class="label-text">Email</span>
