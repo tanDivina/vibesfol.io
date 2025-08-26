@@ -9,6 +9,9 @@ export const GET: RequestHandler = async () => {
     origin: WebsiteBaseUrl,
     excludeRoutePatterns: [
       ".*\\(admin\\).*", // i.e. exclude routes within admin group
+      ".*\\(dashboard\\).*", // exclude dashboard routes
+      ".*\\[username\\].*", // exclude dynamic username routes
+      ".*/\\[.*\\].*", // exclude all dynamic routes
     ],
   })
 }
