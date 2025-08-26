@@ -34,7 +34,6 @@
     name: WebsiteName,
     url: WebsiteBaseUrl,
   }
-  const jsonldScript = `<script type="application/ld+json">${JSON.stringify(ldJson)}</script>`
 
   const features = [
     {
@@ -135,8 +134,9 @@
 <svelte:head>
   <title>{WebsiteName}</title>
   <meta name="description" content={WebsiteDescription} />
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  {@html jsonldScript}
+  <script type="application/ld+json">
+    {JSON.stringify(ldJson)}
+  </script>
 </svelte:head>
 
 <div 
