@@ -63,7 +63,7 @@
   </div>
 {/if}
 
-<form onsubmit={handleSignUp}>
+<form on:submit|preventDefault={handleSignUp}>
   <div class="form-control mb-4">
     <label class="label" for="email">
       <span class="label-text">Email</span>

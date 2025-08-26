@@ -248,7 +248,6 @@
               <a
                 href={feature.link}
                 class="pb-4 mt-auto"
-                target={feature.newPage ? "_blank" : ""}
               >
                 <button
                   class="btn btn-xs btn-outline rounded-full btn-primary min-w-[100px]"
