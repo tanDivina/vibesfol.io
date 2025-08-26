@@ -146,7 +146,7 @@
       {#if submitStatus === "error" && errorMessage}
         <div class="alert alert-error">
           <svg
-            class="w-6 h-6"
+          <button
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

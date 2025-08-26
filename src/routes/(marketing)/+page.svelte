@@ -548,17 +548,13 @@
         Check out our demo portfolio to see how your projects will look
       </div>
       <div class="mt-8">
-        <a href="/demo-profile">
-          <button class="btn btn-primary btn-wide">View Demo Portfolio</button>
-        </a>
+        <a href="/demo-profile" class="btn btn-primary btn-wide">View Demo Portfolio</a>
       </div>
       <div class="mt-8 text-base">
         Or start building your own portfolio today
       </div>
       <div class="mt-2">
-        <a href="/login">
-          <button class="btn btn-outline btn-primary">Get Started Free</button>
-        </a>
+        <a href="/login" class="btn btn-outline btn-primary">Get Started Free</a>
       </div>
     </div>
   </div>
