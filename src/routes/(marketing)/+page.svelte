@@ -34,9 +34,7 @@
     name: WebsiteName,
     url: WebsiteBaseUrl,
   }
-  const jsonldScript = `<script type="application/ld+json">${
-    JSON.stringify(ldJson) + "<"
-  }/script>`
+  const jsonldScript = `<script type="application/ld+json">${JSON.stringify(ldJson)}</script>`
 
   const features = [
     {
