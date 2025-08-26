@@ -49,6 +49,7 @@
     >
       <p>{error}</p>
     </div>
+  {/if}
 
   <form on:submit|preventDefault={handleForgotPassword}>
     <div class="form-control mb-6">
@@ -73,6 +74,7 @@
       {loading ? "Sending..." : "Send Reset Link"}
     </button>
   </form>
+{/if}
 {/if}
 
 <div class="text-l text-slate-800 mt-4">
