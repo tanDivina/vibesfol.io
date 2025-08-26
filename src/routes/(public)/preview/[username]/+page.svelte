@@ -239,7 +239,7 @@
                 {#if project.url}
                   <a
                     href={project.url}
-                    target="_blank"
+                    <div class="w-8 h-8 bg-black rounded flex items-center justify-center hover:bg-gray-800 transition-colors">
                     rel="noopener noreferrer"
                     class="btn btn-sm btn-primary"
                   >
