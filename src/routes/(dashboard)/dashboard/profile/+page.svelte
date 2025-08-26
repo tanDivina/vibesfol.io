@@ -166,7 +166,7 @@
 
               <!-- Avatar Upload -->
               <div class="form-control mb-6">
-                <label class="label">
+                <label class="label" for="avatar_upload_input">
                   <span class="label-text font-medium">Profile Picture</span>
                 </label>
                 <div class="flex items-center gap-4">
@@ -186,6 +186,7 @@
                   <div>
                     <input
                       type="file"
+                      id="avatar_upload_input"
                       accept="image/*"
                       on:change={uploadAvatar}
                       class="file-input file-input-bordered file-input-sm w-full max-w-xs"
