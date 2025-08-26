@@ -15,7 +15,7 @@
     "format_check": "prettier --check --plugin prettier-plugin-svelte ./"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^3.2.5",
+    "@sveltejs/adapter-auto": "^6.1.0",
     "@sveltejs/kit": "^2.5.10",
     "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
     "@types/glob": "^8.1.0",
