@@ -4,7 +4,6 @@
   import type { PageData, ActionData } from "./$types"
 
   export let data: PageData
-  export let form: ActionData
 
   let selectedFilter = "all"
   let selectedMessage: any = null
@@ -245,11 +244,14 @@
         </div>
       {:else}
         {#each filteredMessages as message (message.id)}
-          <div
+          <button
             class="p-6 hover:bg-gray-50 cursor-pointer {!message.is_read
               ? 'bg-blue-50'
-              : ''}"
+              : ''} w-full text-left"
             on:click={() => openMessage(message)}
+            role="button"
+            tabindex="0"
+            on:keydown={(e) => e.key === 'Enter' && openMessage(message)}
           >
             <div class="flex items-start justify-between">
               <div class="flex-1 min-w-0">
@@ -314,7 +316,7 @@
                 </p>
               </div>
             </div>
-          </div>
+          </button>
         {/each}
       {/if}
     </div>
@@ -326,10 +328,15 @@
   <div
     class="fixed inset-0 bg-gray-600-50 overflow-y-auto h-full w-full z-50"
     on:click={closeMessage}
+    role="dialog"
+    aria-modal="true"
+    on:keydown={(e) => e.key === 'Escape' && closeMessage()}
   >
     <div
       class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white"
       on:click|stopPropagation
+      role="document"
+      on:keydown={(e) => e.stopPropagation()}
     >
       <div class="flex justify-between items-start mb-4">
         <div class="flex-1">
@@ -356,6 +363,7 @@
         <button
           class="text-gray-400 hover:text-gray-600"
           on:click={closeMessage}
+          aria-label="Close message"
         >
           <svg
             class="w-6 h-6"
@@ -440,6 +448,7 @@
               value={selectedMessage.is_starred}
             />
             <button type="submit" class="btn btn-ghost">
+              aria-label={selectedMessage.is_starred ? "Remove star" : "Add star"}
               <svg
                 class="w-4 h-4 {selectedMessage.is_starred
                   ? 'text-yellow-400'
@@ -457,6 +466,7 @@
           <button
             class="btn btn-ghost text-red-600 hover:text-red-800"
             on:click={() => confirmDelete(selectedMessage.id)}
+            aria-label="Delete message"
           >
             <svg
               class="w-4 h-4"

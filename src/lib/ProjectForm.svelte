@@ -255,40 +255,18 @@
           <div class="label">
             <span class="label-text">Tech Stack</span>
           </div>
-          <div class="dropdown">
-            <div tabindex="0" role="button" class="btn m-1" id="tech-stack-dropdown">
-              {selectedTechnologies.length > 0
-                ? `${selectedTechnologies.length} technologies selected`
-                : "Select technologies"}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4 ml-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
+          <div class="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto border border-base-300 rounded p-3">
+            {#each technologies as tech (tech.id)}
+              <label class="label cursor-pointer justify-start">
+                <input
+                  type="checkbox"
+                  bind:group={selectedTechnologies}
+                  value={tech}
+                  class="checkbox checkbox-primary checkbox-sm mr-2"
                 />
-              </svg>
-            <ul class="dropdown-content menu bg-base-100 rounded-box z-[1] w-full p-2 shadow">
-              {#each technologies as tech (tech.id)}
-                <li>
-                  <label class="label cursor-pointer">
-                    <input
-                      type="checkbox"
-                      bind:group={selectedTechnologies}
-                      value={tech}
-                      class="checkbox checkbox-primary"
-                    />
-                    <span>{tech.name}</span>
-                  </label>
-                </li>
-              {/each}
-            </ul>
+                <span class="label-text text-sm">{tech.name}</span>
+              </label>
+            {/each}
           </div>
         </div>
 

@@ -10,9 +10,6 @@
     "sourceMap": true,
     "strict": true,
     "types": ["vitest/globals"], // allows to skip import of test functions like `describe`, `it`, `expect`, etc.
-    "paths": {
-      "$config": ["./src/config.ts"]
-    }
   }
   // Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias and https://kit.svelte.dev/docs/configuration#files
   //
