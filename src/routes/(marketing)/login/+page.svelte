@@ -58,6 +58,10 @@
     const { data } = supabase.auth.onAuthStateChange((event, _session) => {
       if (_session?.expires_at !== session?.expires_at) {
         session = _session
+        if (_session) {
+          // Redirect to dashboard on successful login
+          window.location.href = '/dashboard'
+        }
         invalidate("supabase:auth")
       }
     })
