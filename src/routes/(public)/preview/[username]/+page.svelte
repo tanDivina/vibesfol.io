@@ -261,7 +261,7 @@
           Sign up now to get a live URL and start sharing your portfolio with the world!
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/login" class="btn btn-primary btn-lg">
+          <a href="/login/sign_up" class="btn btn-primary btn-lg">
             Sign Up to Publish
           </a>
           <a href="/build" class="btn btn-outline btn-lg">
