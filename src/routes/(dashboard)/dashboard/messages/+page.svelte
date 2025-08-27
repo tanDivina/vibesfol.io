@@ -249,7 +249,6 @@
               ? 'bg-blue-50'
               : ''} w-full text-left"
             on:click={() => openMessage(message)}
-            role="button"
             tabindex="0"
             on:keydown={(e) => e.key === 'Enter' && openMessage(message)}
           >
@@ -330,12 +329,13 @@
     on:click={closeMessage}
     role="dialog"
     aria-modal="true"
+    tabindex="-1"
     on:keydown={(e) => e.key === 'Escape' && closeMessage()}
   >
     <div
       class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white"
-      on:click|stopPropagation
       role="document"
+      tabindex="0"
       on:keydown={(e) => e.stopPropagation()}
     >
       <div class="flex justify-between items-start mb-4">
