@@ -259,7 +259,7 @@
       <p>We may disclose your information if required to do so by law or in response to valid requests by public authorities.</p>
 
       <h2>5. Data Security</h2>
-        We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
+        We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last updated\" date.
         We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include:
 
       <ul>
@@ -311,7 +311,7 @@
         <li>The right to data portability</li>
       <h2>11. Changes to This Privacy Policy</h2>
         <li>Rights related to automated decision-making</li>
-        We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
+        We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last updated\" date.
 
       <h2>14. California Privacy Rights (CCPA)</h2>
       <h2>12. Contact Us</h2>
