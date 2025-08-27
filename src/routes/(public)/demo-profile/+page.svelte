@@ -152,11 +152,11 @@
                     title="Only letters, numbers, underscores, and hyphens allowed"
                     required
                   />
-                  <label class="label">
+                  <div class="label">
                     <span class="label-text-alt"
                       >Portfolio URL: /{demoProfile.username}</span
                     >
-                  </label>
+                  </div>
                 </div>
               </div>
 
@@ -275,11 +275,11 @@
                     class="input input-bordered w-full"
                     placeholder="https://www.amazon.com/shop/username"
                   />
-                  <label class="label">
+                  <div class="label">
                     <span class="label-text-alt"
                       >This can be an affiliate link.</span
                     >
-                  </label>
+                  </div>
                 </div>
                 <div class="form-control">
                   <label class="label" for="whatsapp_number">
@@ -292,11 +292,11 @@
                     class="input input-bordered w-full"
                     placeholder="+1234567890"
                   />
-                  <label class="label">
+                  <div class="label">
                     <span class="label-text-alt"
                       >Include country code (e.g., +1 for US)</span
                     >
-                  </label>
+                  </div>
                 </div>
               </div>
 
@@ -304,11 +304,11 @@
               <div class="divider">Portfolio Theme</div>
 
               <div class="form-control mb-6">
-                <label class="label">
+                <div class="label">
                   <span class="label-text font-medium"
                     >Choose Your Portfolio Style</span
                   >
-                </label>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {#each themes as theme}
                     <div class="cursor-pointer">

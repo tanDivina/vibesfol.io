@@ -288,9 +288,9 @@
                   pattern="[a-zA-Z0-9_-]+"
                   title="Only letters, numbers, underscores, and hyphens allowed"
                 />
-                <label class="label">
+                <div class="label">
                   <span class="label-text-alt">Portfolio URL: /{guestProfile.username || "username"}</span>
-                </label>
+                </div>
               </div>
             </div>
 
