@@ -32,7 +32,7 @@
     if (email) {
       supabase.auth
         .resetPasswordForEmail(email, {
-          redirectTo: `${$page.url.origin}/auth/callback?next=%2Faccount%2Fsettings%2Freset_password`,
+          redirectTo: `${window.location.origin}/auth/callback?next=%2Faccount%2Fsettings%2Freset_password`,
         })
         .then((d) => {
           sentEmail = d.error ? false : true
