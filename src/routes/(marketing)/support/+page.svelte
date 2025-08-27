@@ -1,5 +1,38 @@
 <script lang="ts">
   import { WebsiteName } from "$config"
+
+  let openFaq = -1 // Track which FAQ is open
+
+  function toggleFaq(index: number) {
+    openFaq = openFaq === index ? -1 : index
+  }
+
+  const faqs = [
+    {
+      question: "How do I add projects to my portfolio?",
+      answer: "Go to your dashboard, click on \"Projects\", then \"Add Project\". Fill in your project details, add a URL, and we'll automatically generate a screenshot for you. You can also tag your project with relevant technologies."
+    },
+    {
+      question: "How does automated screenshot generation work?",
+      answer: "Simply provide your project's live URL and our system will automatically capture a high-quality screenshot. This saves you time and ensures your portfolio always shows current versions of your projects."
+    },
+    {
+      question: "Can I use my own domain?",
+      answer: "Yes! With our Unlimited LTD plan, you can connect your own custom domain. Go to Dashboard → Settings → Custom Domain to set this up."
+    },
+    {
+      question: "How do I customize my portfolio theme?",
+      answer: "In your dashboard, go to Profile → Portfolio Theme. Choose from Modern, Minimal, Dark, or Creative themes. Changes are applied instantly to your live portfolio."
+    },
+    {
+      question: "What are client portals and how do I use them?",
+      answer: "Client portals are private, secure pages where you can share project updates with specific clients. Create a portal in Dashboard → Client Portals, and share the unique link with your client."
+    },
+    {
+      question: "How do I manage contact form submissions?",
+      answer: "All contact form submissions from your portfolio are collected in Dashboard → Messages. You can mark messages as read, star important ones, and reply directly via email."
+    }
+  ]
 </script>
 
 <svelte:head>
@@ -83,65 +116,34 @@
       <h2 class="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
       
       <div class="space-y-4 max-w-3xl mx-auto">
-        <div class="collapse collapse-arrow bg-base-200">
-          <input type="radio" name="faq-accordion" checked="checked" />
-          <div class="collapse-title text-xl font-medium">
-            How do I add projects to my portfolio?
+        {#each faqs as faq, index}
+          <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+            <button
+              class="w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors"
+              on:click={() => toggleFaq(index)}
+            >
+              <span class="text-xl font-medium text-gray-900">{faq.question}</span>
+              <svg
+                class="w-6 h-6 text-gray-500 transform transition-transform {openFaq === index ? 'rotate-45' : ''}"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                ></path>
+              </svg>
+            </button>
+            {#if openFaq === index}
+              <div class="px-6 pb-6">
+                <p class="text-gray-700 leading-relaxed">{faq.answer}</p>
+              </div>
+            {/if}
           </div>
-          <div class="collapse-content">
-            <p>Go to your dashboard, click on "Projects", then "Add Project". Fill in your project details, add a URL, and we'll automatically generate a screenshot for you. You can also tag your project with relevant technologies.</p>
-          </div>
-        </div>
-
-        <div class="collapse collapse-arrow bg-base-200">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-medium">
-            How does automated screenshot generation work?
-          </div>
-          <div class="collapse-content">
-            <p>Simply provide your project's live URL and our system will automatically capture a high-quality screenshot. This saves you time and ensures your portfolio always shows current versions of your projects.</p>
-          </div>
-        </div>
-
-        <div class="collapse collapse-arrow bg-base-200">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-medium">
-            Can I use my own domain?
-          </div>
-          <div class="collapse-content">
-            <p>Yes! With our Unlimited LTD plan, you can connect your own custom domain. Go to Dashboard → Settings → Custom Domain to set this up.</p>
-          </div>
-        </div>
-
-        <div class="collapse collapse-arrow bg-base-200">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-medium">
-            How do I customize my portfolio theme?
-          </div>
-          <div class="collapse-content">
-            <p>In your dashboard, go to Profile → Portfolio Theme. Choose from Modern, Minimal, Dark, or Creative themes. Changes are applied instantly to your live portfolio.</p>
-          </div>
-        </div>
-
-        <div class="collapse collapse-arrow bg-base-200">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-medium">
-            What are client portals and how do I use them?
-          </div>
-          <div class="collapse-content">
-            <p>Client portals are private, secure pages where you can share project updates with specific clients. Create a portal in Dashboard → Client Portals, and share the unique link with your client.</p>
-          </div>
-        </div>
-
-        <div class="collapse collapse-arrow bg-base-200">
-          <input type="radio" name="faq-accordion" />
-          <div class="collapse-title text-xl font-medium">
-            How do I manage contact form submissions?
-          </div>
-          <div class="collapse-content">
-            <p>All contact form submissions from your portfolio are collected in Dashboard → Messages. You can mark messages as read, star important ones, and reply directly via email.</p>
-          </div>
-        </div>
+        {/each}
       </div>
     </div>
 
