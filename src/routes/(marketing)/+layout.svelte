@@ -32,7 +32,7 @@
         </a>
       </li>
       <li class="md:mx-2">
-        <a href="/login/sign_up">
+        <a href="/login/sign_in">
           Login
         </a>
       </li>
@@ -76,7 +76,7 @@
       >
         <li><a href="/blog">Blog</a></li>
         <li><a href="/pricing">Pricing</a></li>
-        <li><a href="/login">Login</a></li>
+        <li><a href="/login/sign_in">Login</a></li>
         <li><a href="/search">Search</a></li>
         <li>
           <a

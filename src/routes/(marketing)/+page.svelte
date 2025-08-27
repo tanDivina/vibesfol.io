@@ -185,7 +185,7 @@
       <div
         class="flex flex-col sm:flex-row gap-4 justify-center items-center"
       >
-        <a href="/login">
+        <a href="/login/sign_up">
           <button class="btn btn-primary btn-lg px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
             Get Started Free
           </button>
@@ -522,7 +522,7 @@
           <a href="/demo">
             <button class="btn btn-outline btn-primary">View Full Demo</button>
           </a>
-          <a href="/login">
+          <a href="/login/sign_up">
             <button class="btn btn-primary">Start Building Now</button>
           </a>
         </div>
@@ -555,7 +555,7 @@
         Or start building your own portfolio today
       </div>
       <div class="mt-2">
-        <a href="/login" class="btn btn-outline btn-primary">Get Started Free</a>
+        <a href="/login/sign_up" class="btn btn-outline btn-primary">Get Started Free</a>
       </div>
     </div>
   </div>
