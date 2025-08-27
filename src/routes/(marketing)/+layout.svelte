@@ -32,7 +32,7 @@
         </a>
       </li>
       <li class="md:mx-2">
-        <a href="/login">
+        <a href="/login/sign_up">
           Login
         </a>
       </li>

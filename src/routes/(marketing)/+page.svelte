@@ -190,9 +190,9 @@
             Get Started Free
           </button>
         </a>
-        <a href="/build">
+        <a href="/login/sign_up">
           <button class="btn btn-secondary btn-lg px-8 py-4 text-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200">
-            Try Builder (No Signup)
+            Sign Up Now
           </button>
         </a>
         <a href="/pricing">
