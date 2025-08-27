@@ -17,7 +17,7 @@
     <ul class="menu menu-horizontal px-1 hidden sm:flex font-bold text-lg">
       <li class="md:mx-4">
         <a
-          href="https://github.com/tanDivina/vibesfol.io"
+          href="https://github.com/CriticalMoments/CMSaasStarter"
           class="border border-primary">★ us on Github
         </a>
       </li>
@@ -80,7 +80,7 @@
         <li><a href="/search">Search</a></li>
         <li>
           <a
-            href="https://github.com/tanDivina/vibesfol.io"
+            href="https://github.com/CriticalMoments/CMSaasStarter"
             class="border border-primary">★ us on Github</a
           >
         </li>
@@ -106,9 +106,9 @@
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/">Overview</a>
           <a class="link link-hover" href="/pricing">Pricing</a>
-          <a class="link link-hover" href="/build">Portfolio Builder</a>
+          <a class="link link-hover" href="/build">Try Builder</a>
           <a class="link link-hover" href="/demo">Live Demo</a>
-          <a class="link link-hover" href="/demo-profile">Demo Profile</a>
+          <a class="link link-hover" href="/demo-profile">Profile Editor</a>
         </div>
       </nav>
       <nav>
@@ -117,7 +117,7 @@
           <a class="link link-hover" href="/blog">Blog</a>
           <a
             class="link link-hover"
-            href="https://github.com/tanDivina/vibesfol.io">GitHub</a
+            href="https://github.com/CriticalMoments/CMSaasStarter">GitHub</a
           >
           <a class="link link-hover" href="/search">Search</a>
           <a class="link link-hover" href="/pricing#faq">FAQ</a>
@@ -128,7 +128,7 @@
         <h6 class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide">Comparisons</h6>
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/vs/indiepage">vs. IndiePage</a>
-          <a class="link link-hover" href="/vs/portfolio">vs. Portfolio.io</a>
+          <a class="link link-hover" href="/vs/portfolio">vs. Portfolio</a>
           <a class="link link-hover" href="/vs/gitconnected">vs. GitConnected</a
           >
           <a class="link link-hover" href="/vs/devfolio">vs. Devfolio</a>
@@ -158,7 +158,7 @@
             >Built for developers, by developers</span
           >
           <a
-            href="https://github.com/tanDivina/vibesfol.io"
+            href="https://github.com/CriticalMoments/CMSaasStarter"
             class="btn btn-ghost btn-sm"
           >
             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
