@@ -15,7 +15,7 @@
 
     try {
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/callback?next=%2Faccount%2Fsettings%2Freset_password`,
+        redirectTo: `https://tandivina-vibesfol-i-er5n.bolt.host/auth/callback?next=%2Faccount%2Fsettings%2Freset_password`,
       })
 
       if (resetError) {

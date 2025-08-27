@@ -29,7 +29,7 @@
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          emailRedirectTo: `https://tandivina-vibesfol-i-er5n.bolt.host/auth/callback`,
         },
       })
 
