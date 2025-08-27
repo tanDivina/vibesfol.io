@@ -11,29 +11,19 @@ export const load: PageServerLoad = async ({
   const { session } = await safeGetSession()
   const { username } = params
 
-  // Explicit check for pricing route to prevent conflicts
-  if (username === "pricing") {
-    throw redirect(302, "/pricing")
-    return
-  }
-
-  // If we're at the root path, redirect to marketing page
-  if (url.pathname === "/" || url.pathname === "") {
-    throw redirect(302, "/")
-    return
-  }
-
   // Handle empty or invalid usernames
   if (!username || username.trim() === "") {
     throw redirect(302, "/")
-    return
   }
 
   // Prevent common route conflicts
-  const reservedRoutes = ["api", "auth", "dashboard", "admin", "blog", "about", "contact", "pricing", "login", "signup"]
+  const reservedRoutes = [
+    "api", "auth", "dashboard", "admin", "blog", "about", "contact", 
+    "pricing", "login", "signup", "terms", "privacy", "vs", "search",
+    "build", "demo-profile", "preview", "client-portal"
+  ]
   if (reservedRoutes.includes(username.toLowerCase())) {
     throw redirect(302, "/")
-    return
   }
 
   // Demo data for showcasing the public portfolio functionality
