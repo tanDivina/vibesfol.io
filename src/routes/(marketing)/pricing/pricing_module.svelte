@@ -54,7 +54,7 @@
               </div>
             {:else}
               <a
-                href={"/login?plan=" +
+                href={"/login/sign_up?plan=" +
                   (plan?.stripe_price_id ?? "free_plan")}
                 class="btn btn-primary w-[80%] mx-auto"
               >

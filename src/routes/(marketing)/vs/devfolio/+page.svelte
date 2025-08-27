@@ -251,7 +251,7 @@
         need professional portfolio features.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/login" class="btn btn-primary btn-lg">
+        <a href="/login/sign_up" class="btn btn-primary btn-lg">
           Create Your Professional Portfolio
         </a>
         <a href="/demo" class="btn btn-outline btn-lg"> See the Difference </a>
