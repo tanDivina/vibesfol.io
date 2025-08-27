@@ -534,7 +534,8 @@
 <div 
   class="min-h-[60vh] mt-12 interactive-gradient animate-gradient-slow"
   style="--mouse-x: 50%; --mouse-y: 50%"
-  onmousemove={(e) => {
+  role="presentation"
+  on:mousemove={(e) => {
     const rect = e.currentTarget.getBoundingClientRect()
     const mouseX = ((e.clientX - rect.left) / rect.width) * 100
     const mouseY = ((e.clientY - rect.top) / rect.height) * 100
