@@ -18,6 +18,10 @@ export const load = async ({ params }) => {
   return {
     post: {
       ...data,
+      title: data.title,
+      author: data.author,
+      date: data.date,
+      summary: data.summary,
       content: marked(content),
     },
   }

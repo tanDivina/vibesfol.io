@@ -111,13 +111,24 @@ export const load: PageServerLoad = async ({
     .from("profiles")
     .select(
       `
-      id, 
-      full_name, 
+      id,
+      full_name,
       company_name,
-      avatar_url, 
+      avatar_url,
       website,
       unsubscribed,
-      planId
+      planId,
+      username,
+      bio,
+      portfolio_theme,
+      contact_form_enabled,
+      contact_form_title,
+      contact_form_description,
+      contact_email_notifications,
+      seo_title,
+      seo_description,
+      seo_image_url,
+      seo_keywords
     `,
     )
     .eq("username", username)
