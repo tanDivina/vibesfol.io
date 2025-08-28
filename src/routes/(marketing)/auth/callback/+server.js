@@ -149,6 +149,7 @@
                   <span>{passwordError}</span>
                 </div>
               {/if}
+              }
             </div>
             <div class="card-actions justify-end mt-6">
               <button 
@@ -161,9 +162,11 @@
             </div>
           </form>
         {/if}
+        }
       </div>
     </div>
   {/if}
+  }
 
   <div class="space-y-12">
     <!-- SEO Settings -->
@@ -311,8 +314,10 @@
                   </p>
                 </div>
               {/if}
+              }
             </div>
           {/if}
+          }
           <div class="card-actions justify-end mt-6">
             <button type="submit" class="btn btn-primary">Save Domain</button>
           </div>
@@ -486,12 +491,14 @@
                   <span>{passwordError}</span>
                 </div>
               {/if}
+              }
             </div>
             <div class="card-actions justify-end mt-6">
               <button type="submit" class="btn btn-primary">Update Password</button>
             </div>
           </form>
         {/if}
+        }
       </div>
     </div>
   </div>
