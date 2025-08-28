@@ -27,6 +27,40 @@
   let analyticsSettings = {
     analytics_enabled: data.settings.analytics_enabled,
   }
+
+  // Add password reset functionality
+  let showPasswordReset = false
+  let newPassword = ""
+  let confirmPassword = ""
+  let passwordError = ""
+  let passwordSuccess = false
+
+  async function handlePasswordReset() {
+    if (newPassword !== confirmPassword) {
+      passwordError = "Passwords don't match"
+      return
+    }
+    if (newPassword.length < 6) {
+      passwordError = "Password must be at least 6 characters"
+      return
+    }
+
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword
+      })
+      
+      if (error) throw error
+      
+      passwordSuccess = true
+      showPasswordReset = false
+      newPassword = ""
+      confirmPassword = ""
+      passwordError = ""
+    } catch (err) {
+      passwordError = err.message
+    }
+  }
 </script>
 
 <svelte:head>
@@ -309,6 +343,60 @@
             >
           </div>
         </form>
+      </div>
+    </div>
+
+    <!-- Password Reset Section (shown when coming from email link) -->
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">Password Reset</h2>
+        <p class="text-gray-600 mb-6">
+          Set your new password below.
+        </p>
+
+        {#if passwordSuccess}
+          <div class="alert alert-success mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Password updated successfully! You can now use your new password to sign in.</span>
+          </div>
+        {:else}
+          <form on:submit|preventDefault={handlePasswordReset}>
+            <div class="space-y-4">
+              <div class="form-control">
+                <label class="label" for="new_password">New Password</label>
+                <input
+                  type="password"
+                  id="new_password"
+                  bind:value={newPassword}
+                  class="input input-bordered w-full"
+                  placeholder="Enter new password"
+                  required
+                />
+              </div>
+              <div class="form-control">
+                <label class="label" for="confirm_password">Confirm Password</label>
+                <input
+                  type="password"
+                  id="confirm_password"
+                  bind:value={confirmPassword}
+                  class="input input-bordered w-full"
+                  placeholder="Confirm new password"
+                  required
+                />
+              </div>
+              {#if passwordError}
+                <div class="alert alert-error">
+                  <span>{passwordError}</span>
+                </div>
+              {/if}
+            </div>
+            <div class="card-actions justify-end mt-6">
+              <button type="submit" class="btn btn-primary">Update Password</button>
+            </div>
+          </form>
+        {/if}
       </div>
     </div>
   </div>
