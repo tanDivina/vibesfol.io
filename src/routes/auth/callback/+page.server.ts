@@ -3,7 +3,7 @@ import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
   const code = url.searchParams.get("code")
-  const next = url.searchParams.get("next") ?? "/dashboard"
+  const next = url.searchParams.get("next") ?? "/account"
 
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)

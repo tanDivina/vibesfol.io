@@ -26,7 +26,7 @@
       const recoveryAmr = aal?.currentAuthenticationMethods?.find(x => x.method === 'recovery')
       if (recoveryAmr) {
         isPasswordReset = true
-        toasts.info("Please set your new password below")
+        toasts.info("You can now set your new password below")
       }
     }
   })
