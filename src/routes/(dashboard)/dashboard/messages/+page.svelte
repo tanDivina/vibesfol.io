@@ -326,18 +326,15 @@
 {#if selectedMessage}
   <div
     class="fixed inset-0 bg-gray-600-50 overflow-y-auto h-full w-full z-50"
-    on:click={closeMessage}
     role="dialog"
     aria-modal="true"
-    tabindex="-1"
-    on:keydown={(e) => e.key === "Escape" && closeMessage()}
   >
-    <div
-      class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white"
-      role="document"
-      tabindex="0"
-      on:keydown={(e) => e.stopPropagation()}
-    >
+   <button
+     class="fixed inset-0 bg-transparent"
+     on:click={closeMessage}
+     aria-label="Close message"
+   ></button>
+   <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
       <div class="flex justify-between items-start mb-4">
         <div class="flex-1">
           <h3 class="text-lg font-medium text-gray-900">
