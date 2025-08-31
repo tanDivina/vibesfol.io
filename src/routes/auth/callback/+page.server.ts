@@ -3,25 +3,46 @@ import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
   const code = url.searchParams.get("code")
-  const next = url.searchParams.get("next") ?? "/login/sign_in?verified=true"
+  const next = url.searchParams.get("next") ?? "/account"
+
+  console.log("Auth callback - code:", !!code, "next:", next)
 
   if (code) {
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) {
-      // Check if this is a password reset by looking at the next parameter
-      if (next.includes("reset_password")) {
-        throw redirect(303, "/login/reset_password")
+    try {
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+      
+      if (error) {
+        console.error("Error exchanging code for session:", error)
+        throw redirect(303, "/login?error=auth_callback_failed")
       }
-      // If this is an email confirmation (no specific next parameter), redirect to sign in
-      else if (!url.searchParams.get("next")) {
-        throw redirect(303, "/login/sign_in?verified=true")
-      }
-      else {
+
+      if (data.session) {
+        console.log("Session created successfully for user:", data.user?.email)
+        
+        // Check if this is a password reset flow
+        if (next.includes("reset_password") || next.includes("change_password")) {
+          console.log("Redirecting to password reset page")
+          throw redirect(303, "/login/reset_password")
+        }
+        
+        // For email verification, redirect to sign in with verification message
+        if (!url.searchParams.get("next")) {
+          throw redirect(303, "/login/sign_in?verified=true")
+        }
+        
+        // Otherwise redirect to the specified next page
         throw redirect(303, next)
       }
+    } catch (redirectError) {
+      // If it's already a redirect, re-throw it
+      if (redirectError instanceof Response) {
+        throw redirectError
+      }
+      console.error("Unexpected error in auth callback:", redirectError)
     }
   }
 
-  // If there's an error or no code, redirect to login
-  throw redirect(303, "/login")
+  // If no code or session creation failed, redirect to login
+  console.log("No code or session creation failed, redirecting to login")
+  throw redirect(303, "/login?error=no_auth_code")
 }

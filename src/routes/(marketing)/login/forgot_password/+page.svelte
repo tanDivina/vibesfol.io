@@ -15,7 +15,7 @@
 
     try {
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/callback?next=%2Flogin%2Freset_password`,
+        redirectTo: `${window.location.origin}/auth/callback?next=/login/reset_password`,
       })
 
       if (resetError) {

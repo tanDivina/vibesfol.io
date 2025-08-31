@@ -2,37 +2,78 @@
   import { onMount } from "svelte"
   import { supabase } from "$lib/supabaseClient"
   import { goto } from "$app/navigation"
+  import { page } from "$app/stores"
 
   let newPassword = ""
   let confirmPassword = ""
   let loading = false
   let error: string | null = null
   let success = false
+  let sessionValid = false
 
   onMount(async () => {
-    // Check if user has a valid session for password reset
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) {
-      // No valid session, redirect to forgot password
-      goto("/login/forgot_password")
-      return
-    }
-
-    // Check if this is a recovery session
-    const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
-    const recoveryAmr = aal?.currentAuthenticationMethods?.find(x => x.method === 'recovery')
+    console.log("Reset password page mounted")
     
-    if (!recoveryAmr) {
-      // Not a recovery session, redirect to regular password change
-      goto("/account/settings/change_password")
-      return
-    }
+    try {
+      // Get the current session
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+      
+      if (sessionError) {
+        console.error("Session error:", sessionError)
+        error = "Authentication error. Please try the password reset process again."
+        return
+      }
 
-    // Check if recovery session is still valid (15 minutes)
-    const timeSinceLogin = Date.now() - recoveryAmr.timestamp * 1000
-    if (timeSinceLogin > 1000 * 60 * 15) {
-      error = "Password reset link has expired. Please request a new one."
-      return
+      if (!session) {
+        console.log("No session found, redirecting to forgot password")
+        error = "No valid session found. Please request a new password reset link."
+        setTimeout(() => {
+          goto("/login/forgot_password")
+        }, 3000)
+        return
+      }
+
+      console.log("Session found for user:", session.user.email)
+
+      // Check if this is a recovery session by looking at the AMR (Authentication Method Reference)
+      const { data: aal, error: amrError } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
+      
+      if (amrError) {
+        console.error("AMR error:", amrError)
+        error = "Authentication verification failed. Please try again."
+        return
+      }
+
+      const recoveryAmr = aal?.currentAuthenticationMethods?.find(x => x.method === 'recovery')
+      
+      if (!recoveryAmr) {
+        console.log("Not a recovery session, redirecting to regular password change")
+        error = "This is not a valid password reset session. Please request a new reset link."
+        setTimeout(() => {
+          goto("/login/forgot_password")
+        }, 3000)
+        return
+      }
+
+      // Check if recovery session is still valid (15 minutes)
+      const timeSinceLogin = Date.now() - recoveryAmr.timestamp * 1000
+      const fifteenMinutes = 1000 * 60 * 15
+      
+      if (timeSinceLogin > fifteenMinutes) {
+        console.log("Recovery session expired")
+        error = "Password reset link has expired. Please request a new one."
+        setTimeout(() => {
+          goto("/login/forgot_password")
+        }, 3000)
+        return
+      }
+
+      console.log("Valid recovery session found")
+      sessionValid = true
+      
+    } catch (err) {
+      console.error("Error in reset password page:", err)
+      error = "An unexpected error occurred. Please try again."
     }
   })
 
@@ -56,12 +97,18 @@
     error = null
 
     try {
+      console.log("Attempting to update password")
+      
       const { error: updateError } = await supabase.auth.updateUser({ 
         password: newPassword
       })
       
-      if (updateError) throw updateError
+      if (updateError) {
+        console.error("Password update error:", updateError)
+        throw updateError
+      }
       
+      console.log("Password updated successfully")
       success = true
       
       // Redirect to sign in after successful password reset
@@ -70,6 +117,7 @@
       }, 2000)
       
     } catch (err: any) {
+      console.error("Password reset error:", err)
       error = err.message || "Failed to update password"
     } finally {
       loading = false
@@ -96,7 +144,22 @@
             <div class="text-sm">Redirecting you to sign in...</div>
           </div>
         </div>
-      {:else}
+      {:else if !sessionValid && error}
+        <div class="alert alert-error mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <h3 class="font-bold">Session Error</h3>
+            <div class="text-sm">{error}</div>
+          </div>
+        </div>
+        <div class="text-center">
+          <a href="/login/forgot_password" class="btn btn-primary">
+            Request New Reset Link
+          </a>
+        </div>
+      {:else if sessionValid}
         {#if error}
           <div class="alert alert-error mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
@@ -140,7 +203,7 @@
           <button
             type="submit"
             class="btn btn-primary w-full"
-            disabled={loading}
+            disabled={loading || !sessionValid}
           >
             {loading ? "Updating Password..." : "Update Password"}
           </button>
@@ -150,6 +213,11 @@
           <a href="/login/forgot_password" class="link text-sm">
             Need a new reset link?
           </a>
+        </div>
+      {:else}
+        <div class="text-center py-8">
+          <span class="loading loading-spinner loading-lg"></span>
+          <p class="mt-4">Verifying your session...</p>
         </div>
       {/if}
     </div>
