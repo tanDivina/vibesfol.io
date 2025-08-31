@@ -324,7 +324,6 @@
                 {tech.technologies.name}
               </div>
             {/each}
-          {/each}
           <div class="card-actions justify-between items-center mt-4">
             <div class="badge badge-outline">{project.status}</div>
             {#if project.url}
