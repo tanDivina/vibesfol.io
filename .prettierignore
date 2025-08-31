@@ -9,3 +9,6 @@ src/lib/emails/*_text.hbs
 # Don't format HTML Handlebars templates
 src/lib/emails/*_html.hbs
 *.hbs
+
+# Don't format PostCSS config file
+postcss.config.js
