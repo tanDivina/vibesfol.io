@@ -364,6 +364,7 @@
               placeholder="Write the testimonial here..."
               required
             ></textarea>
+        <form on:submit={handleSubmit}>
           </div>
 
           <div class="form-control">
