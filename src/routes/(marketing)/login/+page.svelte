@@ -135,7 +135,7 @@
           type="submit"
           class="btn btn-primary w-full"
           disabled={loading}
-          on:click={() => (authMode = "signup")}
+          onclick={() => (authMode = "signup")}
         >
           {loading && authMode === "signup" ? "Signing Up..." : "Sign Up"}
         </button>
@@ -143,7 +143,7 @@
           type="submit"
           class="btn btn-outline w-full"
           disabled={loading}
-          on:click={() => (authMode = "signin")}
+          onclick={() => (authMode = "signin")}
         >
           {loading && authMode === "signin" ? "Signing In..." : "Sign In"}
         </button>
