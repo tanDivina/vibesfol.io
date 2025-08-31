@@ -116,7 +116,7 @@
     </div>
   {/if}
 
-  <form on:submit|preventDefault={handleSignUp}>
+  <form onsubmit={handleSignUp}>
     <div class="form-control mb-4">
       <label class="label" for="email">
         <span class="label-text">Email</span>
