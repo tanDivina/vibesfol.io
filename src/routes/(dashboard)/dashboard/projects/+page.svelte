@@ -48,37 +48,68 @@
     error = null;
 
     try {
-      const formData = new FormData();
-      formData.append('projectData', JSON.stringify(projectData));
-      formData.append('technologies', JSON.stringify(technologies));
-      formData.append('isUpdate', currentProject ? 'true' : 'false');
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
+      let newProject = null;
+
       if (currentProject) {
-        formData.append('projectId', currentProject.id);
+        // Update project
+        const { error: updateError } = await supabase
+          .from('projects')
+          .update(projectData)
+          .eq('id', currentProject.id)
+          .eq('user_id', user.id);
+
+        if (updateError) throw updateError;
+        newProject = { ...currentProject, ...projectData };
+      } else {
+        // Create project
+        const { data: createdProject, error: insertError } = await supabase
+          .from('projects')
+          .insert({ ...projectData, user_id: user.id })
+          .select()
+          .single();
+
+        if (insertError) throw insertError;
+        newProject = createdProject;
       }
 
-      const response = await fetch('?/saveProject', {
-        method: 'POST',
-        body: formData
-      });
+      // Update project_technologies join table
+      if (newProject) {
+        // Delete existing technologies
+        const { error: deleteError } = await supabase
+          .from('project_technologies')
+          .delete()
+          .eq('project_id', newProject.id);
 
-      if (!response.ok) {
-        throw new Error('Failed to save project');
-      }
+        if (deleteError) throw deleteError;
 
-      const result = await response.json();
-      if (result.type === 'success') {
-        // Refresh the projects list
-        const { data: { user } } = await supabase.auth.getUser();
-        if (user) {
-          const { data } = await supabase
-            .from('projects')
-            .select('*')
-            .eq('user_id', user.id)
-            .order('created_at', { ascending: false });
-          
-          projects = data || [];
+        // Insert new technologies
+        if (technologies.length > 0) {
+          const projectTechnologies = technologies.map((tech) => ({
+            project_id: newProject.id,
+            technology_id: tech.id,
+          }));
+
+          const { error: insertError } = await supabase
+            .from('project_technologies')
+            .insert(projectTechnologies);
+
+          if (insertError) throw insertError;
         }
       }
+
+      // Refresh the projects list
+      const { data } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+      
+      projects = data || [];
     } catch (err) {
       console.error('Error saving project:', err);
       error = 'Failed to save project';
@@ -95,23 +126,21 @@
     error = null;
 
     try {
-      const formData = new FormData();
-      formData.append('projectId', projectId);
-
-      const response = await fetch('?/deleteProject', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete project');
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('User not authenticated');
       }
 
-      const result = await response.json();
-      if (result.type === 'success') {
-        // Remove from projects array
-        projects = projects.filter(p => p.id !== projectId);
-      }
+      const { error: deleteError } = await supabase
+        .from('projects')
+        .delete()
+        .eq('id', projectId)
+        .eq('user_id', user.id);
+
+      if (deleteError) throw deleteError;
+
+      // Remove from projects array
+      projects = projects.filter(p => p.id !== projectId);
     } catch (err) {
       console.error('Error deleting project:', err);
       error = 'Failed to delete project';

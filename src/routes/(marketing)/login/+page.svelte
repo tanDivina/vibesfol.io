@@ -60,7 +60,7 @@
         session = _session
         if (_session) {
           // Redirect to dashboard on successful login
-          window.location.href = '/dashboard'
+          window.location.href = '/account'
         }
         invalidate("supabase:auth")
       }
