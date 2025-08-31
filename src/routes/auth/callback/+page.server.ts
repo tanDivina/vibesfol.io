@@ -8,11 +8,17 @@ export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
   if (code) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
+      // Check if this is a password reset by looking at the next parameter
+      if (next.includes("reset_password")) {
+        throw redirect(303, "/login/reset_password")
+      }
       // If this is an email confirmation (no specific next parameter), redirect to sign in
-      if (!url.searchParams.get("next")) {
+      else if (!url.searchParams.get("next")) {
         throw redirect(303, "/login/sign_in?verified=true")
       }
-      throw redirect(303, next)
+      else {
+        throw redirect(303, next)
+      }
     }
   }
 
