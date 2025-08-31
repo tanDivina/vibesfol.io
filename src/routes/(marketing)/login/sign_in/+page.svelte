@@ -12,6 +12,12 @@
   let error = $state<string | null>(null)
 
   onMount(() => {
+    // Check for error in URL params
+    const urlError = $page.url.searchParams.get("error")
+    if (urlError) {
+      error = decodeURIComponent(urlError)
+    }
+
     supabase.auth.onAuthStateChange((event) => {
       if (event == "SIGNED_IN") {
         setTimeout(() => {
@@ -22,6 +28,11 @@
   })
 
   async function handleSignIn() {
+    if (!email || !password) {
+      error = "Please fill in both email and password"
+      return
+    }
+
     loading = true
     error = null
 

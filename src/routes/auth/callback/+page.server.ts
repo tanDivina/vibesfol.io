@@ -4,8 +4,17 @@ import type { PageServerLoad } from "./$types"
 export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
   const code = url.searchParams.get("code")
   const next = url.searchParams.get("next") ?? "/account"
+  const error_param = url.searchParams.get("error")
+  const error_description = url.searchParams.get("error_description")
 
-  console.log("Auth callback - code:", !!code, "next:", next)
+  console.log("Auth callback - code:", !!code, "next:", next, "error:", error_param)
+
+  // Handle auth errors from Supabase
+  if (error_param) {
+    console.error("Auth callback error:", error_param, error_description)
+    const errorMessage = encodeURIComponent(error_description || error_param)
+    throw redirect(303, `/login?error=${errorMessage}`)
+  }
 
   if (code) {
     try {
@@ -13,7 +22,8 @@ export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
       
       if (error) {
         console.error("Error exchanging code for session:", error)
-        throw redirect(303, "/login?error=auth_callback_failed")
+        const errorMessage = encodeURIComponent(error.message || "Authentication failed")
+        throw redirect(303, `/login?error=${errorMessage}`)
       }
 
       if (data.session) {
@@ -25,8 +35,14 @@ export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
           throw redirect(303, "/login/reset_password")
         }
         
-        // For email verification, redirect to sign in with verification message
-        if (!url.searchParams.get("next")) {
+        // For email verification (no specific next page), redirect to dashboard
+        if (next === "/account" && !url.searchParams.get("next")) {
+          console.log("Email verification complete, redirecting to dashboard")
+          throw redirect(303, "/dashboard")
+        }
+        
+        // If next is still /account, redirect to dashboard instead
+        if (next === "/account") {
           throw redirect(303, "/login/sign_in?verified=true")
         }
         
@@ -39,10 +55,13 @@ export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
         throw redirectError
       }
       console.error("Unexpected error in auth callback:", redirectError)
+      const errorMessage = encodeURIComponent("Authentication callback failed")
+      throw redirect(303, `/login?error=${errorMessage}`)
     }
   }
 
   // If no code or session creation failed, redirect to login
   console.log("No code or session creation failed, redirecting to login")
-  throw redirect(303, "/login?error=no_auth_code")
+  const errorMessage = encodeURIComponent("No authentication code received")
+  throw redirect(303, `/login?error=${errorMessage}`)
 }

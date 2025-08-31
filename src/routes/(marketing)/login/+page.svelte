@@ -27,8 +27,13 @@
           throw signUpError
         }
 
-        if (data.user) {
-          alert("Check your email for a login link!")
+        if (data.user && !data.session) {
+          // Email confirmation required
+          error = null
+          alert("Check your email for a confirmation link! After confirming, you'll be redirected to sign in.")
+        } else if (data.session) {
+          // Immediate sign in (email confirmation disabled)
+          console.log("User signed up and logged in immediately")
         } else {
           alert(
             "Sign up successful! Please check your email to confirm your account.",
@@ -55,6 +60,12 @@
   let session = $state(null)
 
   onMount(() => {
+    // Check for error in URL params
+    const urlError = $page.url.searchParams.get("error")
+    if (urlError) {
+      error = decodeURIComponent(urlError)
+    }
+
     const { data } = supabase.auth.onAuthStateChange((event, _session) => {
       if (_session?.expires_at !== session?.expires_at) {
         session = _session
@@ -69,6 +80,16 @@
     return () => data.subscription.unsubscribe()
   })
 </script>
+
+    if (!email || !password) {
+      error = "Please fill in both email and password"
+      return
+    }
+
+    if (authMode === "signup" && password.length < 6) {
+      error = "Password must be at least 6 characters long"
+      return
+    }
 
 <svelte:head>
   <title>Log In</title>
