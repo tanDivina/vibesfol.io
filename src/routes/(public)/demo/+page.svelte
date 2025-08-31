@@ -324,12 +324,12 @@
                 {tech.technologies.name}
               </div>
             {/each}
-                on:click={() => handleProjectClick(project.id, "view_screenshot")}
+          {/each}
           <div class="card-actions justify-between items-center mt-4">
             <div class="badge badge-outline">{project.status}</div>
             {#if project.url}
               <a
-                  on:click={() => handleProjectClick(project.id, "visit_link")}
+                href={project.url}
                 on:click={() => handleProjectClick(project.id, "visit_link")}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -341,7 +341,6 @@
           </div>
         </div>
       </div>
-    {/each}
   </div>
 
   <!-- Contact Form Section -->

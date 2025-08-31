@@ -11,6 +11,11 @@
   let authMode = $state<"signup" | "signin">("signup")
 
   async function handleAuth() {
+    if (!email || !password) {
+      error = "Please fill in both email and password"
+      return
+    }
+
     loading = true
     error = null
 
@@ -29,11 +34,11 @@
         }
 
         if (data.user && !data.session) {
-          // Email confirmation required
           error = null
-          alert("Check your email for a confirmation link! After confirming, you'll be redirected to sign in.")
+          alert(
+            "Check your email for a confirmation link! After confirming, you'll be redirected to sign in.",
+          )
         } else if (data.session) {
-          // Immediate sign in (email confirmation disabled)
           console.log("User signed up and logged in immediately")
         } else {
           alert(
@@ -61,7 +66,6 @@
   let session = $state(null)
 
   onMount(() => {
-    // Check for error in URL params
     const urlError = $page.url.searchParams.get("error")
     if (urlError) {
       error = decodeURIComponent(urlError)
@@ -71,8 +75,7 @@
       if (_session?.expires_at !== session?.expires_at) {
         session = _session
         if (_session) {
-          // Redirect to dashboard on successful login
-          window.location.href = '/dashboard'
+          window.location.href = "/dashboard"
         }
         invalidate("supabase:auth")
       }
@@ -80,6 +83,7 @@
 
     return () => data.subscription.unsubscribe()
   })
+</script>
 
 <svelte:head>
   <title>Log In</title>
@@ -97,7 +101,7 @@
       </div>
     {/if}
 
-    <form onsubmit={handleAuth}>
+    <form on:submit|preventDefault={handleAuth}>
       <div class="form-control mb-4">
         <label class="label" for="email">
           <span class="label-text">Email</span>
