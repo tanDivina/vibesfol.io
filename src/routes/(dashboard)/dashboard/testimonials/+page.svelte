@@ -364,7 +364,6 @@
               placeholder="Write the testimonial here..."
               required
             ></textarea>
-        <form on:submit={handleSubmit}>
           </div>
 
           <div class="form-control">
@@ -384,7 +383,7 @@
         </div>
 
         <div class="flex justify-end gap-3 mt-6">
-          <button type="button" class="btn btn-ghost" onclick={closeForm}>
+          <button type="button" class="btn btn-ghost" on:click={closeForm}>
             Cancel
           </button>
           <button type="submit" class="btn btn-primary" disabled={loading}>

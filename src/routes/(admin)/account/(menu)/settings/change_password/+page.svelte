@@ -99,7 +99,7 @@
       <button
         class="btn btn-outline btn-wide {sentEmail ? 'hidden' : ''}"
         disabled={sendBtnDisabled}
-        onclick={sendForgotPassword}
+        on:click={sendForgotPassword}
       >
         {sendBtnText}
       </button>

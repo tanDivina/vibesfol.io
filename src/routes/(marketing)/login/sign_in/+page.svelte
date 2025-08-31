@@ -104,7 +104,7 @@
   </div>
 {/if}
 
-<form onsubmit={handleSignIn}>
+<form on:submit|preventDefault={handleSignIn}>
   <div class="form-control mb-4">
     <label class="label" for="email">
       <span class="label-text">Email</span>
