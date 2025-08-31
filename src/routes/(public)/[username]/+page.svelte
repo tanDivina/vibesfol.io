@@ -199,7 +199,7 @@
             {#if project.screenshot_url}
               <button
                 class="w-full h-full p-0 border-0 bg-transparent cursor-pointer"
-                onclick={() => handleProjectClick(project.id, "view_screenshot")}
+                on:click={() => handleProjectClick(project.id, "view_screenshot")}
                 aria-label="View screenshot of {project.title}"
               >
                 <img
@@ -231,7 +231,7 @@
               {#if project.url}
                 <a
                   href={project.url}
-                  onclick={() => handleProjectClick(project.id, "visit_link")}
+                  on:click={() => handleProjectClick(project.id, "visit_link")}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="btn btn-sm btn-primary"

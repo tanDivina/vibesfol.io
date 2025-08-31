@@ -2,6 +2,7 @@
   import { invalidate } from "$app/navigation"
   import { onMount } from "svelte"
   import { supabase } from "$lib/supabaseClient"
+  import { page } from "$app/stores"
 
   let email = $state("")
   let password = $state("")
@@ -71,7 +72,7 @@
         session = _session
         if (_session) {
           // Redirect to dashboard on successful login
-          window.location.href = '/account'
+          window.location.href = '/dashboard'
         }
         invalidate("supabase:auth")
       }
@@ -79,17 +80,6 @@
 
     return () => data.subscription.unsubscribe()
   })
-</script>
-
-    if (!email || !password) {
-      error = "Please fill in both email and password"
-      return
-    }
-
-    if (authMode === "signup" && password.length < 6) {
-      error = "Password must be at least 6 characters long"
-      return
-    }
 
 <svelte:head>
   <title>Log In</title>

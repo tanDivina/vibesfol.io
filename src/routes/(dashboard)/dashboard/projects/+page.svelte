@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { enhance } from '$app/forms';
   import { supabase } from '$lib/supabaseClient';
   import ProjectForm from '$lib/ProjectForm.svelte';
   import type { Database } from '$lib/DatabaseDefinitions'

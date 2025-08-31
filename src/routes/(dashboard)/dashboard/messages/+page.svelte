@@ -447,8 +447,7 @@
               name="isStarred"
               value={selectedMessage.is_starred}
             />
-            <button type="submit" class="btn btn-ghost">
-              aria-label={selectedMessage.is_starred ? "Remove star" : "Add star"}
+            <button type="submit" class="btn btn-ghost" aria-label={selectedMessage.is_starred ? "Remove star" : "Add star"}>
               <svg
                 class="w-4 h-4 {selectedMessage.is_starred
                   ? 'text-yellow-400'
@@ -466,8 +465,8 @@
           <button
             class="btn btn-ghost text-red-600 hover:text-red-800"
             on:click={() => confirmDelete(selectedMessage.id)}
-            aria-label="Delete message"
           >
+            <span class="sr-only">Delete message</span>
             <svg
               class="w-4 h-4"
               fill="none"
