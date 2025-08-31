@@ -29,7 +29,7 @@
         email,
         password,
         options: {
-          emailRedirectTo: `https://tandivina-vibesfol-i-er5n.bolt.host/auth/callback`,
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
         },
       })
 
@@ -38,7 +38,7 @@
       }
 
       if (signUpData.user) {
-        alert("Check your email for a confirmation link!")
+        alert("Check your email for a confirmation link! After confirming, you'll be redirected back to sign in.")
       }
     } catch (err: any) {
       error = err.message

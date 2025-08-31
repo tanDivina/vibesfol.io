@@ -15,7 +15,7 @@
     supabase.auth.onAuthStateChange((event) => {
       if (event == "SIGNED_IN") {
         setTimeout(() => {
-          goto("/dashboard")
+          goto("/account")
         }, 1)
       }
     })
