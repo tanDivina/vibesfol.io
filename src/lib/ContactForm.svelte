@@ -104,8 +104,8 @@
 
   function clearError() {
     if (submitStatus === "error") {
-      submitStatus = 'idle'
-      errorMessage = ''
+      submitStatus = "idle"
+      errorMessage = ""
     }
   }
 </script>
@@ -307,5 +307,4 @@
   .form-control {
     @apply w-full;
   }
-
 </style>

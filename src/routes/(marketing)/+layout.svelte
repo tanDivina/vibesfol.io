@@ -18,23 +18,18 @@
       <li class="md:mx-4">
         <a
           href="https://github.com/CriticalMoments/CMSaasStarter"
-          class="border border-primary">★ us on Github
+          class="border border-primary"
+          >★ us on Github
         </a>
       </li>
       <li class="md:mx-2">
-        <a href="/blog">
-          Blog
-        </a>
+        <a href="/blog"> Blog </a>
       </li>
       <li class="md:mx-2">
-        <a href="/pricing">
-          Pricing
-        </a>
+        <a href="/pricing"> Pricing </a>
       </li>
       <li class="md:mx-2">
-        <a href="/login/sign_in">
-          Login
-        </a>
+        <a href="/login/sign_in"> Login </a>
       </li>
       <li class="md:mx-0">
         <a href="/search" aria-label="Search">
@@ -102,7 +97,11 @@
       class="footer-content max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8"
     >
       <nav>
-        <h6 class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide">Product</h6>
+        <h6
+          class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide"
+        >
+          Product
+        </h6>
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/">Overview</a>
           <a class="link link-hover" href="/pricing">Pricing</a>
@@ -112,7 +111,11 @@
         </div>
       </nav>
       <nav>
-        <h6 class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide">Resources</h6>
+        <h6
+          class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide"
+        >
+          Resources
+        </h6>
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/blog">Blog</a>
           <a
@@ -121,11 +124,17 @@
           >
           <a class="link link-hover" href="/search">Search</a>
           <a class="link link-hover" href="/pricing#faq">FAQ</a>
-          <a class="link link-hover" href="/pricing#plan-comparison">Plan Comparison</a>
+          <a class="link link-hover" href="/pricing#plan-comparison"
+            >Plan Comparison</a
+          >
         </div>
       </nav>
       <nav>
-        <h6 class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide">Comparisons</h6>
+        <h6
+          class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide"
+        >
+          Comparisons
+        </h6>
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/vs/indiepage">vs. IndiePage</a>
           <a class="link link-hover" href="/vs/portfolio">vs. Portfolio</a>
@@ -135,7 +144,11 @@
         </div>
       </nav>
       <nav>
-        <h6 class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide">Company</h6>
+        <h6
+          class="footer-title text-lg font-bold text-gray-900 mb-4 uppercase tracking-wide"
+        >
+          Company
+        </h6>
         <div class="flex flex-col space-y-2">
           <a class="link link-hover" href="/about">About</a>
           <a class="link link-hover" href="/contact_us">Contact Us</a>

@@ -7,24 +7,29 @@
   const faqs = [
     {
       question: "Can I start with the free plan?",
-      answer: "Absolutely! Our free plan includes everything you need to create a professional portfolio with up to 3 projects, 5 testimonials, and automatic screenshot generation."
+      answer:
+        "Absolutely! Our free plan includes everything you need to create a professional portfolio with up to 3 projects, 5 testimonials, and automatic screenshot generation.",
     },
     {
       question: "What are Lifetime Deals (LTD)?",
-      answer: "Lifetime Deals are one-time payments that give you access to premium features forever. No monthly subscriptions, no recurring charges - just pay once and enjoy the features for life."
+      answer:
+        "Lifetime Deals are one-time payments that give you access to premium features forever. No monthly subscriptions, no recurring charges - just pay once and enjoy the features for life.",
     },
     {
       question: "What's the difference between Starter LTD and Unlimited LTD?",
-      answer: "Starter LTD ($15) gives you up to 10 projects, unlimited testimonials, and analytics. Unlimited LTD ($55) includes unlimited projects, custom domains, client portals, and SEO optimization."
+      answer:
+        "Starter LTD ($15) gives you up to 10 projects, unlimited testimonials, and analytics. Unlimited LTD ($55) includes unlimited projects, custom domains, client portals, and SEO optimization.",
     },
     {
       question: "Do you offer refunds on Lifetime Deals?",
-      answer: "Yes! We offer a 30-day money-back guarantee on all Lifetime Deals. If you're not satisfied within the first 30 days, contact us for a full refund."
+      answer:
+        "Yes! We offer a 30-day money-back guarantee on all Lifetime Deals. If you're not satisfied within the first 30 days, contact us for a full refund.",
     },
     {
       question: "How does the screenshot generation work?",
-      answer: "Simply provide your project URL and our system automatically captures high-quality screenshots of your live projects. This feature is available on both free and Pro plans."
-    }
+      answer:
+        "Simply provide your project URL and our system automatically captures high-quality screenshots of your live projects. This feature is available on both free and Pro plans.",
+    },
   ]
 
   function toggleFaq(index: number) {
@@ -147,19 +152,26 @@
     <h1 class="text-2xl font-bold text-center mt-24">
       Frequently Asked Questions
     </h1>
-    
+
     <!-- FAQ Section -->
     <div id="faq" class="max-w-4xl mx-auto mt-16 mb-16">
       <div class="space-y-4 max-w-3xl mx-auto">
         {#each faqs as faq, index}
-          <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+          <div
+            class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden"
+          >
             <button
               class="w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors"
               on:click={() => toggleFaq(index)}
             >
-              <span class="text-xl font-medium text-gray-900">{faq.question}</span>
+              <span class="text-xl font-medium text-gray-900"
+                >{faq.question}</span
+              >
               <svg
-                class="w-6 h-6 text-gray-500 transform transition-transform {openFaq === index ? 'rotate-45' : ''}"
+                class="w-6 h-6 text-gray-500 transform transition-transform {openFaq ===
+                index
+                  ? 'rotate-45'
+                  : ''}"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -189,29 +201,39 @@
         See what's included in each plan
       </p>
 
-      <div class="bg-white rounded-xl shadow-xl overflow-hidden max-w-3xl mx-auto">
+      <div
+        class="bg-white rounded-xl shadow-xl overflow-hidden max-w-3xl mx-auto"
+      >
         <div class="overflow-x-auto">
           <table class="table w-full">
             <thead class="bg-gray-50">
               <tr>
                 <th class="text-left font-bold text-gray-900 py-4">Features</th>
                 <th class="text-center font-bold text-gray-900 py-4">Free</th>
-                <th class="text-center font-bold text-gray-900 py-4">Starter LTD</th>
-                <th class="text-center font-bold text-gray-900 py-4">Unlimited LTD</th>
+                <th class="text-center font-bold text-gray-900 py-4"
+                  >Starter LTD</th
+                >
+                <th class="text-center font-bold text-gray-900 py-4"
+                  >Unlimited LTD</th
+                >
               </tr>
             </thead>
             <tbody>
               {#each planFeatures as feature}
                 {#if feature.header}
                   <tr class="bg-blue-50">
-                    <td colspan="4" class="font-bold text-blue-900 py-3 text-lg">{feature.name}</td>
+                    <td colspan="4" class="font-bold text-blue-900 py-3 text-lg"
+                      >{feature.name}</td
+                    >
                   </tr>
                 {:else}
                   <tr class="hover:bg-gray-50">
                     <td class="font-medium py-4">{feature.name}</td>
                     <td class="text-center py-4">
                       {#if feature.freeString}
-                        <span class="text-gray-700 font-medium">{feature.freeString}</span>
+                        <span class="text-gray-700 font-medium"
+                          >{feature.freeString}</span
+                        >
                       {:else if feature.freeIncluded}
                         <svg
                           class="w-6 h-6 text-green-500 mx-auto"
@@ -240,7 +262,9 @@
                     </td>
                     <td class="text-center py-4">
                       {#if feature.starterString}
-                        <span class="text-gray-700 font-medium">{feature.starterString}</span>
+                        <span class="text-gray-700 font-medium"
+                          >{feature.starterString}</span
+                        >
                       {:else if feature.starterIncluded}
                         <svg
                           class="w-6 h-6 text-green-500 mx-auto"
@@ -269,7 +293,9 @@
                     </td>
                     <td class="text-center py-4">
                       {#if feature.unlimitedString}
-                        <span class="text-gray-700 font-medium">{feature.unlimitedString}</span>
+                        <span class="text-gray-700 font-medium"
+                          >{feature.unlimitedString}</span
+                        >
                       {:else if feature.unlimitedIncluded}
                         <svg
                           class="w-6 h-6 text-green-500 mx-auto"

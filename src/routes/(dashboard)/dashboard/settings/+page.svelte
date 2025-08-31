@@ -19,11 +19,16 @@
 
   onMount(async () => {
     // Check if user came from password reset email
-    const { data: { session } } = await supabase.auth.getSession()
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
     if (session?.user) {
       // Check if this is a recovery session
-      const { data: aal } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
-      const recoveryAmr = aal?.currentAuthenticationMethods?.find(x => x.method === 'recovery')
+      const { data: aal } =
+        await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
+      const recoveryAmr = aal?.currentAuthenticationMethods?.find(
+        (x) => x.method === "recovery",
+      )
       if (recoveryAmr) {
         isPasswordReset = true
         toasts.info("You can now set your new password below")
@@ -58,12 +63,12 @@
       passwordError = "Please fill in both password fields"
       return
     }
-    
+
     if (newPassword !== confirmPassword) {
       passwordError = "Passwords don't match"
       return
     }
-    
+
     if (newPassword.length < 6) {
       passwordError = "Password must be at least 6 characters"
       return
@@ -73,12 +78,12 @@
     passwordError = ""
 
     try {
-      const { error } = await supabase.auth.updateUser({ 
-        password: newPassword
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
       })
-      
+
       if (error) throw error
-      
+
       passwordSuccess = true
       isPasswordReset = false
       newPassword = ""
@@ -105,16 +110,27 @@
     <div class="card bg-base-100 shadow-xl mb-8">
       <div class="card-body">
         <h2 class="card-title">Password Reset</h2>
-        <p class="text-gray-600 mb-6">
-          Set your new password below.
-        </p>
+        <p class="text-gray-600 mb-6">Set your new password below.</p>
 
         {#if passwordSuccess}
           <div class="alert alert-success mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
-            <span>Password updated successfully! You can now use your new password to sign in.</span>
+            <span
+              >Password updated successfully! You can now use your new password
+              to sign in.</span
+            >
           </div>
         {:else}
           <form on:submit|preventDefault={handlePasswordReset}>
@@ -131,7 +147,9 @@
                 />
               </div>
               <div class="form-control">
-                <label class="label" for="confirm_password">Confirm Password</label>
+                <label class="label" for="confirm_password"
+                  >Confirm Password</label
+                >
                 <input
                   type="password"
                   id="confirm_password"
@@ -148,7 +166,11 @@
               {/if}
             </div>
             <div class="card-actions justify-end mt-6">
-              <button type="submit" class="btn btn-primary" disabled={passwordLoading}>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                disabled={passwordLoading}
+              >
                 {passwordLoading ? "Updating..." : "Update Password"}
               </button>
             </div>
@@ -433,6 +455,5 @@
         </form>
       </div>
     </div>
-
   </div>
 </div>

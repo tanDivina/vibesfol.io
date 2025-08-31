@@ -14,10 +14,12 @@ Your portfolio might be beautiful and showcase amazing projects, but if no one c
 Every page on your portfolio should have a unique, descriptive title and meta description.
 
 **Good Title Examples:**
+
 - "John Smith | Full-Stack Developer | React & Node.js Expert"
 - "Sarah Chen - Frontend Developer Specializing in Vue.js & TypeScript"
 
 **Meta Description Best Practices:**
+
 - Keep it under 160 characters
 - Include your key skills and location
 - Make it compelling - this is your elevator pitch in search results
@@ -67,6 +69,7 @@ If you're looking for local clients:
 ## 7. Monitor Your Results
 
 Use tools like:
+
 - Google Search Console
 - Google Analytics
 - Ahrefs or SEMrush for keyword tracking

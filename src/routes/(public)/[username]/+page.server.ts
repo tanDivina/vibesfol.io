@@ -18,9 +18,24 @@ export const load: PageServerLoad = async ({
 
   // Prevent common route conflicts
   const reservedRoutes = [
-    "api", "auth", "dashboard", "admin", "blog", "about", "contact", 
-    "pricing", "login", "signup", "terms", "privacy", "vs", "search",
-    "build", "demo-profile", "preview", "client-portal"
+    "api",
+    "auth",
+    "dashboard",
+    "admin",
+    "blog",
+    "about",
+    "contact",
+    "pricing",
+    "login",
+    "signup",
+    "terms",
+    "privacy",
+    "vs",
+    "search",
+    "build",
+    "demo-profile",
+    "preview",
+    "client-portal",
   ]
   if (reservedRoutes.includes(username.toLowerCase())) {
     throw redirect(302, "/")

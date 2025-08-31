@@ -47,54 +47,53 @@
   async function uploadAvatar(event: Event) {
     const target = event.target as HTMLInputElement
     const file = target.files?.[0]
-    
+
     if (!file) return
-    
+
     // Validate file type
-    if (!file.type.startsWith('image/')) {
-      alert('Please select an image file')
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file")
       return
     }
-    
+
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert('File size must be less than 5MB')
+      alert("File size must be less than 5MB")
       return
     }
-    
+
     uploadingAvatar = true
-    
+
     try {
-      const fileExt = file.name.split('.').pop()
+      const fileExt = file.name.split(".").pop()
       const fileName = `${data.session?.user.id}-${Math.random()}.${fileExt}`
-      
+
       const { error: uploadError } = await supabase.storage
-        .from('avatars')
+        .from("avatars")
         .upload(fileName, file, { upsert: true })
-      
+
       if (uploadError) throw uploadError
-      
+
       // Get the public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(fileName)
-      
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("avatars").getPublicUrl(fileName)
+
       // Update the profile with the new avatar URL
       const { error: updateError } = await supabase
-        .from('profiles')
+        .from("profiles")
         .update({ avatar_url: publicUrl })
-        .eq('id', data.session?.user.id)
-      
+        .eq("id", data.session?.user.id)
+
       if (updateError) throw updateError
-      
+
       // Update local data
       if (data.profile) {
         data.profile.avatar_url = publicUrl
       }
-      
     } catch (error) {
-      console.error('Error uploading avatar:', error)
-      alert('Failed to upload avatar. Please try again.')
+      console.error("Error uploading avatar:", error)
+      alert("Failed to upload avatar. Please try again.")
     } finally {
       uploadingAvatar = false
     }
@@ -173,11 +172,27 @@
                   <div class="avatar">
                     <div class="w-20 h-20 rounded-full">
                       {#if data.profile?.avatar_url}
-                        <img src={data.profile.avatar_url} alt="Profile" class="w-full h-full object-cover rounded-full" />
+                        <img
+                          src={data.profile.avatar_url}
+                          alt="Profile"
+                          class="w-full h-full object-cover rounded-full"
+                        />
                       {:else}
-                        <div class="w-full h-full bg-gray-300 rounded-full flex items-center justify-center">
-                          <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        <div
+                          class="w-full h-full bg-gray-300 rounded-full flex items-center justify-center"
+                        >
+                          <svg
+                            class="w-8 h-8 text-gray-500"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            ></path>
                           </svg>
                         </div>
                       {/if}
@@ -515,9 +530,15 @@
                     class="w-16 h-16 rounded-full flex items-center justify-center overflow-hidden"
                   >
                     {#if data.profile?.avatar_url}
-                      <img src={data.profile.avatar_url} alt="Profile" class="w-full h-full object-cover" />
+                      <img
+                        src={data.profile.avatar_url}
+                        alt="Profile"
+                        class="w-full h-full object-cover"
+                      />
                     {:else}
-                      <div class="w-full h-full bg-gray-300 flex items-center justify-center">
+                      <div
+                        class="w-full h-full bg-gray-300 flex items-center justify-center"
+                      >
                         <svg
                           class="w-8 h-8 text-gray-500"
                           fill="none"

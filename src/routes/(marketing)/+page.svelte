@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    WebsiteName,
-    WebsiteBaseUrl,
-    WebsiteDescription,
-  } from "$config"
+  import { WebsiteName, WebsiteBaseUrl, WebsiteDescription } from "$config"
   import { onMount } from "svelte"
 
   let heroElement: HTMLElement
@@ -16,15 +12,15 @@
         const rect = heroElement.getBoundingClientRect()
         mouseX = ((e.clientX - rect.left) / rect.width) * 100
         mouseY = ((e.clientY - rect.top) / rect.height) * 100
-        
-        heroElement.style.setProperty('--mouse-x', `${mouseX}%`)
-        heroElement.style.setProperty('--mouse-y', `${mouseY}%`)
+
+        heroElement.style.setProperty("--mouse-x", `${mouseX}%`)
+        heroElement.style.setProperty("--mouse-y", `${mouseY}%`)
       }
     }
 
     if (heroElement) {
-      heroElement.addEventListener('mousemove', handleMouseMove)
-      return () => heroElement.removeEventListener('mousemove', handleMouseMove)
+      heroElement.addEventListener("mousemove", handleMouseMove)
+      return () => heroElement.removeEventListener("mousemove", handleMouseMove)
     }
   })
 
@@ -139,7 +135,7 @@
   </script>
 </svelte:head>
 
-<div 
+<div
   bind:this={heroElement}
   class="hero min-h-[60vh] interactive-gradient animate-gradient-slow"
   style="--mouse-x: 50%; --mouse-y: 50%"
@@ -160,43 +156,46 @@
         The
         <span
           class="underline decoration-4 md:decoration-8 underline-offset-4"
-          style="text-decoration-color: white;"
-          >ultimate</span
+          style="text-decoration-color: white;">ultimate</span
         >
         <span
           class="underline decoration-4 md:decoration-8 underline-offset-4"
-          style="text-decoration-color: white;"
-          >portfolio platform</span
+          style="text-decoration-color: white;">portfolio platform</span
         >
         for
         <span
           class="underline decoration-4 md:decoration-8 underline-offset-4"
-          style="text-decoration-color: white;"
-          >developers</span
+          style="text-decoration-color: white;">developers</span
         >
       </div>
-      <div class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-8 md:mb-12">
+      <div
+        class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-8 md:mb-12"
+      >
         Create stunning portfolios in minutes with <span class="font-bold"
           >automated screenshots</span
         >, <span class="font-bold">tech stack tagging</span>, and
         <span class="font-bold">professional themes</span>. Perfect for
         developers, indie hackers, and creative professionals.
       </div>
-      <div
-        class="flex flex-col sm:flex-row gap-4 justify-center items-center"
-      >
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <a href="/login/sign_up">
-          <button class="btn btn-primary btn-lg px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+          <button
+            class="btn btn-primary btn-lg px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+          >
             Get Started Free
           </button>
         </a>
         <a href="/login/sign_up">
-          <button class="btn btn-secondary btn-lg px-8 py-4 text-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+          <button
+            class="btn btn-secondary btn-lg px-8 py-4 text-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+          >
             Sign Up Now
           </button>
         </a>
         <a href="/pricing">
-          <button class="btn btn-outline btn-primary btn-lg px-8 py-4 text-lg font-semibold hover:bg-blue-50 transition-all duration-200">
+          <button
+            class="btn btn-outline btn-primary btn-lg px-8 py-4 text-lg font-semibold hover:bg-blue-50 transition-all duration-200"
+          >
             View Pricing
           </button>
         </a>
@@ -244,11 +243,7 @@
             </p>
             <div></div>
             {#if feature.link}
-
-              <a
-                href={feature.link}
-                class="pb-4 mt-auto"
-              >
+              <a href={feature.link} class="pb-4 mt-auto">
                 <button
                   class="btn btn-xs btn-outline rounded-full btn-primary min-w-[100px]"
                   >{feature.linkText ? feature.linkText : "Try It"}</button
@@ -531,7 +526,7 @@
   </div>
 </div>
 
-<div 
+<div
   class="min-h-[60vh] mt-12 interactive-gradient animate-gradient-slow"
   style="--mouse-x: 50%; --mouse-y: 50%"
   role="presentation"
@@ -539,8 +534,8 @@
     const rect = e.currentTarget.getBoundingClientRect()
     const mouseX = ((e.clientX - rect.left) / rect.width) * 100
     const mouseY = ((e.clientY - rect.top) / rect.height) * 100
-    e.currentTarget.style.setProperty('--mouse-x', `${mouseX}%`)
-    e.currentTarget.style.setProperty('--mouse-y', `${mouseY}%`)
+    e.currentTarget.style.setProperty("--mouse-x", `${mouseX}%`)
+    e.currentTarget.style.setProperty("--mouse-y", `${mouseY}%`)
   }}
 >
   <div class="text-center pb-16 pt-4 px-4" style="color: #2c3e50;">
@@ -549,13 +544,17 @@
         Check out our demo portfolio to see how your projects will look
       </div>
       <div class="mt-8">
-        <a href="/demo-profile" class="btn btn-primary btn-wide">View Demo Portfolio</a>
+        <a href="/demo-profile" class="btn btn-primary btn-wide"
+          >View Demo Portfolio</a
+        >
       </div>
       <div class="mt-8 text-base">
         Or start building your own portfolio today
       </div>
       <div class="mt-2">
-        <a href="/login/sign_up" class="btn btn-outline btn-primary">Get Started Free</a>
+        <a href="/login/sign_up" class="btn btn-outline btn-primary"
+          >Get Started Free</a
+        >
       </div>
     </div>
   </div>

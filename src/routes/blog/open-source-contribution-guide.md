@@ -10,6 +10,7 @@ summary: "Contributing to open source can accelerate your career, improve your s
 Open source contribution is one of the best ways to level up as a developer. It provides real-world experience, exposes you to different coding styles, and helps you build a public track record of your skills.
 
 ### Career Benefits
+
 - **Skill development:** Work on complex, real-world projects
 - **Portfolio building:** Public contributions showcase your abilities
 - **Networking:** Connect with experienced developers worldwide
@@ -17,6 +18,7 @@ Open source contribution is one of the best ways to level up as a developer. It 
 - **Learning:** Exposure to different architectures and patterns
 
 ### Personal Benefits
+
 - **Giving back:** Help tools and libraries you use daily
 - **Problem solving:** Tackle interesting technical challenges
 - **Confidence building:** See your code used by others
@@ -25,12 +27,15 @@ Open source contribution is one of the best ways to level up as a developer. It 
 ## Finding the Right Project
 
 ### Start With Projects You Use
+
 - Look at your package.json or requirements.txt
 - Check the GitHub repos of tools you use daily
 - Consider documentation improvements for familiar tools
 
 ### Good First Issue Labels
+
 Most projects tag beginner-friendly issues:
+
 - `good first issue`
 - `beginner friendly`
 - `help wanted`
@@ -38,7 +43,9 @@ Most projects tag beginner-friendly issues:
 - `easy`
 
 ### Project Health Indicators
+
 Look for projects that are:
+
 - **Actively maintained:** Recent commits and releases
 - **Welcoming community:** Helpful maintainers and contributors
 - **Clear guidelines:** Contributing guidelines and code of conduct
@@ -47,44 +54,55 @@ Look for projects that are:
 ## Types of Contributions
 
 ### 1. Documentation
+
 **Perfect for beginners:**
+
 - Fix typos and grammar
 - Improve unclear explanations
 - Add missing examples
 - Translate documentation
 
 **Example contributions:**
+
 - Add code examples to API documentation
 - Create getting started guides
 - Fix broken links
 - Improve README files
 
 ### 2. Bug Fixes
+
 **Great for building confidence:**
+
 - Start with simple bugs
 - Look for issues with clear reproduction steps
 - Focus on areas you understand
 
 **How to approach:**
+
 - Reproduce the bug locally
 - Understand the root cause
 - Write tests that demonstrate the fix
 - Keep changes minimal and focused
 
 ### 3. Feature Development
+
 **For more experienced contributors:**
+
 - Implement requested features
 - Add new functionality
 - Improve existing features
 
 **Best practices:**
+
 - Discuss the approach before coding
 - Break large features into smaller PRs
 - Include comprehensive tests
 - Update documentation
 
 ### 4. Testing
+
 **Always valuable:**
+
 - Add missing test cases
 - Improve test coverage
 - Fix flaky tests
@@ -93,12 +111,14 @@ Look for projects that are:
 ## The Contribution Process
 
 ### 1. Research and Preparation
+
 - Read the project's contributing guidelines
 - Check if the issue is still relevant
 - Look at recent pull requests for patterns
 - Set up the development environment
 
 ### 2. Fork and Clone
+
 ```bash
 # Fork the repository on GitHub, then:
 git clone https://github.com/yourusername/project-name.git
@@ -107,6 +127,7 @@ git remote add upstream https://github.com/original-owner/project-name.git
 ```
 
 ### 3. Create a Branch
+
 ```bash
 git checkout -b fix/issue-description
 # or
@@ -114,18 +135,21 @@ git checkout -b feature/new-feature-name
 ```
 
 ### 4. Make Your Changes
+
 - Keep changes focused and minimal
 - Follow the project's coding style
 - Write clear, descriptive commit messages
 - Add tests for your changes
 
 ### 5. Test Thoroughly
+
 - Run the existing test suite
 - Test your changes manually
 - Check for edge cases
 - Ensure no regressions
 
 ### 6. Submit a Pull Request
+
 - Write a clear title and description
 - Reference the related issue
 - Explain your approach and reasoning
@@ -134,46 +158,56 @@ git checkout -b feature/new-feature-name
 ## Writing Great Pull Requests
 
 ### PR Title Best Practices
+
 - Be specific and descriptive
 - Use conventional commit format if the project uses it
 - Include the issue number
 
 **Good examples:**
+
 - `fix: resolve memory leak in data processing (#123)`
 - `docs: add examples for authentication API`
 - `feat: implement dark mode toggle (#456)`
 
 ### PR Description Template
+
 ```markdown
 ## Description
+
 Brief description of what this PR does.
 
 ## Related Issue
+
 Fixes #123
 
 ## Changes Made
+
 - List of specific changes
 - Another change
 - Third change
 
 ## Testing
+
 - [ ] Existing tests pass
 - [ ] Added new tests for changes
 - [ ] Manually tested the feature
 
 ## Screenshots (if applicable)
+
 Before/after screenshots for UI changes
 ```
 
 ## Common Mistakes to Avoid
 
 ### Technical Mistakes
+
 - **Large, unfocused PRs:** Keep changes small and focused
 - **No tests:** Always include tests for your changes
 - **Breaking changes:** Avoid breaking existing functionality
 - **Ignoring style guides:** Follow the project's conventions
 
 ### Communication Mistakes
+
 - **Not reading guidelines:** Always read CONTRIBUTING.md
 - **Poor commit messages:** Write clear, descriptive messages
 - **Arguing with maintainers:** Be respectful and collaborative
@@ -182,12 +216,14 @@ Before/after screenshots for UI changes
 ## Building Relationships in Open Source
 
 ### Be a Good Community Member
+
 - **Be patient:** Maintainers are often volunteers
 - **Be respectful:** Remember there are humans behind the code
 - **Be helpful:** Answer questions and help other contributors
 - **Be persistent:** Don't give up after one rejection
 
 ### Following Up
+
 - Respond to feedback promptly
 - Ask questions if feedback is unclear
 - Make requested changes
@@ -196,18 +232,21 @@ Before/after screenshots for UI changes
 ## Advanced Contribution Strategies
 
 ### Becoming a Regular Contributor
+
 - Start with small contributions
 - Build relationships with maintainers
 - Understand the project's roadmap
 - Take on larger responsibilities over time
 
 ### Specializing in Specific Areas
+
 - **Documentation:** Become the go-to person for docs
 - **Testing:** Focus on improving test coverage
 - **Performance:** Specialize in optimization
 - **Accessibility:** Ensure projects are accessible
 
 ### Maintaining Your Own Projects
+
 - Start with small utilities or tools
 - Accept contributions from others
 - Learn project management skills
@@ -216,12 +255,14 @@ Before/after screenshots for UI changes
 ## Tools for Open Source Contributors
 
 ### Development Tools
+
 - **GitHub CLI:** Manage PRs and issues from command line
 - **GitKraken:** Visual Git client
 - **VS Code:** Excellent Git integration
 - **Sourcetree:** Another popular Git GUI
 
 ### Productivity Tools
+
 - **Refined GitHub:** Browser extension for better GitHub UX
 - **Octotree:** GitHub code tree browser extension
 - **GitHub Desktop:** Simple Git GUI from GitHub
@@ -230,6 +271,7 @@ Before/after screenshots for UI changes
 ## Open Source Etiquette
 
 ### Do's
+
 - ✅ Read and follow contributing guidelines
 - ✅ Search existing issues before creating new ones
 - ✅ Provide clear reproduction steps for bugs
@@ -237,6 +279,7 @@ Before/after screenshots for UI changes
 - ✅ Thank maintainers and reviewers
 
 ### Don'ts
+
 - ❌ Demand immediate attention or reviews
 - ❌ Submit PRs without discussing major changes first
 - ❌ Take rejection or criticism personally
@@ -246,18 +289,21 @@ Before/after screenshots for UI changes
 ## Showcasing Your Contributions
 
 ### In Your Portfolio
+
 - Create a dedicated open source section
 - Highlight significant contributions
 - Explain the impact of your work
 - Link to merged pull requests
 
 ### On Your Resume
+
 - List major projects you've contributed to
 - Quantify your impact (lines of code, issues resolved)
 - Mention any maintainer or core contributor roles
 - Include relevant technologies and skills
 
 ### Building Your GitHub Profile
+
 - Pin your best repositories
 - Write detailed README files
 - Use GitHub's profile README feature
@@ -266,18 +312,21 @@ Before/after screenshots for UI changes
 ## Overcoming Common Fears
 
 ### "My Code Isn't Good Enough"
+
 - Everyone starts somewhere
 - Maintainers will help improve your code
 - Focus on learning, not perfection
 - Start with documentation if you're nervous about code
 
 ### "I Don't Know Enough"
+
 - You don't need to be an expert to contribute
 - Fresh perspectives are valuable
 - Ask questions - maintainers want to help
 - Start small and build confidence
 
 ### "I'll Break Something"
+
 - Tests and code review prevent major issues
 - Maintainers won't merge broken code
 - Mistakes are learning opportunities
@@ -286,18 +335,21 @@ Before/after screenshots for UI changes
 ## Long-Term Open Source Strategy
 
 ### Building Your Reputation
+
 - Consistent, quality contributions over time
 - Help other contributors and users
 - Become known for specific expertise
 - Speak at conferences about your open source work
 
 ### Career Advancement
+
 - Open source experience is highly valued by employers
 - Demonstrates real-world problem-solving skills
 - Shows ability to work with distributed teams
 - Provides concrete examples of your code quality
 
 ### Giving Back
+
 - Mentor new contributors
 - Maintain your own open source projects
 - Sponsor projects you depend on
@@ -306,6 +358,7 @@ Before/after screenshots for UI changes
 ## Getting Started Today
 
 ### Your First Contribution Action Plan
+
 1. **Choose a project** you use and care about
 2. **Set up the development environment** following their guide
 3. **Find a good first issue** or documentation improvement
@@ -314,6 +367,7 @@ Before/after screenshots for UI changes
 6. **Respond to feedback** and iterate
 
 ### Recommended Beginner Projects
+
 - **freeCodeCamp:** Educational platform with many beginner issues
 - **first-contributions:** Practice repository for learning the process
 - **Awesome lists:** Curated lists that often need updates

@@ -8,14 +8,14 @@ const config = {
     // If your environment is not supported or you settled on a specific environment, switch out the adapter.
     // See https://kit.svelte.dev/docs/adapters for more information about adapters.
     adapter: adapter({
-      pages: 'build',
-      assets: 'build',
-      fallback: '404.html',
+      pages: "build",
+      assets: "build",
+      fallback: "404.html",
       precompress: false,
-      strict: false
+      strict: false,
     }),
     alias: {
-      $config: './src/config.ts'
+      $config: "./src/config.ts",
     },
     // allow up to 150kb of style to be inlined with the HTML
     // Faster FCP (First Contentful Paint) by reducing the number of requests

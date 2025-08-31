@@ -10,11 +10,12 @@ export const load: PageServerLoad = async ({ locals: { safeGetSession } }) => {
   }
 
   // Fetch user's testimonials
-  const { data: testimonials, error: testimonialsError } = await supabaseServiceRole
-    .from("testimonials")
-    .select("*")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false })
+  const { data: testimonials, error: testimonialsError } =
+    await supabaseServiceRole
+      .from("testimonials")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
 
   if (testimonialsError) {
     console.error("Error fetching testimonials:", testimonialsError)
@@ -50,8 +51,8 @@ export const actions: Actions = {
 
     // Validate required fields
     if (!testimonialData.client_name || !testimonialData.testimonial_text) {
-      return fail(400, { 
-        error: "Client name and testimonial text are required" 
+      return fail(400, {
+        error: "Client name and testimonial text are required",
       })
     }
 
@@ -64,8 +65,8 @@ export const actions: Actions = {
 
     if (insertError) {
       console.error("Error creating testimonial:", insertError)
-      return fail(500, { 
-        error: "Failed to create testimonial" 
+      return fail(500, {
+        error: "Failed to create testimonial",
       })
     }
 
@@ -100,8 +101,8 @@ export const actions: Actions = {
 
     // Validate required fields
     if (!testimonialData.client_name || !testimonialData.testimonial_text) {
-      return fail(400, { 
-        error: "Client name and testimonial text are required" 
+      return fail(400, {
+        error: "Client name and testimonial text are required",
       })
     }
 
@@ -113,8 +114,8 @@ export const actions: Actions = {
 
     if (updateError) {
       console.error("Error updating testimonial:", updateError)
-      return fail(500, { 
-        error: "Failed to update testimonial" 
+      return fail(500, {
+        error: "Failed to update testimonial",
       })
     }
 
@@ -141,8 +142,8 @@ export const actions: Actions = {
     const testimonialId = formData.get("id") as string
 
     if (!testimonialId) {
-      return fail(400, { 
-        error: "Testimonial ID is required" 
+      return fail(400, {
+        error: "Testimonial ID is required",
       })
     }
 
@@ -154,8 +155,8 @@ export const actions: Actions = {
 
     if (deleteError) {
       console.error("Error deleting testimonial:", deleteError)
-      return fail(500, { 
-        error: "Failed to delete testimonial" 
+      return fail(500, {
+        error: "Failed to delete testimonial",
       })
     }
 

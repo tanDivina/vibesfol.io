@@ -4,16 +4,18 @@ import { supabase } from "$lib/supabaseClient"
 
 export const load = async () => {
   if (browser) {
-    const { data: { session } } = await supabase.auth.getSession()
-    
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+
     if (!session) {
       throw redirect(303, "/login")
     }
-    
+
     return {
-      session
+      session,
     }
   }
-  
+
   return {}
 }

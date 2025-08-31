@@ -13,8 +13,11 @@ export async function buildSearchIndex() {
   try {
     // Check if build output exists
     const fileRoot = path.resolve(".")
-    const pagesPath = path.join(fileRoot, ".svelte-kit/output/prerendered/pages")
-    
+    const pagesPath = path.join(
+      fileRoot,
+      ".svelte-kit/output/prerendered/pages",
+    )
+
     if (fs.existsSync(pagesPath)) {
       // Use built files if they exist
       const allFiles = glob.sync(path.join(pagesPath, "**/*.html"))
@@ -34,7 +37,10 @@ export async function buildSearchIndex() {
           const data = fs.readFileSync(file, "utf8")
           const plaintext = convert(data, {
             selectors: [
-              { selector: "a", options: { ignoreHref: true, linkBrackets: false } },
+              {
+                selector: "a",
+                options: { ignoreHref: true, linkBrackets: false },
+              },
               { selector: "img", format: "skip" },
             ],
           })
@@ -61,13 +67,15 @@ export async function buildSearchIndex() {
       indexData.push(
         {
           title: "MyDevfol.io - Developer Portfolio Platform",
-          description: "The ultimate portfolio platform for developers, indie hackers & vibecoders alike.",
+          description:
+            "The ultimate portfolio platform for developers, indie hackers & vibecoders alike.",
           body: "Create stunning portfolios with automated screenshots, tech stack tagging, and professional themes. Perfect for developers, indie hackers, and creative professionals.",
           path: "/",
         },
         {
           title: "Pricing - MyDevfol.io",
-          description: "Choose the perfect plan for your developer portfolio. Start free and upgrade as you grow.",
+          description:
+            "Choose the perfect plan for your developer portfolio. Start free and upgrade as you grow.",
           body: "Simple, transparent pricing. Free plan with lifetime upgrade options. No recurring subscriptions.",
           path: "/pricing",
         },
@@ -76,7 +84,7 @@ export async function buildSearchIndex() {
           description: "Tips, tutorials, and insights for developers.",
           body: "Learn how to build better portfolios and showcase your work effectively.",
           path: "/blog",
-        }
+        },
       )
     }
   } catch (e) {

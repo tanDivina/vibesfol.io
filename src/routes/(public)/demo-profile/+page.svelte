@@ -321,22 +321,22 @@
                       />
                       <label for="theme-{theme.id}" class="cursor-pointer">
                         <div
-                        class="card bg-base-100 border-2 {selectedTheme ===
-                        theme.id
-                          ? 'border-primary'
-                          : 'border-base-300'} hover:border-primary transition-colors"
+                          class="card bg-base-100 border-2 {selectedTheme ===
+                          theme.id
+                            ? 'border-primary'
+                            : 'border-base-300'} hover:border-primary transition-colors"
                         >
-                        <div class="card-body p-4">
-                          <div
-                            class="h-16 rounded {theme.preview} mb-2 flex items-center justify-center"
-                          >
-                            <span class="text-xs opacity-70">Preview</span>
+                          <div class="card-body p-4">
+                            <div
+                              class="h-16 rounded {theme.preview} mb-2 flex items-center justify-center"
+                            >
+                              <span class="text-xs opacity-70">Preview</span>
+                            </div>
+                            <h3 class="font-bold">{theme.name}</h3>
+                            <p class="text-sm text-gray-600">
+                              {theme.description}
+                            </p>
                           </div>
-                          <h3 class="font-bold">{theme.name}</h3>
-                          <p class="text-sm text-gray-600">
-                            {theme.description}
-                          </p>
-                        </div>
                         </div>
                       </label>
                     </div>

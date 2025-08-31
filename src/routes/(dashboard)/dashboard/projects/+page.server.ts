@@ -34,10 +34,10 @@ export const actions: Actions = {
     }
 
     const formData = await request.formData()
-    const projectData = JSON.parse(formData.get('projectData') as string)
-    const technologies = JSON.parse(formData.get('technologies') as string)
-    const isUpdate = formData.get('isUpdate') === 'true'
-    const projectId = formData.get('projectId') as string
+    const projectData = JSON.parse(formData.get("projectData") as string)
+    const technologies = JSON.parse(formData.get("technologies") as string)
+    const isUpdate = formData.get("isUpdate") === "true"
+    const projectId = formData.get("projectId") as string
 
     try {
       let newProject = null
@@ -45,19 +45,20 @@ export const actions: Actions = {
       if (isUpdate && projectId) {
         // Update project
         const { error: updateError } = await supabaseServiceRole
-          .from('projects')
+          .from("projects")
           .update(projectData)
-          .eq('id', projectId)
+          .eq("id", projectId)
 
         if (updateError) throw updateError
         newProject = { id: projectId, ...projectData }
       } else {
         // Create project
-        const { data: createdProject, error: insertError } = await supabaseServiceRole
-          .from('projects')
-          .insert({ ...projectData, user_id: session.user.id })
-          .select()
-          .single()
+        const { data: createdProject, error: insertError } =
+          await supabaseServiceRole
+            .from("projects")
+            .insert({ ...projectData, user_id: session.user.id })
+            .select()
+            .single()
 
         if (insertError) throw insertError
         newProject = createdProject
@@ -67,9 +68,9 @@ export const actions: Actions = {
       if (newProject) {
         // Delete existing technologies
         const { error: deleteError } = await supabaseServiceRole
-          .from('project_technologies')
+          .from("project_technologies")
           .delete()
-          .eq('project_id', newProject.id)
+          .eq("project_id", newProject.id)
 
         if (deleteError) throw deleteError
 
@@ -81,7 +82,7 @@ export const actions: Actions = {
           }))
 
           const { error: insertError } = await supabaseServiceRole
-            .from('project_technologies')
+            .from("project_technologies")
             .insert(projectTechnologies)
 
           if (insertError) throw insertError
@@ -89,14 +90,14 @@ export const actions: Actions = {
       }
 
       // Trigger gamification checks
-      const { gamificationService } = await import('$lib/gamification')
+      const { gamificationService } = await import("$lib/gamification")
       await gamificationService.calculatePortfolioScore(session.user.id)
       await gamificationService.checkAchievements(session.user.id)
 
       return { success: true, project: newProject }
     } catch (err) {
-      console.error('Error saving project:', err)
-      throw error(500, 'Failed to save project')
+      console.error("Error saving project:", err)
+      throw error(500, "Failed to save project")
     }
   },
 
@@ -107,21 +108,21 @@ export const actions: Actions = {
     }
 
     const formData = await request.formData()
-    const projectId = formData.get('projectId') as string
+    const projectId = formData.get("projectId") as string
 
     try {
       const { error: deleteError } = await supabaseServiceRole
-        .from('projects')
+        .from("projects")
         .delete()
-        .eq('id', projectId)
-        .eq('user_id', session.user.id) // Ensure user can only delete their own projects
+        .eq("id", projectId)
+        .eq("user_id", session.user.id) // Ensure user can only delete their own projects
 
       if (deleteError) throw deleteError
 
       return { success: true }
     } catch (err) {
-      console.error('Error deleting project:', err)
-      throw error(500, 'Failed to delete project')
+      console.error("Error deleting project:", err)
+      throw error(500, "Failed to delete project")
     }
-  }
+  },
 }

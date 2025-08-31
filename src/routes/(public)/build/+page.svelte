@@ -69,11 +69,36 @@
 
   // Available technologies
   const availableTechnologies = [
-    "React", "Next.js", "Svelte", "SvelteKit", "TypeScript", "JavaScript",
-    "Tailwind CSS", "CSS", "HTML", "Node.js", "Express", "PostgreSQL",
-    "Supabase", "Firebase", "Vercel", "Netlify", "AWS", "Docker",
-    "Vue.js", "Angular", "Python", "Django", "Flask", "MongoDB",
-    "MySQL", "Redis", "GraphQL", "REST API", "Jest", "Cypress"
+    "React",
+    "Next.js",
+    "Svelte",
+    "SvelteKit",
+    "TypeScript",
+    "JavaScript",
+    "Tailwind CSS",
+    "CSS",
+    "HTML",
+    "Node.js",
+    "Express",
+    "PostgreSQL",
+    "Supabase",
+    "Firebase",
+    "Vercel",
+    "Netlify",
+    "AWS",
+    "Docker",
+    "Vue.js",
+    "Angular",
+    "Python",
+    "Django",
+    "Flask",
+    "MongoDB",
+    "MySQL",
+    "Redis",
+    "GraphQL",
+    "REST API",
+    "Jest",
+    "Cypress",
   ]
 
   onMount(() => {
@@ -81,16 +106,16 @@
       // Load saved data from localStorage
       const savedProfile = localStorage.getItem("guestProfile")
       const savedProjects = localStorage.getItem("guestProjects")
-      
+
       if (savedProfile) {
         guestProfile = JSON.parse(savedProfile)
         selectedTheme = guestProfile.portfolio_theme
       }
-      
+
       if (savedProjects) {
         guestProjects = JSON.parse(savedProjects)
       }
-      
+
       updatePreviewUrl()
     }
   })
@@ -117,7 +142,7 @@
   function openProjectForm(project: any = null) {
     currentProject = project
     showProjectForm = true
-    
+
     // Reset form state when opening
     if (project) {
       url = project.url || ""
@@ -164,7 +189,8 @@
       screenshotUrl = newScreenshotUrl
     } catch (err) {
       console.error("Error generating screenshot:", err)
-      error = "Failed to generate screenshot. Please check the URL and try again."
+      error =
+        "Failed to generate screenshot. Please check the URL and try again."
     } finally {
       screenshotLoading = false
     }
@@ -173,7 +199,7 @@
   function handleProjectSubmit(event: Event) {
     event.preventDefault()
     const formData = new FormData(event.target as HTMLFormElement)
-    
+
     const projectData = {
       id: currentProject?.id || Date.now().toString(),
       title: formData.get("title") as string,
@@ -181,12 +207,14 @@
       url: url,
       screenshot_url: screenshotUrl,
       status: formData.get("status") as string,
-      technologies: Array.from(formData.getAll("technologies")) as string[]
+      technologies: Array.from(formData.getAll("technologies")) as string[],
     }
 
     if (currentProject) {
       // Update existing project
-      guestProjects = guestProjects.map(p => p.id === currentProject.id ? projectData : p)
+      guestProjects = guestProjects.map((p) =>
+        p.id === currentProject.id ? projectData : p,
+      )
     } else {
       // Add new project
       guestProjects = [projectData, ...guestProjects]
@@ -198,7 +226,7 @@
 
   function deleteProject(projectId: string) {
     if (confirm("Are you sure you want to delete this project?")) {
-      guestProjects = guestProjects.filter(p => p.id !== projectId)
+      guestProjects = guestProjects.filter((p) => p.id !== projectId)
       saveToLocalStorage()
     }
   }
@@ -206,7 +234,10 @@
 
 <svelte:head>
   <title>Build Your Portfolio | MyDevfol.io</title>
-  <meta name="description" content="Create your developer portfolio without signing up. Preview your portfolio before publishing." />
+  <meta
+    name="description"
+    content="Create your developer portfolio without signing up. Preview your portfolio before publishing."
+  />
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8">
@@ -235,12 +266,17 @@
     <div class="flex">
       <div class="flex-shrink-0">
         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          <path
+            fill-rule="evenodd"
+            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+            clip-rule="evenodd"
+          />
         </svg>
       </div>
       <div class="ml-3">
         <p class="text-sm">
-          <strong>Guest Mode:</strong> You're building a portfolio without an account. Your data is saved locally. 
+          <strong>Guest Mode:</strong> You're building a portfolio without an
+          account. Your data is saved locally.
           <strong>Sign up to publish and get a live URL!</strong>
         </p>
       </div>
@@ -289,7 +325,9 @@
                   title="Only letters, numbers, underscores, and hyphens allowed"
                 />
                 <div class="label">
-                  <span class="label-text-alt">Portfolio URL: /{guestProfile.username || "username"}</span>
+                  <span class="label-text-alt"
+                    >Portfolio URL: /{guestProfile.username || "username"}</span
+                  >
                 </div>
               </div>
             </div>
@@ -387,11 +425,13 @@
 
             <div class="form-control mb-6">
               <div class="label">
-                <span class="label-text font-medium">Choose Your Portfolio Style</span>
+                <span class="label-text font-medium"
+                  >Choose Your Portfolio Style</span
+                >
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {#each themes as theme}
-                 <div class="cursor-pointer">
+                  <div class="cursor-pointer">
                     <input
                       type="radio"
                       bind:group={selectedTheme}
@@ -400,9 +440,10 @@
                       class="radio radio-primary mr-3"
                       id="theme-{theme.id}"
                     />
-                   <label for="theme-{theme.id}" class="cursor-pointer">
+                    <label for="theme-{theme.id}" class="cursor-pointer">
                       <div
-                        class="card bg-base-100 border-2 {selectedTheme === theme.id
+                        class="card bg-base-100 border-2 {selectedTheme ===
+                        theme.id
                           ? 'border-primary'
                           : 'border-base-300'} hover:border-primary transition-colors"
                       >
@@ -413,11 +454,13 @@
                             <span class="text-xs opacity-70">Preview</span>
                           </div>
                           <h3 class="font-bold">{theme.name}</h3>
-                          <p class="text-sm text-gray-600">{theme.description}</p>
+                          <p class="text-sm text-gray-600">
+                            {theme.description}
+                          </p>
                         </div>
                       </div>
-                   </label>
-                 </div>
+                    </label>
+                  </div>
                 {/each}
               </div>
             </div>
@@ -429,7 +472,10 @@
           <div class="card-body">
             <div class="flex justify-between items-center mb-4">
               <h2 class="card-title">Your Projects</h2>
-              <button class="btn btn-primary" on:click={() => openProjectForm()}>
+              <button
+                class="btn btn-primary"
+                on:click={() => openProjectForm()}
+              >
                 Add Project
               </button>
             </div>
@@ -437,7 +483,10 @@
             {#if guestProjects.length === 0}
               <div class="text-center py-8">
                 <p class="text-gray-600 mb-4">No projects added yet.</p>
-                <button class="btn btn-primary" on:click={() => openProjectForm()}>
+                <button
+                  class="btn btn-primary"
+                  on:click={() => openProjectForm()}
+                >
                   Add Your First Project
                 </button>
               </div>
@@ -450,14 +499,22 @@
                       <p class="text-sm text-gray-600">{project.description}</p>
                       <div class="flex flex-wrap gap-1 mt-2">
                         {#each project.technologies as tech}
-                          <span class="badge badge-secondary text-xs">{tech}</span>
+                          <span class="badge badge-secondary text-xs"
+                            >{tech}</span
+                          >
                         {/each}
                       </div>
                       <div class="card-actions justify-end mt-4">
-                        <button class="btn btn-sm btn-outline" on:click={() => openProjectForm(project)}>
+                        <button
+                          class="btn btn-sm btn-outline"
+                          on:click={() => openProjectForm(project)}
+                        >
                           Edit
                         </button>
-                        <button class="btn btn-sm btn-error" on:click={() => deleteProject(project.id)}>
+                        <button
+                          class="btn btn-sm btn-error"
+                          on:click={() => deleteProject(project.id)}
+                        >
                           Delete
                         </button>
                       </div>
@@ -478,10 +535,14 @@
 
             <!-- Theme Preview -->
             <div
-              class="rounded-lg p-6 mb-4 {themes.find(t => t.id === selectedTheme)?.preview || 'bg-gradient-to-r from-purple-50 to-blue-50'}"
+              class="rounded-lg p-6 mb-4 {themes.find(
+                (t) => t.id === selectedTheme,
+              )?.preview || 'bg-gradient-to-r from-purple-50 to-blue-50'}"
             >
               <div class="flex items-center gap-4 mb-4">
-                <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center">
+                <div
+                  class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center"
+                >
                   <svg
                     class="w-8 h-8 text-gray-500"
                     fill="none"
@@ -497,10 +558,18 @@
                   </svg>
                 </div>
                 <div>
-                  <h3 class="text-xl font-bold {selectedTheme === 'dark' ? 'text-white' : 'text-gray-800'}">
+                  <h3
+                    class="text-xl font-bold {selectedTheme === 'dark'
+                      ? 'text-white'
+                      : 'text-gray-800'}"
+                  >
                     {guestProfile.full_name || "Your Name"}
                   </h3>
-                  <p class="text-sm {selectedTheme === 'dark' ? 'text-gray-300' : 'text-gray-600'}">
+                  <p
+                    class="text-sm {selectedTheme === 'dark'
+                      ? 'text-gray-300'
+                      : 'text-gray-600'}"
+                  >
                     {guestProfile.bio || "Your bio will appear here..."}
                   </p>
                 </div>
@@ -533,7 +602,9 @@
             <!-- Projects Preview -->
             {#if guestProjects.length > 0}
               <div class="mb-4">
-                <h4 class="font-bold mb-2">Projects ({guestProjects.length})</h4>
+                <h4 class="font-bold mb-2">
+                  Projects ({guestProjects.length})
+                </h4>
                 <div class="space-y-2">
                   {#each guestProjects.slice(0, 2) as project}
                     <div class="bg-base-200 p-3 rounded">
@@ -542,7 +613,9 @@
                     </div>
                   {/each}
                   {#if guestProjects.length > 2}
-                    <p class="text-xs text-gray-500">+{guestProjects.length - 2} more projects</p>
+                    <p class="text-xs text-gray-500">
+                      +{guestProjects.length - 2} more projects
+                    </p>
                   {/if}
                 </div>
               </div>
@@ -552,7 +625,9 @@
             {#if guestProfile.username}
               <div class="bg-base-200 p-4 rounded-lg mb-4">
                 <p class="text-sm font-medium mb-2">Preview URL:</p>
-                <code class="text-xs bg-base-300 px-2 py-1 rounded block break-all">
+                <code
+                  class="text-xs bg-base-300 px-2 py-1 rounded block break-all"
+                >
                   {previewUrl}
                 </code>
               </div>
@@ -582,7 +657,7 @@
                   </svg>
                 </a>
               {/if}
-              
+
               <a href="/login" class="btn btn-primary w-full">
                 Sign Up to Publish
                 <svg
@@ -609,14 +684,18 @@
 
 <!-- Project Form Modal -->
 {#if showProjectForm}
-  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+  >
     <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 m-4">
       <h2 class="text-2xl font-bold mb-4">
         {currentProject ? "Edit Project" : "Add New Project"}
       </h2>
 
       {#if error}
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <div
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+        >
           <p>{error}</p>
         </div>
       {/if}
@@ -680,7 +759,9 @@
                 loading="lazy"
               />
               <div class="flex justify-between items-center mt-2">
-                <span class="text-sm text-base-content/70">Screenshot generated successfully</span>
+                <span class="text-sm text-base-content/70"
+                  >Screenshot generated successfully</span
+                >
                 <button
                   type="button"
                   class="btn btn-xs btn-ghost"
@@ -727,14 +808,17 @@
           <div class="label">
             <span class="label-text">Technologies</span>
           </div>
-          <div class="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto border border-base-300 rounded p-3">
+          <div
+            class="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto border border-base-300 rounded p-3"
+          >
             {#each availableTechnologies as tech}
               <label class="label cursor-pointer justify-start">
                 <input
                   type="checkbox"
                   name="technologies"
                   value={tech}
-                  checked={currentProject?.technologies?.includes(tech) || false}
+                  checked={currentProject?.technologies?.includes(tech) ||
+                    false}
                   class="checkbox checkbox-primary checkbox-sm mr-2"
                 />
                 <span class="label-text text-sm">{tech}</span>
@@ -744,7 +828,11 @@
         </div>
 
         <div class="flex justify-end gap-2">
-          <button type="button" on:click={closeProjectForm} class="btn btn-ghost">
+          <button
+            type="button"
+            on:click={closeProjectForm}
+            class="btn btn-ghost"
+          >
             Cancel
           </button>
           <button type="submit" class="btn btn-primary">

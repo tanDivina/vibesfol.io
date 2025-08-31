@@ -264,7 +264,9 @@
       career
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="/login/sign_up" class="btn btn-primary btn-lg"> Get Started Free </a>
+      <a href="/login/sign_up" class="btn btn-primary btn-lg">
+        Get Started Free
+      </a>
       <a href="/pricing" class="btn btn-outline btn-lg"> View Pricing </a>
     </div>
   </div>

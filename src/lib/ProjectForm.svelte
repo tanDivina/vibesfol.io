@@ -139,9 +139,7 @@
 </script>
 
 {#if open}
-  <div
-    class="fixed inset-0 bg-black-50 flex items-center justify-center z-50"
-  >
+  <div class="fixed inset-0 bg-black-50 flex items-center justify-center z-50">
     <div class="bg-base-100 rounded-lg shadow-xl w-full max-w-md p-6">
       <h2 class="text-2xl font-bold mb-4">
         {project ? "Edit Project" : "Add New Project"}
@@ -255,7 +253,9 @@
           <div class="label">
             <span class="label-text">Tech Stack</span>
           </div>
-          <div class="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto border border-base-300 rounded p-3">
+          <div
+            class="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto border border-base-300 rounded p-3"
+          >
             {#each technologies as tech (tech.id)}
               <label class="label cursor-pointer justify-start">
                 <input

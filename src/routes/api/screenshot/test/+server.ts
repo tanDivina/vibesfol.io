@@ -7,7 +7,7 @@ export const GET: RequestHandler = async () => {
   try {
     // Test URL for screenshot
     const testUrl = "https://example.com"
-    
+
     // Check if ScreenshotOne API key is configured
     if (!env.PRIVATE_SCREENSHOTONE_API_KEY) {
       return json({
@@ -15,7 +15,7 @@ export const GET: RequestHandler = async () => {
         message: "ScreenshotOne API key not configured",
         fallback: "Using placeholder images",
         testUrl,
-        apiKeyConfigured: false
+        apiKeyConfigured: false,
       })
     }
 
@@ -46,24 +46,22 @@ export const GET: RequestHandler = async () => {
         message: "ScreenshotOne API is working correctly",
         testUrl,
         screenshotUrl,
-        apiKeyConfigured: true
+        apiKeyConfigured: true,
       })
-      
     } catch (screenshotError) {
       return json({
         status: "error",
         message: "ScreenshotOne API error",
         error: screenshotError.message,
         testUrl,
-        apiKeyConfigured: true
+        apiKeyConfigured: true,
       })
     }
-    
   } catch (err) {
     return json({
       status: "error",
       message: "Screenshot test failed",
-      error: err.message
+      error: err.message,
     })
   }
 }

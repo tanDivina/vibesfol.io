@@ -13,20 +13,25 @@
 
   onMount(async () => {
     console.log("Reset password page mounted")
-    
+
     try {
       // Get the current session
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-      
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession()
+
       if (sessionError) {
         console.error("Session error:", sessionError)
-        error = "Authentication error. Please try the password reset process again."
+        error =
+          "Authentication error. Please try the password reset process again."
         return
       }
 
       if (!session) {
         console.log("No session found, redirecting to forgot password")
-        error = "No valid session found. Please request a new password reset link."
+        error =
+          "No valid session found. Please request a new password reset link."
         setTimeout(() => {
           goto("/login/forgot_password")
         }, 3000)
@@ -36,19 +41,25 @@
       console.log("Session found for user:", session.user.email)
 
       // Check if this is a recovery session by looking at the AMR (Authentication Method Reference)
-      const { data: aal, error: amrError } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
-      
+      const { data: aal, error: amrError } =
+        await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
+
       if (amrError) {
         console.error("AMR error:", amrError)
         error = "Authentication verification failed. Please try again."
         return
       }
 
-      const recoveryAmr = aal?.currentAuthenticationMethods?.find(x => x.method === 'recovery')
-      
+      const recoveryAmr = aal?.currentAuthenticationMethods?.find(
+        (x) => x.method === "recovery",
+      )
+
       if (!recoveryAmr) {
-        console.log("Not a recovery session, redirecting to regular password change")
-        error = "This is not a valid password reset session. Please request a new reset link."
+        console.log(
+          "Not a recovery session, redirecting to regular password change",
+        )
+        error =
+          "This is not a valid password reset session. Please request a new reset link."
         setTimeout(() => {
           goto("/login/forgot_password")
         }, 3000)
@@ -58,7 +69,7 @@
       // Check if recovery session is still valid (15 minutes)
       const timeSinceLogin = Date.now() - recoveryAmr.timestamp * 1000
       const fifteenMinutes = 1000 * 60 * 15
-      
+
       if (timeSinceLogin > fifteenMinutes) {
         console.log("Recovery session expired")
         error = "Password reset link has expired. Please request a new one."
@@ -70,7 +81,6 @@
 
       console.log("Valid recovery session found")
       sessionValid = true
-      
     } catch (err) {
       console.error("Error in reset password page:", err)
       error = "An unexpected error occurred. Please try again."
@@ -82,12 +92,12 @@
       error = "Please fill in both password fields"
       return
     }
-    
+
     if (newPassword !== confirmPassword) {
       error = "Passwords don't match"
       return
     }
-    
+
     if (newPassword.length < 6) {
       error = "Password must be at least 6 characters"
       return
@@ -98,24 +108,23 @@
 
     try {
       console.log("Attempting to update password")
-      
-      const { error: updateError } = await supabase.auth.updateUser({ 
-        password: newPassword
+
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword,
       })
-      
+
       if (updateError) {
         console.error("Password update error:", updateError)
         throw updateError
       }
-      
+
       console.log("Password updated successfully")
       success = true
-      
+
       // Redirect to sign in after successful password reset
       setTimeout(() => {
         goto("/login/sign_in?password_reset=true")
       }, 2000)
-      
     } catch (err: any) {
       console.error("Password reset error:", err)
       error = err.message || "Failed to update password"
@@ -136,8 +145,18 @@
 
       {#if success}
         <div class="alert alert-success mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
           <div>
             <h3 class="font-bold">Password Updated!</h3>
@@ -146,8 +165,18 @@
         </div>
       {:else if !sessionValid && error}
         <div class="alert alert-error mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
           <div>
             <h3 class="font-bold">Session Error</h3>
@@ -162,8 +191,18 @@
       {:else if sessionValid}
         {#if error}
           <div class="alert alert-error mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
             <span>{error}</span>
           </div>

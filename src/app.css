@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 /* Base styles */
 html {
@@ -193,8 +193,12 @@ body {
   }
 
   .interactive-gradient {
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                #fef3c7, #dbeafe, #3b82f6);
+    background: radial-gradient(
+      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      #fef3c7,
+      #dbeafe,
+      #3b82f6
+    );
     background-size: 300% 300%;
     transition: background-position 0.3s ease;
   }

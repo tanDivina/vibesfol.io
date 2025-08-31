@@ -3,9 +3,7 @@ import { defineConfig } from "vitest/config"
 import { buildAndCacheSearchIndex } from "./src/lib/build_index"
 
 export default defineConfig({
-  plugins: [
-    sveltekit(),
-  ],
+  plugins: [sveltekit()],
   test: {
     include: ["src/**/*.{test,spec}.{js,ts}"],
     globals: true, /// allows to skip import of test functions like `describe`, `it`, `expect`, etc.

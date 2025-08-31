@@ -250,7 +250,7 @@
               : ''} w-full text-left"
             on:click={() => openMessage(message)}
             tabindex="0"
-            on:keydown={(e) => e.key === 'Enter' && openMessage(message)}
+            on:keydown={(e) => e.key === "Enter" && openMessage(message)}
           >
             <div class="flex items-start justify-between">
               <div class="flex-1 min-w-0">
@@ -330,7 +330,7 @@
     role="dialog"
     aria-modal="true"
     tabindex="-1"
-    on:keydown={(e) => e.key === 'Escape' && closeMessage()}
+    on:keydown={(e) => e.key === "Escape" && closeMessage()}
   >
     <div
       class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white"
@@ -447,7 +447,13 @@
               name="isStarred"
               value={selectedMessage.is_starred}
             />
-            <button type="submit" class="btn btn-ghost" aria-label={selectedMessage.is_starred ? "Remove star" : "Add star"}>
+            <button
+              type="submit"
+              class="btn btn-ghost"
+              aria-label={selectedMessage.is_starred
+                ? "Remove star"
+                : "Add star"}
+            >
               <svg
                 class="w-4 h-4 {selectedMessage.is_starred
                   ? 'text-yellow-400'
@@ -489,9 +495,7 @@
 
 <!-- Delete Confirmation Modal -->
 {#if showDeleteConfirm}
-  <div
-    class="fixed inset-0 bg-gray-600-50 overflow-y-auto h-full w-full z-50"
-  >
+  <div class="fixed inset-0 bg-gray-600-50 overflow-y-auto h-full w-full z-50">
     <div
       class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
     >

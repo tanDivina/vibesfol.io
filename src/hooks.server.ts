@@ -1,6 +1,9 @@
 // src/hooks.server.ts
 import { PRIVATE_SUPABASE_SERVICE_ROLE } from "$env/static/private"
-import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from "$env/static/public"
+import {
+  PUBLIC_SUPABASE_URL,
+  PUBLIC_SUPABASE_ANON_KEY,
+} from "$env/static/public"
 import { createServerClient } from "@supabase/ssr"
 import { createClient } from "@supabase/supabase-js"
 import type { Handle } from "@sveltejs/kit"
@@ -82,7 +85,7 @@ export const supabase: Handle = async ({ event, resolve }) => {
   })
 }
 
-// Not called for prerendered marketing pages so generally okay to call on ever server request  
+// Not called for prerendered marketing pages so generally okay to call on ever server request
 // Next-page CSR will mean relatively minimal calls to this hook
 const authGuard: Handle = async ({ event, resolve }) => {
   const { session, user } = await event.locals.safeGetSession()
