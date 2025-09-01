@@ -14,68 +14,17 @@
   onMount(async () => {
     console.log("Reset password page mounted")
 
-    try {
-      // Get the current session
-      const {
-        data: { session },
-        error: sessionError,
-      } = await supabase.auth.getSession()
+    // Simplified session check - just verify we have a session
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
 
-      if (sessionError) {
-        console.error("Session error:", sessionError)
-        error =
-          "Authentication error. Please try the password reset process again."
-        return
-      }
-
-      if (!session) {
-        console.log("No session found, redirecting to forgot password")
-        error =
-          "No valid session found. Please request a new password reset link."
-        return
-      }
-
-      console.log("Session found for user:", session.user.email)
-
-      // Check if this is a recovery session by looking at the AMR (Authentication Method Reference)
-      const { data: aal, error: amrError } =
-        await supabase.auth.mfa.getAuthenticatorAssuranceLevel()
-
-      if (amrError) {
-        console.error("AMR error:", amrError)
-        // AMR might not be available, continue anyway
-        console.log("AMR not available, continuing with password reset")
-        sessionValid = true
-        return
-      }
-
-      const recoveryAmr = aal?.currentAuthenticationMethods?.find(
-        (x) => x.method === "recovery",
-      )
-
-      if (!recoveryAmr) {
-        console.log("Not a recovery session, but allowing password reset")
-        sessionValid = true
-        return
-      }
-
-      // Check if recovery session is still valid (15 minutes)
-      const timeSinceLogin = Date.now() - recoveryAmr.timestamp * 1000
-      const fifteenMinutes = 1000 * 60 * 15
-
-      if (timeSinceLogin > fifteenMinutes) {
-        console.log("Recovery session expired")
-        error = "Password reset link has expired. Please request a new one."
-        return
-      }
-
-      console.log("Valid recovery session found")
+    if (session) {
       sessionValid = true
-    } catch (err) {
-      console.error("Error in reset password page:", err)
-      // If there's an error checking the session, still allow password reset
-      console.log("Error checking session, but allowing password reset")
-      sessionValid = true
+      console.log("Session found, allowing password reset")
+    } else {
+      error = "No valid session found. Please request a new password reset link."
+      console.log("No session found")
     }
   })
 

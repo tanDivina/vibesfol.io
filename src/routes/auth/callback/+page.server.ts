@@ -41,7 +41,8 @@ export const load: PageServerLoad = async ({ url, locals: { supabase } }) => {
         // Check if this is a password reset flow
         if (
           next.includes("reset_password") ||
-          next.includes("change_password")
+          next.includes("change_password") ||
+          url.searchParams.get("type") === "recovery"
         ) {
           console.log("Redirecting to password reset page")
           throw redirect(303, "/login/reset_password")

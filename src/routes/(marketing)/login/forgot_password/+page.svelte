@@ -10,7 +10,14 @@
   let success = $state(false)
 
   async function handleForgotPassword() {
-    if (!email || !email.includes("@")) {
+    if (!email) {
+      error = "Please enter your email address"
+      return
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
       error = "Please enter a valid email address"
       return
     }

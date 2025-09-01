@@ -30,52 +30,58 @@ export const POST: RequestHandler = async ({ request }) => {
 
 async function generateScreenshot(url: string): Promise<string> {
   try {
-    // Use ScreenshotOne API - a reliable screenshot service
-    const apiKey = process.env.SCREENSHOTONE_API_KEY || "demo"
-    const screenshotApiUrl = `https://api.screenshotone.com/take`
+    // Use screenshot.guru - a reliable free service
+    const screenshotServiceUrl = `https://shot.screenshotapi.net/screenshot`
     
     const params = new URLSearchParams({
-      access_key: apiKey,
       url: url,
-      viewport_width: "1200",
-      viewport_height: "800",
-      device_scale_factor: "1",
-      format: "png",
-      image_quality: "80",
-      block_ads: "true",
-      block_cookie_banners: "true",
-      block_trackers: "true",
-      delay: "3",
-      timeout: "30",
+      width: "1200",
+      height: "800",
+      output: "image",
+      file_type: "png",
+      wait_for_event: "load",
+      ttl: "2592000" // 30 days cache
     })
 
-    const screenshotUrl = `${screenshotApiUrl}?${params.toString()}`
+    const finalUrl = `${screenshotServiceUrl}?${params.toString()}`
     
-    // Test if the screenshot service is accessible
-    const response = await fetch(screenshotUrl, { method: 'HEAD' })
-    
-    if (response.ok) {
-      return screenshotUrl
-    } else {
-      throw new Error("Screenshot service unavailable")
-    }
-  } catch (err) {
-    console.error("Screenshot generation failed:", err)
-    
-    // Fallback to URLBox.io API
+    // Test if the service responds
     try {
-      const urlboxUrl = `https://api.urlbox.io/v1/demo/png?url=${encodeURIComponent(url)}&width=1200&height=800&delay=3000`
+      const testResponse = await fetch(finalUrl, { 
+        method: 'HEAD',
+        timeout: 10000 
+      })
       
-      // Test the fallback service
-      const fallbackResponse = await fetch(urlboxUrl, { method: 'HEAD' })
-      if (fallbackResponse.ok) {
-        return urlboxUrl
+      if (testResponse.ok) {
+        return finalUrl
       }
-      throw new Error("Fallback service also unavailable")
-    } catch (fallbackErr) {
-      // Use screenshot.guru as final fallback
-      const screenshotGuruUrl = `https://screenshot.guru/api/screenshot?url=${encodeURIComponent(url)}&width=1200&height=800&format=png`
-      return screenshotGuruUrl
+    } catch (testError) {
+      console.log("Primary service failed, trying fallback")
     }
+
+    // Fallback to screenshotmachine
+    const fallbackUrl = `https://api.screenshotmachine.com/?key=demo&url=${encodeURIComponent(url)}&dimension=1200x800&format=png&cacheLimit=0`
+    
+    try {
+      const fallbackResponse = await fetch(fallbackUrl, { 
+        method: 'HEAD',
+        timeout: 10000 
+      })
+      
+      if (fallbackResponse.ok) {
+        return fallbackUrl
+      }
+    } catch (fallbackError) {
+      console.log("Fallback service failed, using final fallback")
+    }
+
+    // Final fallback - thum.io (reliable service)
+    return `https://image.thum.io/get/width/1200/crop/800/${encodeURIComponent(url)}`
+    
+  } catch (err) {
+    console.error("All screenshot services failed:", err)
+    
+    // Return a working screenshot service as last resort
+    return `https://image.thum.io/get/width/1200/crop/800/${encodeURIComponent(url)}`
   }
 }
