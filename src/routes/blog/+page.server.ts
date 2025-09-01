@@ -12,19 +12,37 @@ interface Post {
 }
 
 export const load = async () => {
-  const posts: Post[] = fs
-    .readdirSync("src/routes/blog")
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => {
-      const postPath = path.join("src/routes/blog", file)
-      const post = fs.readFileSync(postPath, "utf-8")
-      const { data } = grayMatter(post)
-      return {
-        ...data,
-        slug: file.slice(0, -3),
-      } as Post
-    })
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  let posts: Post[] = []
+  
+  try {
+    const blogDir = "src/routes/blog"
+    
+    // Check if blog directory exists and has markdown files
+    if (fs.existsSync(blogDir)) {
+      const files = fs.readdirSync(blogDir).filter((file) => file.endsWith(".md"))
+      
+      posts = files
+        .map((file) => {
+          try {
+            const postPath = path.join(blogDir, file)
+            const post = fs.readFileSync(postPath, "utf-8")
+            const { data } = grayMatter(post)
+            return {
+              ...data,
+              slug: file.slice(0, -3),
+            } as Post
+          } catch (err) {
+            console.error(`Error reading blog post ${file}:`, err)
+            return null
+          }
+        })
+        .filter((post): post is Post => post !== null)
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    }
+  } catch (err) {
+    console.error("Error loading blog posts:", err)
+    posts = []
+  }
 
   return {
     posts,
