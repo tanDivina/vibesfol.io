@@ -10,6 +10,11 @@
   let success = $state(false)
 
   async function handleForgotPassword() {
+    if (!email || !email.includes("@")) {
+      error = "Please enter a valid email address"
+      return
+    }
+
     loading = true
     error = null
 
