@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte"
-  import { supabase } from "$lib/supabaseClient"
+  import { clientSupabase } from "$lib/clientSupabase"
 
   let user: any = null
   let loading = true
@@ -8,7 +8,7 @@
   onMount(async () => {
     const {
       data: { user: currentUser },
-    } = await supabase.auth.getUser()
+    } = await clientSupabase.auth.getUser()
     user = currentUser
     loading = false
   })

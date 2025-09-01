@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores"
-  import { supabase } from "$lib/supabaseClient"
+  import { clientSupabase } from "$lib/clientSupabase"
   import { onMount } from "svelte"
   import ToastContainer from "$lib/ToastContainer.svelte"
 
@@ -9,12 +9,12 @@
   onMount(async () => {
     const {
       data: { user: currentUser },
-    } = await supabase.auth.getUser()
+    } = await clientSupabase.auth.getUser()
     user = currentUser
   })
 
   async function signOut() {
-    await supabase.auth.signOut()
+    await clientSupabase.auth.signOut()
     window.location.href = "/"
   }
 

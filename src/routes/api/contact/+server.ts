@@ -1,5 +1,5 @@
 import { error, json } from "@sveltejs/kit"
-import { supabase } from "$lib/supabaseClient"
+import { supabaseServiceRole } from "$lib/supabaseServiceRole"
 import { sendUserEmail } from "$lib/mailer"
 import type { RequestHandler } from "./$types"
 
@@ -32,7 +32,7 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     // Check if the portfolio user exists and has contact form enabled
-    const { data: portfolioUser, error: userError } = await supabase
+    const { data: portfolioUser, error: userError } = await supabaseServiceRole
       .from("profiles")
       .select(
         "id, full_name, contact_form_enabled, contact_email_notifications",
@@ -49,7 +49,7 @@ export const POST: RequestHandler = async ({ request }) => {
     }
 
     // Insert the contact submission
-    const { data: submission, error: insertError } = await supabase
+    const { data: submission, error: insertError } = await supabaseServiceRole
       .from("contact_submissions")
       .insert({
         portfolio_user_id,
@@ -71,8 +71,8 @@ export const POST: RequestHandler = async ({ request }) => {
     if (portfolioUser.contact_email_notifications) {
       try {
         // Get the user object for email sending
-        const { data: userData, error: userDataError } =
-          await supabase.auth.admin.getUserById(portfolio_user_id)
+        const { data: userData, error: userDataError } = 
+          await supabaseServiceRole.auth.admin.getUserById(portfolio_user_id)
 
         if (!userDataError && userData.user) {
           await sendUserEmail({

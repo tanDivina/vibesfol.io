@@ -5,7 +5,8 @@ import {
 } from "$env/static/public"
 import type { Database } from "./DatabaseDefinitions"
 
-export const supabase = createClient<Database>(
+// Client-only Supabase instance - safe for browser use
+export const clientSupabase = createClient<Database>(
   PUBLIC_SUPABASE_URL,
   PUBLIC_SUPABASE_ANON_KEY,
   {
