@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte"
-  import { supabase } from "$lib/supabaseClient"
+  import { clientSupabase } from "$lib/clientSupabase"
   import type { Database } from "$lib/DatabaseDefinitions"
 
   export let open = false
@@ -29,7 +29,7 @@
 
   onMount(async () => {
     if (open) {
-      const { data, error: fetchError } = await supabase
+      const { data, error: fetchError } = await clientSupabase
         .from("technologies")
         .select("id, name")
         .order("name")

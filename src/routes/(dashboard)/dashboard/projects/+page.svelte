@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte"
-  import { supabase } from "$lib/supabaseClient"
+  import { clientSupabase } from "$lib/clientSupabase"
   import ProjectForm from "$lib/ProjectForm.svelte"
   import type { Database } from "$lib/DatabaseDefinitions"
 
@@ -14,13 +14,13 @@
   onMount(async () => {
     const {
       data: { user },
-    } = await supabase.auth.getUser()
+    } = await clientSupabase.auth.getUser()
     if (!user) {
       window.location.href = "/login"
       return
     }
 
-    const { data, error: fetchError } = await supabase
+    const { data, error: fetchError } = await clientSupabase
       .from("projects")
       .select("*")
       .eq("user_id", user.id)
@@ -60,7 +60,7 @@
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await clientSupabase.auth.getUser()
       if (!user) {
         throw new Error("User not authenticated")
       }
@@ -69,7 +69,7 @@
 
       if (currentProject) {
         // Update project
-        const { error: updateError } = await supabase
+        const { error: updateError } = await clientSupabase
           .from("projects")
           .update(projectData)
           .eq("id", currentProject.id)
@@ -79,7 +79,7 @@
         newProject = { ...currentProject, ...projectData }
       } else {
         // Create project
-        const { data: createdProject, error: insertError } = await supabase
+        const { data: createdProject, error: insertError } = await clientSupabase
           .from("projects")
           .insert({ ...projectData, user_id: user.id })
           .select()
@@ -92,7 +92,7 @@
       // Update project_technologies join table
       if (newProject) {
         // Delete existing technologies
-        const { error: deleteError } = await supabase
+        const { error: deleteError } = await clientSupabase
           .from("project_technologies")
           .delete()
           .eq("project_id", newProject.id)
@@ -106,7 +106,7 @@
             technology_id: tech.id,
           }))
 
-          const { error: insertError } = await supabase
+          const { error: insertError } = await clientSupabase
             .from("project_technologies")
             .insert(projectTechnologies)
 
@@ -115,7 +115,7 @@
       }
 
       // Refresh the projects list
-      const { data } = await supabase
+      const { data } = await clientSupabase
         .from("projects")
         .select("*")
         .eq("user_id", user.id)
@@ -140,12 +140,12 @@
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser()
+      } = await clientSupabase.auth.getUser()
       if (!user) {
         throw new Error("User not authenticated")
       }
 
-      const { error: deleteError } = await supabase
+      const { error: deleteError } = await clientSupabase
         .from("projects")
         .delete()
         .eq("id", projectId)

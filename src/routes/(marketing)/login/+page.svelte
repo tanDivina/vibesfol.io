@@ -1,7 +1,7 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation"
   import { onMount } from "svelte"
-  import { supabase } from "$lib/supabaseClient"
+  import { clientSupabase } from "$lib/clientSupabase"
   import { page } from "$app/stores"
 
   let email = $state("")
@@ -21,7 +21,7 @@
 
     try {
       if (authMode === "signup") {
-        const { data, error: signUpError } = await supabase.auth.signUp({
+        const { data, error: signUpError } = await clientSupabase.auth.signUp({
           email,
           password,
           options: {
@@ -46,7 +46,7 @@
           )
         }
       } else {
-        const { error: signInError } = await supabase.auth.signInWithPassword({
+        const { error: signInError } = await clientSupabase.auth.signInWithPassword({
           email,
           password,
         })
@@ -71,7 +71,7 @@
       error = decodeURIComponent(urlError)
     }
 
-    const { data } = supabase.auth.onAuthStateChange((event, _session) => {
+    const { data } = clientSupabase.auth.onAuthStateChange((event, _session) => {
       if (_session?.expires_at !== session?.expires_at) {
         session = _session
         if (_session) {
