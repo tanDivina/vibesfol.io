@@ -15,41 +15,67 @@ export const POST: RequestHandler = async ({ request }) => {
       return error(400, "Invalid URL format")
     }
 
-    // Use placeholder system for screenshots
-    console.log("Generating placeholder screenshot for:", url)
-
-    const placeholderScreenshots = [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-    ]
-
-    // Generate a consistent hash from the URL to always return the same placeholder for the same URL
-    const urlHash = url.split("").reduce((a, b) => {
-      a = (a << 5) - a + b.charCodeAt(0)
-      return a & a
-    }, 0)
-    const placeholderIndex = Math.abs(urlHash) % placeholderScreenshots.length
-    const placeholderUrl = placeholderScreenshots[placeholderIndex]
+    // Use the same screenshot generation function as the authenticated endpoint
+    const screenshotUrl = await generateScreenshot(url)
 
     return json({
-      url: placeholderUrl,
+      url: screenshotUrl,
       message: "Screenshot generated successfully",
     })
   } catch (err) {
-    console.error("Error in screenshot endpoint:", err)
+    console.error("Error in public screenshot endpoint:", err)
+    return error(500, "Failed to generate screenshot")
+  }
+}
 
-    // Fall back to placeholder
-    const placeholderUrl =
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
-    return json({
-      url: placeholderUrl,
-      message: "Screenshot generated successfully",
+async function generateScreenshot(url: string): Promise<string> {
+  try {
+    // Use ScreenshotOne API - a reliable screenshot service
+    const apiKey = process.env.SCREENSHOTONE_API_KEY || "demo"
+    const screenshotApiUrl = `https://api.screenshotone.com/take`
+    
+    const params = new URLSearchParams({
+      access_key: apiKey,
+      url: url,
+      viewport_width: "1200",
+      viewport_height: "800",
+      device_scale_factor: "1",
+      format: "png",
+      image_quality: "80",
+      block_ads: "true",
+      block_cookie_banners: "true",
+      block_trackers: "true",
+      delay: "3",
+      timeout: "30",
     })
+
+    const screenshotUrl = `${screenshotApiUrl}?${params.toString()}`
+    
+    // Test if the screenshot service is accessible
+    const response = await fetch(screenshotUrl, { method: 'HEAD' })
+    
+    if (response.ok) {
+      return screenshotUrl
+    } else {
+      throw new Error("Screenshot service unavailable")
+    }
+  } catch (err) {
+    console.error("Screenshot generation failed:", err)
+    
+    // Fallback to URLBox.io API
+    try {
+      const urlboxUrl = `https://api.urlbox.io/v1/demo/png?url=${encodeURIComponent(url)}&width=1200&height=800&delay=3000`
+      
+      // Test the fallback service
+      const fallbackResponse = await fetch(urlboxUrl, { method: 'HEAD' })
+      if (fallbackResponse.ok) {
+        return urlboxUrl
+      }
+      throw new Error("Fallback service also unavailable")
+    } catch (fallbackErr) {
+      // Use screenshot.guru as final fallback
+      const screenshotGuruUrl = `https://screenshot.guru/api/screenshot?url=${encodeURIComponent(url)}&width=1200&height=800&format=png`
+      return screenshotGuruUrl
+    }
   }
 }

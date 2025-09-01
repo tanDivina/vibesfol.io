@@ -48,6 +48,7 @@
     "gray-matter": "^4.0.3",
     "handlebars": "^4.7.8",
     "marked": "^16.1.2",
+    "puppeteer-core": "^24.17.1",
     "resend": "^3.5.0",
     "screenshotone-api-sdk": "^1.1.21",
     "stripe": "^13.3.0",
