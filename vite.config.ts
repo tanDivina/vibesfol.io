@@ -21,7 +21,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           // Split vendor libraries into separate chunks
-          'supabase': ['@supabase/supabase-js', '@supabase/ssr'],
           'ui-components': ['fuse.js'],
           'utils': ['uuid', 'handlebars'],
         }
