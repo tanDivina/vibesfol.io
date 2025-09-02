@@ -65,7 +65,7 @@
   })
 
   let focusItem = $state(0)
-  function onKeyDown(event: KeyboardEvent) {
+  async function onKeyDown(event: KeyboardEvent) {
     if (event.key === "Escape") {
       searchQuery = ""
     } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
