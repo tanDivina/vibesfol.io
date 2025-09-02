@@ -19,10 +19,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Split vendor libraries into separate chunks
-          'utils': ['handlebars'],
-        }
+        manualChunks: {}
       }
     }
   }
