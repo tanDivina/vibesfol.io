@@ -22,7 +22,7 @@
   let error = $state(false)
   onMount(async () => {
     try {
-      const response = await fetch("/search/api.json")
+      const response = await fetch("/api/search")
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
@@ -74,6 +74,35 @@
         focusItem = 0
       } else if (focusItem > results.length) {
         focusItem = results.length
+        // Fallback search data for static sites
+        const fallbackData = {
+          index: [],
+          indexData: [
+            {
+              title: "MyDevfol.io - Developer Portfolio Platform",
+              description: "The ultimate portfolio platform for developers",
+              body: "Create stunning portfolios with automated screenshots",
+              path: "/",
+            },
+            {
+              title: "Pricing",
+              description: "Simple, transparent pricing",
+              body: "Free plan with lifetime upgrade options",
+              path: "/pricing",
+            },
+            {
+              title: "Blog",
+              description: "Tips and tutorials for developers",
+              body: "Learn how to build better portfolios",
+              path: "/blog",
+            },
+          ]
+        }
+        if (fallbackData.indexData) {
+          const { default: Fuse } = await import('fuse.js')
+          fuse = new Fuse(fallbackData.indexData, fuseOptions)
+          error = false
+        }
       }
       if (focusItem === 0) {
         document.getElementById("search-input")?.focus()

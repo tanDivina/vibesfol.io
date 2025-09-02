@@ -1,121 +1,34 @@
 import path from "path"
 import fs from "fs"
-import { glob } from "glob"
-import { convert } from "html-to-text"
-import JSDOM from "jsdom"
-import Fuse from "fuse.js"
 
-const excludePaths = ["/search"]
 
 export async function buildSearchIndex() {
-  const indexData = []
-
-  try {
-    // Check if build output exists
-    const fileRoot = path.resolve(".")
-    const pagesPath = path.join(
-      fileRoot,
-      ".svelte-kit/output/prerendered/pages",
-    )
-
-    if (fs.existsSync(pagesPath)) {
-      // Use built files if they exist
-      const allFiles = glob.sync(path.join(pagesPath, "**/*.html"))
-      for (const file of allFiles) {
-        try {
-          const webPath = file
-            .replace(pagesPath, "")
-            .replace("/index.html", "")
-            .replace(".html", "")
-
-          // check if path is excluded
-          if (excludePaths.includes(webPath)) {
-            continue
-          }
-
-          // read the file
-          const data = fs.readFileSync(file, "utf8")
-          const plaintext = convert(data, {
-            selectors: [
-              {
-                selector: "a",
-                options: { ignoreHref: true, linkBrackets: false },
-              },
-              { selector: "img", format: "skip" },
-            ],
-          })
-          const dom = new JSDOM.JSDOM(data)
-          const title =
-            dom.window.document.querySelector("title")?.textContent ||
-            "Page " + webPath
-          const description =
-            dom.window.document
-              .querySelector('meta[name="description"]')
-              ?.getAttribute("content") || ""
-          indexData.push({
-            title,
-            description,
-            body: plaintext,
-            path: webPath,
-          })
-        } catch (e) {
-          console.log("Blog search indexing error", file, e)
-        }
-      }
-    } else {
-      // Fallback: create basic search data from static content
-      indexData.push(
-        {
-          title: "MyDevfol.io - Developer Portfolio Platform",
-          description:
-            "The ultimate portfolio platform for developers, indie hackers & vibecoders alike.",
-          body: "Create stunning portfolios with automated screenshots, tech stack tagging, and professional themes. Perfect for developers, indie hackers, and creative professionals.",
-          path: "/",
-        },
-        {
-          title: "Pricing - MyDevfol.io",
-          description:
-            "Choose the perfect plan for your developer portfolio. Start free and upgrade as you grow.",
-          body: "Simple, transparent pricing. Free plan with lifetime upgrade options. No recurring subscriptions.",
-          path: "/pricing",
-        },
-        {
-          title: "Blog - MyDevfol.io",
-          description: "Tips, tutorials, and insights for developers.",
-          body: "Learn how to build better portfolios and showcase your work effectively.",
-          path: "/blog",
-        },
-      )
-    }
-  } catch (e) {
-    console.error("Error building search index:", e)
-    // Return minimal fallback data
-    indexData.push({
-      title: "MyDevfol.io",
-      description: "Developer Portfolio Platform",
-      body: "Create professional developer portfolios",
+  // Simplified for static sites - return basic search data
+  const indexData = [
+    {
+      title: "MyDevfol.io - Developer Portfolio Platform",
+      description: "The ultimate portfolio platform for developers, indie hackers & vibecoders alike.",
+      body: "Create stunning portfolios with automated screenshots, tech stack tagging, and professional themes.",
       path: "/",
-    })
-  }
-
-  const index = Fuse.createIndex(["title", "description", "body"], indexData)
-  const jsonIndex = index.toJSON()
-  const data = { index: jsonIndex, indexData, buildTime: Date.now() }
-  return data
+    },
+    {
+      title: "Pricing - MyDevfol.io", 
+      description: "Choose the perfect plan for your developer portfolio.",
+      body: "Simple, transparent pricing. Free plan with lifetime upgrade options.",
+      path: "/pricing",
+    },
+    {
+      title: "Blog - MyDevfol.io",
+      description: "Tips, tutorials, and insights for developers.",
+      body: "Learn how to build better portfolios and showcase your work effectively.",
+      path: "/blog",
+    },
+  ]
+  
+  return { index: [], indexData, buildTime: Date.now() }
 }
 
-// Build search index into the output directory, for use in the build process (see vite.config.js)
 export async function buildAndCacheSearchIndex() {
-  const data = await buildSearchIndex()
-
-  const dir = path.resolve("./.svelte-kit/output/client/search")
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true })
-  }
-
-  fs.writeFileSync(
-    path.resolve("./.svelte-kit/output/client/search/api.json"),
-    JSON.stringify(data),
-  )
-  console.log("Search index built")
+  // Simplified for static deployment
+  console.log("Search index simplified for static deployment")
 }
