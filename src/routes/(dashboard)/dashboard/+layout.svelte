@@ -1,12 +1,13 @@
 <script lang="ts">
   import { page } from "$app/stores"
-  import { clientSupabase } from "$lib/clientSupabase"
   import { onMount } from "svelte"
   import ToastContainer from "$lib/ToastContainer.svelte"
 
   let user: any = null
 
   onMount(async () => {
+    // Dynamically import Supabase client only when needed
+    const { clientSupabase } = await import("$lib/clientSupabase")
     const {
       data: { user: currentUser },
     } = await clientSupabase.auth.getUser()
@@ -14,6 +15,7 @@
   })
 
   async function signOut() {
+    const { clientSupabase } = await import("$lib/clientSupabase")
     await clientSupabase.auth.signOut()
     window.location.href = "/"
   }

@@ -1,7 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte"
-  import { clientSupabase } from "$lib/clientSupabase"
-  import ProjectForm from "$lib/ProjectForm.svelte"
   import type { Database } from "$lib/DatabaseDefinitions"
 
   let projects: Database["public"]["Tables"]["projects"]["Row"][] = []
@@ -10,8 +8,17 @@
   let showForm = false
   let currentProject: Database["public"]["Tables"]["projects"]["Row"] | null =
     null
+  let ProjectForm: any = null
 
   onMount(async () => {
+    // Dynamically import heavy components and Supabase client
+    const [{ clientSupabase }, { default: ProjectFormComponent }] = await Promise.all([
+      import("$lib/clientSupabase"),
+      import("$lib/ProjectForm.svelte")
+    ])
+    
+    ProjectForm = ProjectFormComponent
+    
     const {
       data: { user },
     } = await clientSupabase.auth.getUser()
@@ -54,6 +61,7 @@
     project: Database["public"]["Tables"]["projects"]["Insert"]
     technologies: Database["public"]["Tables"]["technologies"]["Row"][]
   }) {
+    const { clientSupabase } = await import("$lib/clientSupabase")
     loading = true
     error = null
 
@@ -134,6 +142,7 @@
   async function deleteProject(projectId: string) {
     if (!confirm("Are you sure you want to delete this project?")) return
 
+    const { clientSupabase } = await import("$lib/clientSupabase")
     loading = true
     error = null
 
@@ -229,10 +238,13 @@
     </div>
   {/if}
 
-  <ProjectForm
-    open={showForm}
-    project={currentProject}
-    on:close={closeForm}
-    on:submit={handleProjectSubmit}
-  />
+  {#if ProjectForm}
+    <svelte:component
+      this={ProjectForm}
+      open={showForm}
+      project={currentProject}
+      on:close={closeForm}
+      on:submit={handleProjectSubmit}
+    />
+  {/if}
 </div>

@@ -1,11 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte"
-  import { clientSupabase } from "$lib/clientSupabase"
 
   let user: any = null
   let loading = true
 
   onMount(async () => {
+    // Dynamically import Supabase client to reduce initial bundle size
+    const { clientSupabase } = await import("$lib/clientSupabase")
     const {
       data: { user: currentUser },
     } = await clientSupabase.auth.getUser()

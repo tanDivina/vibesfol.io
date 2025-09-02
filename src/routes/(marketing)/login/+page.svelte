@@ -1,7 +1,6 @@
 <script lang="ts">
   import { invalidate } from "$app/navigation"
   import { onMount } from "svelte"
-  import { clientSupabase } from "$lib/clientSupabase"
   import { page } from "$app/stores"
 
   let email = $state("")
@@ -16,6 +15,7 @@
       return
     }
 
+    const { clientSupabase } = await import("$lib/clientSupabase")
     loading = true
     error = null
 
@@ -71,17 +71,21 @@
       error = decodeURIComponent(urlError)
     }
 
-    const { data } = clientSupabase.auth.onAuthStateChange((event, _session) => {
-      if (_session?.expires_at !== session?.expires_at) {
-        session = _session
-        if (_session) {
-          window.location.href = "/dashboard"
+    // Dynamically import and set up auth state change listener
+    import("$lib/clientSupabase").then(({ clientSupabase }) => {
+      const { data } = clientSupabase.auth.onAuthStateChange((event, _session) => {
+        if (_session?.expires_at !== session?.expires_at) {
+          session = _session
+          if (_session) {
+            window.location.href = "/dashboard"
+          }
+          invalidate("supabase:auth")
         }
-        invalidate("supabase:auth")
-      }
+      })
+      
+      // Clean up subscription when component is destroyed
+      return () => data.subscription.unsubscribe()
     })
-
-    return () => data.subscription.unsubscribe()
   })
 </script>
 
