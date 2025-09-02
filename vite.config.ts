@@ -10,6 +10,7 @@ export default defineConfig({
     globals: true, /// allows to skip import of test functions like `describe`, `it`, `expect`, etc.
   },
   build: {
+    reportCompressedSize: false,
     rollupOptions: {
       output: {}
     }
