@@ -21,7 +21,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           // Split vendor libraries into separate chunks
-          'utils': ['uuid', 'handlebars'],
+          'utils': ['handlebars'],
         }
       }
     }
