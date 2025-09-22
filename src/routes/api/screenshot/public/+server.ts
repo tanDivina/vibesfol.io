@@ -55,7 +55,7 @@ async function generateScreenshot(url: string): Promise<string> {
       if (testResponse.ok) {
         return finalUrl
       }
-    } catch (testError) {
+    } catch {
       console.log("Primary service failed, trying fallback")
     }
 
@@ -71,7 +71,7 @@ async function generateScreenshot(url: string): Promise<string> {
       if (fallbackResponse.ok) {
         return fallbackUrl
       }
-    } catch (fallbackError) {
+    } catch {
       console.log("Fallback service failed, using final fallback")
     }
 

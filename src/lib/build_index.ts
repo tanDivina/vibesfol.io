@@ -1,8 +1,4 @@
-import path from "path"
-import fs from "fs"
-
-
-export async function buildSearchIndex() {
+export function buildSearchIndex() {
   // Simplified for static sites - return basic search data
   const indexData = [
     {
@@ -12,7 +8,7 @@ export async function buildSearchIndex() {
       path: "/",
     },
     {
-      title: "Pricing - MyDevfol.io", 
+      title: "Pricing - MyDevfol.io",
       description: "Choose the perfect plan for your developer portfolio.",
       body: "Simple, transparent pricing. Free plan with lifetime upgrade options.",
       path: "/pricing",
@@ -24,11 +20,11 @@ export async function buildSearchIndex() {
       path: "/blog",
     },
   ]
-  
+
   return { index: [], indexData, buildTime: Date.now() }
 }
 
-export async function buildAndCacheSearchIndex() {
+export function buildAndCacheSearchIndex() {
   // Simplified for static deployment
   console.log("Search index simplified for static deployment")
 }

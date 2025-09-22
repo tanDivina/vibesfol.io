@@ -7,6 +7,7 @@ export const load: LayoutServerLoad = async ({
   const { session, user } = await safeGetSession()
 
   if (!session || !user) {
+
     throw redirect(303, "/login")
   }
 

@@ -23,8 +23,8 @@ export async function POST({ request }: RequestEvent) {
   try {
     event = stripe.webhooks.constructEvent(
       body,
-      sig!,
-      process.env.STRIPE_WEBHOOK_SECRET!,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET,
     )
   } catch (err: any) {
     console.error("Error constructing Stripe webhook event:", err.message)
@@ -32,7 +32,7 @@ export async function POST({ request }: RequestEvent) {
   }
 
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session
+    const session = event.data.object
     const customerId = session.customer as string
     const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
       limit: 1,

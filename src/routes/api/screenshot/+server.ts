@@ -38,11 +38,6 @@ export const POST: RequestHandler = async ({
 
 async function generateScreenshot(url: string): Promise<string> {
   try {
-    // Use htmlcsstoimage.com API - reliable and free for basic usage
-    const apiUrl = "https://hcti.io/v1/image"
-    const apiKey = "your-api-key" // You'll need to get this from htmlcsstoimage.com
-    const userId = "your-user-id"
-
     // For now, use a working screenshot service that doesn't require API keys
     // This uses screenshot.guru which provides free screenshots
     const screenshotServiceUrl = `https://shot.screenshotapi.net/screenshot`
@@ -69,7 +64,7 @@ async function generateScreenshot(url: string): Promise<string> {
       if (testResponse.ok) {
         return finalUrl
       }
-    } catch (testError) {
+    } catch {
       console.log("Primary service failed, trying fallback")
     }
 
@@ -85,7 +80,7 @@ async function generateScreenshot(url: string): Promise<string> {
       if (fallbackResponse.ok) {
         return fallbackUrl
       }
-    } catch (fallbackError) {
+    } catch {
       console.log("Fallback service failed, using final fallback")
     }
 

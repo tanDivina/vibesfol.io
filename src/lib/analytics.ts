@@ -21,7 +21,7 @@ function getSessionId(): string {
   return sessionId
 }
 
-export async function trackEvent(event: string, data: Record<string, any>) {
+export async function trackEvent(event: string, data: Record<string, unknown>) {
   try {
     await fetch("/api/track", {
       method: "POST",

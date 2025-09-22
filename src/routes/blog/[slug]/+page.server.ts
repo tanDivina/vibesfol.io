@@ -4,12 +4,20 @@ import path from "path"
 import grayMatter from "gray-matter"
 import { marked } from "marked"
 
-export const load = async ({ params }) => {
+interface PostData {
+  title: string;
+  author: string;
+  date: string;
+  summary: string;
+}
+
+export const load = ({ params }) => {
   const { slug } = params
   const postPath = path.join("src/routes/blog", `${slug}.md`)
 
   try {
     if (!fs.existsSync(postPath)) {
+
       throw error(404, "Post not found")
     }
 
@@ -18,16 +26,13 @@ export const load = async ({ params }) => {
 
     return {
       post: {
-        ...data,
-        title: data.title,
-        author: data.author,
-        date: data.date,
-        summary: data.summary,
+        ...(data as PostData),
         content: marked(content),
       },
     }
   } catch (err) {
     console.error("Error loading blog post:", err)
+
     throw error(404, "Post not found")
   }
 }

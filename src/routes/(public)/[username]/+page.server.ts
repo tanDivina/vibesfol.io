@@ -6,7 +6,6 @@ import type { PageServerLoad } from "./$types"
 export const load: PageServerLoad = async ({
   params,
   locals: { safeGetSession },
-  url,
 }) => {
   const { session } = await safeGetSession()
   const { username } = params
