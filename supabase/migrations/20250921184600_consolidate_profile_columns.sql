@@ -1,8 +1,14 @@
 /*
-  # Fix Missing Profile Columns
+  # Consolidate Missing Profile Columns
 
-  This migration adds all the missing columns that are referenced in the application
-  but don't exist in the current database schema.
+  This migration consolidates several previous partial migrations into a single, comprehensive one.
+  It adds all the missing columns that are referenced in the application but may not exist
+  in the current database schema due to a previously failed migration.
+
+  The original failed migration was '20250823053344_broken_fountain.sql'. This file corrects
+  the syntax error in that migration and includes all its intended changes.
+
+  This script is idempotent and can be safely run on databases that are in a partially migrated state.
 
   1. Missing Columns Added
      - `username` (text, unique) - for portfolio URLs
@@ -70,18 +76,14 @@ CREATE INDEX IF NOT EXISTS idx_profiles_availability ON profiles(availability);
 CREATE INDEX IF NOT EXISTS idx_profiles_is_featured ON profiles(is_featured);
 
 -- Generate usernames for existing profiles that don't have one
-DO $$
-BEGIN
-  -- Update profiles with full_name to have a username based on their name
-  UPDATE profiles 
-  SET username = LOWER(REGEXP_REPLACE(COALESCE(full_name, 'user'), '[^a-zA-Z0-9]', '', 'g')) || '_' || SUBSTRING(id::text, 1, 8)
-  WHERE username IS NULL AND full_name IS NOT NULL;
+UPDATE profiles 
+SET username = LOWER(REGEXP_REPLACE(COALESCE(full_name, 'user'), '[^a-zA-Z0-9]', '', 'g')) || '_' || SUBSTRING(id::text, 1, 8)
+WHERE username IS NULL AND full_name IS NOT NULL;
 
-  -- For profiles without full_name, use a generic username
-  UPDATE profiles 
-  SET username = 'user_' || SUBSTRING(id::text, 1, 8)
-  WHERE username IS NULL;
-END $$;
+-- For profiles without full_name, use a generic username
+UPDATE profiles 
+SET username = 'user_' || SUBSTRING(id::text, 1, 8)
+WHERE username IS NULL;
 
 -- Add some sample bio data for existing demo profiles
 UPDATE profiles 

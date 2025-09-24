@@ -238,16 +238,16 @@ export class GamificationService {
       case "First Steps":
       case "Getting Started":
       case "Project Pro":
-      case "Portfolio Powerhouse":
+      case "Portfolio Powerhouse": {
         const { count: projectCount } = await this.supabase
           .from("projects")
           .select("*", { count: "exact", head: true })
           .eq("user_id", userId)
         actualCount = projectCount || 0
         break
-
+      }
       case "Tech Explorer":
-      case "Full Stack":
+      case "Full Stack": {
         const { data: projects } = await this.supabase
           .from("projects")
           .select("project_technologies(technology_id)")
@@ -259,27 +259,27 @@ export class GamificationService {
         )
         actualCount = uniqueTechs.size
         break
-
+      }
       case "First Impression":
       case "Social Proof":
-      case "Testimonial Champion":
+      case "Testimonial Champion": {
         const { count: testimonialCount } = await this.supabase
           .from("testimonials")
           .select("*", { count: "exact", head: true })
           .eq("user_id", userId)
         actualCount = testimonialCount || 0
         break
-
+      }
       case "Hackathon Hero":
-      case "Competition King":
+      case "Competition King": {
         const { count: hackathonCount } = await this.supabase
           .from("hackathon_certificates")
           .select("*", { count: "exact", head: true })
           .eq("user_id", userId)
         actualCount = hackathonCount || 0
         break
-
-      case "Screenshot Master":
+      }
+      case "Screenshot Master": {
         const { count: screenshotCount } = await this.supabase
           .from("projects")
           .select("*", { count: "exact", head: true })
@@ -287,14 +287,15 @@ export class GamificationService {
           .not("screenshot_url", "is", null)
         actualCount = screenshotCount || 0
         break
-
-      case "Client Connector":
+      }
+      case "Client Connector": {
         const { count: portalCount } = await this.supabase
           .from("client_portals")
           .select("*", { count: "exact", head: true })
           .eq("user_id", userId)
         actualCount = portalCount || 0
         break
+      }
     }
 
     return actualCount >= requiredCount
@@ -305,22 +306,22 @@ export class GamificationService {
     achievement: Achievement,
   ): Promise<boolean> {
     switch (achievement.name) {
-      case "Welcome Aboard":
+      case "Welcome Aboard": {
         const { data: profile } = await this.supabase
           .from("profiles")
           .select("full_name, bio")
           .eq("id", userId)
           .single()
         return !!(profile?.full_name && profile?.bio)
-
-      case "Profile Master":
+      }
+      case "Profile Master": {
         const completion = await this.calculatePortfolioCompletion(userId)
         return completion >= 80
-
-      case "Portfolio Complete":
+      }
+      case "Portfolio Complete": {
         const fullCompletion = await this.calculatePortfolioCompletion(userId)
         return fullCompletion >= 100
-
+      }
       case "Trendsetter":
         // This would need to be manually awarded or based on user creation date
         return false
@@ -455,7 +456,7 @@ export class GamificationService {
   }
 
   // Get leaderboard
-  async getLeaderboard(category: string = "overall", limit: number = 10) {
+  async getLeaderboard(limit: number = 10) {
     try {
       const { data } = await this.supabase
         .from("portfolio_scores")

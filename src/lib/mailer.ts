@@ -1,4 +1,4 @@
-import { Resend } from "resend"
+import { Resend, type CreateEmailOptions } from "resend"
 import { env } from "$env/dynamic/private"
 import { PRIVATE_SUPABASE_SERVICE_ROLE } from "$env/static/private"
 import { PUBLIC_SUPABASE_URL } from "$env/static/public"
@@ -30,10 +30,10 @@ export const sendAdminEmail = async ({
     })
 
     if (resp.error) {
-      console.log("Failed to send admin email, error:", resp.error)
+      console.log("Failed to send admin email, error:", resp.error.message)
     }
   } catch (e) {
-    console.log("Failed to send admin email, error:", e)
+    console.log("Failed to send admin email, error:", (e as Error).message)
   }
 }
 
@@ -83,7 +83,7 @@ export const sendUserEmail = async ({
     .single()
 
   if (profileError) {
-    console.log("Error fetching user profile. Aborting email. ", user.id, email)
+    console.log("Error fetching user profile. Aborting email. ", user.id, email, profileError.message)
     return
   }
 
@@ -123,10 +123,11 @@ export const sendTemplatedEmail = async ({
   try {
     const textTemplate = await import(
       `./emails/${template_name}_text.hbs?raw`
-    ).then((mod) => mod.default)
+
+    ).then((mod: any) => mod.default)
     const template = handlebars.compile(textTemplate)
     plaintextBody = template(template_properties)
-  } catch (e) {
+  } catch {
     // ignore, plaintextBody is optional
     plaintextBody = undefined
   }
@@ -135,10 +136,11 @@ export const sendTemplatedEmail = async ({
   try {
     const htmlTemplate = await import(
       `./emails/${template_name}_html.hbs?raw`
-    ).then((mod) => mod.default)
+
+    ).then((mod: any) => mod.default)
     const template = handlebars.compile(htmlTemplate)
     htmlBody = template(template_properties)
-  } catch (e) {
+  } catch {
     // ignore, htmlBody is optional
     htmlBody = undefined
   }
@@ -152,8 +154,7 @@ export const sendTemplatedEmail = async ({
   }
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const email: any = {
+    const email: CreateEmailOptions = {
       from: from_email,
       to: to_emails,
       subject: subject,
@@ -168,9 +169,9 @@ export const sendTemplatedEmail = async ({
     const resp = await resend.emails.send(email)
 
     if (resp.error) {
-      console.log("Failed to send email, error:", resp.error)
+      console.log("Failed to send email, error:", resp.error.message)
     }
   } catch (e) {
-    console.log("Failed to send email, error:", e)
+    console.log("Failed to send email, error:", (e as Error).message)
   }
 }

@@ -1,4 +1,3 @@
-import { dev } from "$app/environment"
 import fs from "fs"
 import path from "path"
 import grayMatter from "gray-matter"
@@ -11,7 +10,7 @@ interface Post {
   slug: string
 }
 
-export const load = async () => {
+export const load = () => {
   let posts: Post[] = []
   
   try {

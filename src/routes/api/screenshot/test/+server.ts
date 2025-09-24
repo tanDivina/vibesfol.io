@@ -70,7 +70,7 @@ async function generateScreenshot(url: string): Promise<string> {
         return urlboxUrl
       }
       throw new Error("Fallback service also unavailable")
-    } catch (fallbackErr) {
+    } catch {
       // Use screenshot.guru as final fallback
       const screenshotGuruUrl = `https://screenshot.guru/api/screenshot?url=${encodeURIComponent(url)}&width=1200&height=800&format=png`
       return screenshotGuruUrl
